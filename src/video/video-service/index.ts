@@ -1036,8 +1036,8 @@ export function decompress<T extends Id & Thumbnail>(items: T[]): T[] {
 export const thumbnails = ['thumbnail', 'mediumThumbnail', 'highThumbnail', 'maxresThumbnail', 'standardThumbnail'];
 export const thumbnailNames = ['default', 'mqdefault', 'hqdefault', 'sddefault', 'maxresdefault'];
 export function decompressItems<T>(items: T[]): T[] {
-  for (const i of items) {
-    const item: any = i;
+  for (const j of items) {
+    const item: any = j;
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < thumbnails.length; i++) {
       const a = thumbnails[i];
