@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Comment, CommentOrder, CommentThead, ListResult } from 'video-service';
-import CommentItem from './CommentItem.component';
+import CommentItem from './CommentItem';
 import './index.scss';
 
 interface CommentTools {

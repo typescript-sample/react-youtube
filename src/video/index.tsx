@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import ChannelPage from './channel-page';
+import ChannelPage from './channel';
 import ChannelsPage from './channels';
 import HomePage from './home';
 import PlaylistPage from './playlist';

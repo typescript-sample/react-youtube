@@ -23,7 +23,7 @@ import { SigninForm } from './authentication/signin-form';
 import { SignupForm } from './authentication/signup-form';
 import { config } from './config';
 import { resources as locales } from './core/resources';
-import ChannelPage from './video/channel-page';
+import ChannelPage from './video/channel';
 import ChannelsPage from './video/channels';
 import HomePage from './video/home';
 import PlaylistPage from './video/playlist';

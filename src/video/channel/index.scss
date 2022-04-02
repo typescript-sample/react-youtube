@@ -1,0 +1,109 @@
+.channel-page {
+  .banner-img > img{
+    width: 100%;
+    max-height: 250px;
+  }
+  .channel-information{
+    display: flex;
+    align-items: center;
+    background-color: #181818;
+    color: #FFF;
+    padding: 16px 107px 4px;
+    .channel-avatar{
+      border-radius: 50%;
+    }
+    .inform-detail{
+      flex-grow: 1;
+      font-weight: 400px;
+      padding-left: 25px;
+      .container{
+        display: flex;
+        padding: 0;
+        .channel-name{
+          font-size:24px;
+        }
+      }
+      .subscribers{
+        color: #aaa;
+        font-size: 12px;
+      }
+    }
+    .subscribe-btn{
+      background-color: #c00;
+      color: #FFF;
+      border-radius: 2px;
+      height: 36px;
+      width: 109.5px;
+      border: none;
+    }
+  }
+  .tabs {
+    background-color: #181818;
+    color: #AAA;
+    height: 47px;
+    padding: 0 107px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    .tab{
+      padding: 14px 32px;
+      border: none;
+      background-color: #181818;
+      color: #AAA;
+      &:hover{
+        color:#FFF;
+      }
+    }
+    .tab-actived{
+      border-bottom: 3px solid #FFF ;
+      color:#FFF;
+    }
+  }
+}
+// Channel subscriptions
+.channel-subscriptions{
+  .title{
+    padding: 15px 0;
+  }
+  .containers{
+    display: flex;
+    flex-wrap: wrap;
+    .box{
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      width: 189px;
+      .avatar {
+        img{
+          border-radius: 50%;
+          cursor: pointer;
+          width: 103px;
+          height: 103px;
+        }
+      }
+      .title-channel{
+        cursor: pointer;
+        margin: 4px 0;
+      }
+    }
+  }
+  .btn-load-more{
+    display: flex;
+    justify-content: center;
+    button{
+      font-size: 14px;
+      border: none;
+      text-decoration: none;
+      background-color: #EEE;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+  }
+}
+*{
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
