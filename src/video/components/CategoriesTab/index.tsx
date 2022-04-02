@@ -3,7 +3,11 @@ import { VideoCategory } from 'video-service';
 import './index.scss';
 import { TabCategory } from './TabCategory';
 
-export default function CategoriesTab(props: any) {
+export interface Props {
+  data: VideoCategory[];
+  setSelectedTab: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+export default function CategoriesTab(props: Props) {
   const ref = React.useRef(null);
   const { data, setSelectedTab } = props;
   const [previousBtnHide, setPreviousBtnHide] = React.useState(true);

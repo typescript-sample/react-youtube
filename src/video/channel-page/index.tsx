@@ -68,10 +68,16 @@ export default function ChannelPage() {
     </div>
   );
 }
-
-const Tab = (props: any) => {
+export interface Props {
+  key: number;
+  tabId: number;
+  tabName: string;
+  getState: number;
+  setState: React.Dispatch<React.SetStateAction<number>>;
+}
+const Tab = (props: Props) => {
   const { tabId, getState, setState, tabName } = props;
-  const handleOnClick = (id: any) => {
+  const handleOnClick = (id: number) => {
     setState(id);
   };
   return (

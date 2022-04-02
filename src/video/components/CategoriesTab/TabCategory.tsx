@@ -1,6 +1,12 @@
 import * as React from 'react';
 
-export function TabCategory(props: any) {
+export interface Props {
+  key: string;
+  id: string;
+  name: string;
+  setSelectedTab: React.Dispatch<React.SetStateAction<string | undefined>>
+}
+export function TabCategory(props: Props) {
   const { id, name, setSelectedTab } = props;
   const handOnClick = () => {
     setSelectedTab(id);
