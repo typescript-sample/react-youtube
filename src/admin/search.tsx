@@ -1,5 +1,5 @@
-import React from "react";
-import { Locale, pageSizes } from "react-hook-core";
+import React from 'react';
+import { Locale, pageSizes } from 'react-hook-core';
 
 export function checked(s: string[] | string | undefined, v: string): boolean | undefined {
   if (s) {
@@ -42,7 +42,7 @@ export interface Props {
   toggleFilter?: React.MouseEventHandler<HTMLElement>;
   value?: string;
   placeholder?: string;
-  inputChange?: (e: any, callback?: (() => void) | undefined, lc?: Locale | undefined) => void
+  inputChange?: (e: any, callback?: (() => void) | undefined, lc?: Locale | undefined) => void;
 }
 export function Search(props: Props) {
   return (
@@ -54,5 +54,5 @@ export function Search(props: Props) {
         <button type='submit' className='btn-search' onClick={props.search} />
       </label>
     </>
-  )
+  );
 }

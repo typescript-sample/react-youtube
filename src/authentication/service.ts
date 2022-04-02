@@ -62,7 +62,7 @@ export const context = new ApplicationContext();
 export function getAuthen(): AuthenService<User> {
   return context.getAuthenticator();
 }
-export function getPasswordServicer(): PasswordService {
+export function getPasswordService(): PasswordService {
   return context.getPasswordService();
 }
 export function getOAuth2Service(): OAuth2Service {

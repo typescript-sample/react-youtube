@@ -5,7 +5,7 @@ const LoadMoreButton = (obj: any) => {
   const { loadMore } = obj;
   return (
     <div className='btn-container'>
-      <a className='btn-load-more' onClick={loadMore}>Load More</a>
+      <button className='btn-load-more' onClick={loadMore}>Load More</button>
     </div>
   );
 };

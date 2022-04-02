@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { storage, StringMap } from 'uione';
+import { buildShownItems, Comment, CommentOrder, CommentThead, ListResult, Playlist, PlaylistVideo } from 'video-service';
 import Comments from './components/Comments';
 import { context } from './service';
-import { buildShownItems, Comment, CommentOrder, CommentThead, ListResult, Playlist, PlaylistVideo } from 'video-service';
 
 const max = 12;
 const videoFields = ['id', 'title', 'publishedAt', 'highThumbnail', 'description', 'videoOwnerChannelId', 'videoOwnerChannelTitle', 'definition', 'duration'];
@@ -18,10 +18,9 @@ interface PlaylistState {
   video?: PlaylistVideo;
   nextPageToken?: string;
 }
-export interface Props {
-}
-export default class PlaylistPage extends React.Component<Props, PlaylistState> {
-  constructor(props: Props) {
+
+export default class PlaylistPage extends React.Component<any, PlaylistState> {
+  constructor(props: any) {
     super(props);
     // this.setState = this.setState.bind(this);
     // this.back = this.back.bind(this);

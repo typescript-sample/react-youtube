@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import { context } from '../service';
 import { Channel } from 'video-service';
+import { context } from '../service';
 import ChannelPlayLists from './channel-playlists';
 import ChannelSubscriptions from './channel-subscription';
 import ChannelVideos from './channel-videos';

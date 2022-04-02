@@ -4,11 +4,12 @@ import { OnClick, useMessage, useUpdate } from 'react-hook-core';
 import { Link } from 'react-router-dom';
 import { handleError, initForm, loading, message, registerEvents, storage } from 'uione';
 import logo from '../assets/images/logo.png';
-import { getPasswordServicer } from './service';
+import { getPasswordService } from './service';
+
 export interface ChangePasswordState {
   user: User;
   hiddenPasscode: boolean;
-  message: string,
+  message: string;
 }
 
 interface User {
@@ -31,7 +32,7 @@ const ChangePasswordData: ChangePasswordState = {
   },
   message: '',
   hiddenPasscode: true
-}
+};
 
 const msgData = {
   message: '',
@@ -39,7 +40,7 @@ const msgData = {
 };
 
 export const ChangePasswordForm = () => {
-  const [resource] = useState(storage.getResource())
+  const [resource] = useState(storage.getResource());
   const form = useRef();
   const { msg, showError, hideMessage } = useMessage(msgData);
   const { state, setState, updateState } = useUpdate<ChangePasswordState>(ChangePasswordData, 'user');
@@ -47,25 +48,25 @@ export const ChangePasswordForm = () => {
     if (form && form.current) {
       initForm(form.current, registerEvents);
     }
-  }, [])
+  }, []);
 
   const changePassword = (event: OnClick) => {
     event.preventDefault();
-    const passwordService = getPasswordServicer()
+    const passwordService = getPasswordService();
     const user = state.user;
     validateAndChangePassword(
       passwordService.changePassword, user, state.user.confirmPassword,
       storage.resource(), message, showError, hideMessage,
       validateChange, handleError, strongPassword, loading());
-    setState({ ...state, user }); 
-  }
+    setState({ ...state, user });
+  };
 
-  const [hiddenPasscode, setHiddenPasscode] = useState(!(state.user.step && state.user.step >= 1))
-  
+  const [hiddenPasscode, setHiddenPasscode] = useState(!(state.user.step && state.user.step >= 1));
+
   useEffect(() => {
-    setHiddenPasscode(!(state.user.step && state.user.step >= 1))
-  }, [state.user])
-  
+    setHiddenPasscode(!(state.user.step && state.user.step >= 1));
+  }, [state.user]);
+
   return (
     <div className='view-container central-full'>
       <form id='userForm' name='userForm' noValidate={true} autoComplete='off' ref={form as any}>
@@ -129,4 +130,4 @@ export const ChangePasswordForm = () => {
     </div>
   );
 
-}
+};

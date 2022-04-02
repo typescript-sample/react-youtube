@@ -1,17 +1,17 @@
 import { PasswordReset, resetPassword, validateReset } from 'password-client';
+import { useEffect, useRef, useState } from 'react';
 import { OnClick, useMessage, useUpdate } from 'react-hook-core';
 import { Link } from 'react-router-dom';
 import { handleError, initForm, message, registerEvents, storage } from 'uione';
 import logo from '../assets/images/logo.png';
-import { getPasswordServicer } from './service';
-import { useEffect, useRef, useState } from 'react';
+import { getPasswordService } from './service';
 
 interface ResetState {
   user: NewPasswordReset;
   message: string;
 }
 interface NewPasswordReset extends PasswordReset {
-  confirmPassword: '',
+  confirmPassword: '';
 }
 
 const signinData: ResetState = {
@@ -31,17 +31,17 @@ const msgData = {
 
 export const ResetPasswordForm = () => {
   const form = useRef();
-  const [resource] = useState(storage.getResource())
+  const [resource] = useState(storage.getResource());
   const { msg, showError, hideMessage } = useMessage(msgData);
   const { state, updateState } = useUpdate<ResetState>(signinData, 'user');
   useEffect(() => {
     if (form && form.current) {
       initForm(form.current, registerEvents);
     }
-  }, [])
+  }, []);
 
   const onResetPassword = (event: OnClick) => {
-    const passwordService = getPasswordServicer()
+    const passwordService = getPasswordService();
     event.preventDefault();
     const { user } = state;
     const customPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
@@ -58,7 +58,7 @@ export const ResetPasswordForm = () => {
       this.resourceService, this.showMessage, this.showError, this.hideMessage,
       validateReset, this.handleError, strongPassword, this.loading, this.showError);
       */
-  }
+  };
 
 
   return (
@@ -116,4 +116,4 @@ export const ResetPasswordForm = () => {
     </div>
   );
 
-}
+};

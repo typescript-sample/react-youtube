@@ -3,7 +3,7 @@ import * as React from 'react';
 import { createModel, DispatchWithCallback, EditComponentParam, useEdit } from 'react-hook-core';
 import { formatPhone } from 'ui-plus';
 import { emailOnBlur, Gender, handleError, inputEdit, phoneOnBlur, Status } from 'uione';
-import { getMasterData, User, getUserService } from './service';
+import { getMasterData, getUserService, User } from './service';
 
 interface InternalState {
   user: User;
@@ -60,7 +60,7 @@ export const UserForm = () => {
               type='text'
               id='userId'
               name='userId'
-              value={user.userId||''}
+              value={user.userId || ''}
               readOnly={!flag.newMode}
               onChange={updateState}
               maxLength={20} required={true}
@@ -72,7 +72,7 @@ export const UserForm = () => {
               type='text'
               id='displayName'
               name='displayName'
-              value={user.displayName||''}
+              value={user.displayName || ''}
               onChange={updateState}
               maxLength={40} required={true}
               placeholder={resource.display_name} />
@@ -82,7 +82,7 @@ export const UserForm = () => {
             <select
               id='title'
               name='title'
-              value={user.title||''}
+              value={user.title || ''}
               onChange={e => updateTitle(e.target.value, state.user, setState)}>
               <option value=''>{resource.please_select}</option>
               )
@@ -96,7 +96,7 @@ export const UserForm = () => {
             <select
               id='position'
               name='position'
-              value={user.position||''}
+              value={user.position || ''}
               onChange={updateState}>
               <option value=''>{resource.please_select}</option>
               {
@@ -110,7 +110,7 @@ export const UserForm = () => {
               type='tel'
               id='phone'
               name='phone'
-              value={formatPhone(user.phone)||''}
+              value={formatPhone(user.phone) || ''}
               onChange={updatePhoneState}
               onBlur={phoneOnBlur}
               maxLength={17}
@@ -123,7 +123,7 @@ export const UserForm = () => {
               id='email'
               name='email'
               data-type='email'
-              value={user.email||''}
+              value={user.email || ''}
               onChange={updateState}
               onBlur={emailOnBlur}
               maxLength={100}

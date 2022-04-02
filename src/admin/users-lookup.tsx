@@ -1,10 +1,10 @@
+import { Item } from 'onecore';
 import * as React from 'react';
-import { PageSizeSelect, value, SearchComponentState, useSearch } from 'react-hook-core';
+import { PageSizeSelect, SearchComponentState, useSearch, value } from 'react-hook-core';
 import ReactModal from 'react-modal';
 import Pagination from 'reactx-pagination';
 import { inputSearch } from 'uione';
-import { User, UserFilter, getUserService } from './service';
-import { Item } from 'onecore';
+import { getUserService, User, UserFilter } from './service';
 ReactModal.setAppElement('#root');
 interface Props {
   isOpenModel: boolean;
@@ -29,10 +29,10 @@ interface UserSearch extends SearchComponentState<User, UserFilter> {
   };
 }
 const userFilter: UserFilter = {
-  userId: "",
-  username: "",
-  displayName: "",
-  email: "",
+  userId: '',
+  username: '',
+  displayName: '',
+  email: '',
   status: [],
 };
 const initialState: UserSearch = {
@@ -41,11 +41,11 @@ const initialState: UserSearch = {
   filter: userFilter,
   users: [],
   model: {
-    q: "",
-    userId: "",
-    username: "",
-    email: "",
-    status: [], 
+    q: '',
+    userId: '',
+    username: '',
+    email: '',
+    status: [],
   },
   availableUsers: [],
 };
@@ -98,7 +98,7 @@ export const UsersLookup = (props: Props) => {
     setState({
       users: [],
       availableUsers: [],
-      model: { ...state.model, q: "" },
+      model: { ...state.model, q: '' },
     });
     props.onModelSave(state.users);
   };
@@ -107,7 +107,7 @@ export const UsersLookup = (props: Props) => {
     setState({
       users: [],
       availableUsers: [],
-      model: { ...state.model, q: "" },
+      model: { ...state.model, q: '' },
     });
     if (props.onModelClose) {
       props.onModelClose(e);
@@ -117,7 +117,7 @@ export const UsersLookup = (props: Props) => {
   const clearUserId = () => {
     const m = state.model;
     if (m) {
-      m.q = "";
+      m.q = '';
       setState({ model: m });
     }
   };
@@ -138,61 +138,61 @@ export const UsersLookup = (props: Props) => {
     <ReactModal
       isOpen={isOpenModel}
       onRequestClose={onModelClose}
-      contentLabel="Modal"
+      contentLabel='Modal'
       // portalClassName='modal-portal'
-      className="modal-portal-content"
-      bodyOpenClassName="modal-portal-open"
-      overlayClassName="modal-portal-backdrop"
+      className='modal-portal-content'
+      bodyOpenClassName='modal-portal-open'
+      overlayClassName='modal-portal-backdrop'
     >
-      <div className="view-container">
+      <div className='view-container'>
         <header>
           <h2>{resource.users_lookup}</h2>
           <button
-            type="button"
-            id="btnClose"
-            name="btnClose"
-            className="btn-close"
+            type='button'
+            id='btnClose'
+            name='btnClose'
+            className='btn-close'
             onClick={onModelClose}
           />
         </header>
         <div>
           <form
-            id="usersLookupForm"
-            name="usersLookupForm"
-            className="usersLookupForm"
+            id='usersLookupForm'
+            name='usersLookupForm'
+            className='usersLookupForm'
             noValidate={true}
             ref={refForm as any}
           >
-            <section className="row search-group">
-              <label className="col s12 m6 search-input">
+            <section className='row search-group'>
+              <label className='col s12 m6 search-input'>
                 <PageSizeSelect
                   size={component.pageSize}
                   sizes={component.pageSizes}
                   onChange={pageSizeChanged}
                 />
                 <input
-                  type="text"
-                  id="q"
-                  name="q"
+                  type='text'
+                  id='q'
+                  name='q'
                   onChange={onChangeText}
                   value={filter.q}
                   maxLength={40}
                   placeholder={resource.user_lookup}
                 />
                 <button
-                  type="button"
+                  type='button'
                   hidden={!filter.userId}
-                  className="btn-remove-text"
+                  className='btn-remove-text'
                   onClick={clearUserId}
                 />
                 <button
-                  type="submit"
-                  className="btn-search"
+                  type='submit'
+                  className='btn-search'
                   onClick={onSearch}
                 />
               </label>
               <Pagination
-                className="col s6 m3"
+                className='col s6 m3'
                 total={component.total}
                 size={component.pageSize}
                 max={component.pageMaxSize}
@@ -200,66 +200,66 @@ export const UsersLookup = (props: Props) => {
                 onChange={pageChanged}
               />
               <div
-                className="col s6 m3 btn-group"
-                style={{ justifyContent: "flex-end", display: "flex" }}
+                className='col s6 m3 btn-group'
+                style={{ justifyContent: 'flex-end', display: 'flex' }}
               >
-                {" "}
-                {component.view !== "table" && (
+                {' '}
+                {component.view !== 'table' && (
                   <button
-                    type="button"
-                    id="btnTable"
-                    name="btnTable"
-                    className="btn-table"
-                    data-view="table"
+                    type='button'
+                    id='btnTable'
+                    name='btnTable'
+                    className='btn-table'
+                    data-view='table'
                     onClick={changeView}
                   />
                 )}
-                {component.view === "table" && (
+                {component.view === 'table' && (
                   <button
-                    type="button"
-                    id="btnListView"
-                    name="btnListView"
-                    className="btn-list-view"
-                    data-view="listview"
+                    type='button'
+                    id='btnListView'
+                    name='btnListView'
+                    className='btn-list-view'
+                    data-view='listview'
                     onClick={changeView}
                   />
                 )}
               </div>
             </section>
           </form>
-          <form className="list-result">
-            {component.view === "table" && (
-              <div className="table-responsive">
+          <form className='list-result'>
+            {component.view === 'table' && (
+              <div className='table-responsive'>
                 <table>
                   <thead>
                     <tr>
                       <th>{resource.sequence}</th>
-                      <th data-field="userId">
-                        <button type="button" id="sortUserId" onClick={sort}>
+                      <th data-field='userId'>
+                        <button type='button' id='sortUserId' onClick={sort}>
                           {resource.user_id}
                         </button>
                       </th>
-                      <th data-field="username">
-                        <button type="button" id="sortUsername" onClick={sort}>
+                      <th data-field='username'>
+                        <button type='button' id='sortUsername' onClick={sort}>
                           {resource.username}
                         </button>
                       </th>
-                      <th data-field="email">
-                        <button type="button" id="sortEmail" onClick={sort}>
+                      <th data-field='email'>
+                        <button type='button' id='sortEmail' onClick={sort}>
                           {resource.email}
                         </button>
                       </th>
-                      <th data-field="displayname">
+                      <th data-field='displayname'>
                         <button
-                          type="button"
-                          id="sortDisplayName"
+                          type='button'
+                          id='sortDisplayName'
                           onClick={sort}
                         >
                           {resource.display_name}
                         </button>
                       </th>
-                      <th data-field="status">
-                        <button type="button" id="sortStatus" onClick={sort}>
+                      <th data-field='status'>
+                        <button type='button' id='sortStatus' onClick={sort}>
                           {resource.status}
                         </button>
                       </th>
@@ -268,7 +268,7 @@ export const UsersLookup = (props: Props) => {
                   </thead>
                   <tbody>
                     {state &&
-                      list && 
+                      list &&
                       list.map((user: any, i: number) => {
                         const result = users.find(
                           (v) => v.userId === user.userId
@@ -277,7 +277,7 @@ export const UsersLookup = (props: Props) => {
                           index++;
                           return (
                             <tr key={i}>
-                              <td className="text-right">{index}</td>
+                              <td className='text-right'>{index}</td>
                               <td>{user.userId}</td>
                               <td>{user.username}</td>
                               <td>{user.email}</td>
@@ -285,7 +285,7 @@ export const UsersLookup = (props: Props) => {
                               <td>{user.status}</td>
                               <td>
                                 <input
-                                  type="checkbox"
+                                  type='checkbox'
                                   id={`chkSelect${i}`}
                                   value={user.userId}
                                   onClick={onCheckUser}
@@ -294,14 +294,14 @@ export const UsersLookup = (props: Props) => {
                             </tr>
                           );
                         }
-                        return null
+                        return null;
                       })}
                   </tbody>
                 </table>
               </div>
             )}
-            {component.view !== "table" && (
-              <ul className="row list-view">
+            {component.view !== 'table' && (
+              <ul className='row list-view'>
                 {state &&
                   list &&
                   list.map((user: any, i: number) => {
@@ -311,13 +311,13 @@ export const UsersLookup = (props: Props) => {
                       return (
                         <li
                           key={i}
-                          className="col s12 m6 l4 xl3"
+                          className='col s12 m6 l4 xl3'
                           // onClick={(e) => edit(e, user.userId)}
                         >
                           <section>
                             <input
-                              type="checkbox"
-                              name="selected"
+                              type='checkbox'
+                              name='selected'
                               value={user.userId}
                               onClick={onCheckUser}
                             />
@@ -325,15 +325,15 @@ export const UsersLookup = (props: Props) => {
                               src={
                                 user.imageURL && user.imageURL.length > 0
                                   ? user.imageURL
-                                  : ""
+                                  : ''
                               }
-                              alt="user"
-                              className="round-border"
+                              alt='user'
+                              className='round-border'
                             />
                             <div>
                               <h3
                                 className={
-                                  user.status === "I" ? "inactive" : ""
+                                  user.status === 'I' ? 'inactive' : ''
                                 }
                               >
                                 {user.displayName}
@@ -344,14 +344,14 @@ export const UsersLookup = (props: Props) => {
                         </li>
                       );
                     }
-                    return null
+                    return null;
                   })}
               </ul>
             )}
           </form>
         </div>
         <footer>
-          <button type="button" onClick={onModelSave}>
+          <button type='button' onClick={onModelSave}>
             {resource.select}
           </button>
         </footer>

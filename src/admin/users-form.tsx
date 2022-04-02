@@ -7,7 +7,7 @@ import { inputSearch } from 'uione';
 import femaleIcon from '../assets/images/female.png';
 import maleIcon from '../assets/images/male.png';
 import { Search } from './search';
-import { User, UserFilter, getUserService } from './service';
+import { getUserService, User, UserFilter } from './service';
 
 interface UserSearch extends SearchComponentState<User, UserFilter> {
   statusList: Item[];

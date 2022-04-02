@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useResource } from 'uione';
+import { Item, Video } from 'video-service';
 import Comments from './components/Comments';
 import VideoInfoBox from './components/VideoInfoBox';
 import { context } from './service';
-import { Item, Video } from 'video-service';
 
 const perPage = [12, 12, 12, 12];
 const max = perPage.reduce((a, b) => a + b, 0);

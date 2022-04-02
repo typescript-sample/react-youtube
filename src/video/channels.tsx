@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { useResource } from 'uione';
+import { Channel } from 'video-service';
 import PlayListsHorizontal from './components/PlayListsHorizontal';
 import { context } from './service';
-import { Channel } from 'video-service';
 
 export interface Props {
   getChannels: (ids: string[], fields?: string[]) => Promise<Channel[]>;

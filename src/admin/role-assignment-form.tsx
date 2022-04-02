@@ -5,8 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { confirm, handleError, showMessage, storage, useResource } from 'uione';
 import femaleIcon from '../assets/images/female.png';
 import maleIcon from '../assets/images/male.png';
-import { User, getUserService } from './service';
-import { Role, getRoleService } from './service';
+import { getUserService, User } from './service';
+import { getRoleService, Role } from './service';
 import { UsersLookup } from './users-lookup';
 
 interface InternalState {
@@ -54,13 +54,13 @@ export const RoleAssignmentForm = () => {
   const resource = useResource();
   const { role, isOpenModel, q } = state;
   let { users, selectedUsers, isCheckboxShown } = state;
-  
+
   useEffect(() => {
     const id = buildId<string>(params);
     if (id) {
       initialize(id, setState as any, state);
     }
-  }, []);// eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (users) {
@@ -123,7 +123,7 @@ export const RoleAssignmentForm = () => {
         if (!user) {
           arr.push(value);
         }
-        return null
+        return null;
       });
       users = arr;
       selectedUsers = [];

@@ -34,7 +34,7 @@ const userData: SignupState = {
   reCAPTCHA: '',
   passwordRequired: true,
   message: '',
-}
+};
 
 const msgData = {
   message: '',
@@ -45,22 +45,22 @@ interface SignupState {
   user: User;
   reCAPTCHA: string | null;
   passwordRequired: boolean;
-  message: string
+  message: string;
 }
 export const SignupForm = () => {
   const form = useRef();
-  const [resource] = useState(storage.getResource())
+  const [resource] = useState(storage.getResource());
   const { msg, showError, hideMessage } = useMessage(msgData);
   const { state, setState, updateState } = useUpdate<SignupState>(userData, 'user');
   useEffect(() => {
     if (form && form.current) {
       initForm(form.current, registerEvents);
     }
-  }, [])
+  }, []);
 
   const signup = (event: OnClick) => {
     event.preventDefault();
-    const signupService = getSignupService()
+    const signupService = getSignupService();
     const r = storage.resource();
     const { reCAPTCHA } = state;
     if (!reCAPTCHA) {
@@ -71,11 +71,11 @@ export const SignupForm = () => {
     validateAndSignup(signupService.signup, status, user, passwordRequired, user.confirmPassword, r,
       message, showError, hideMessage,
       isValidUsername, isEmail, validate, handleError, strongPassword, storage.loading());
-  }
+  };
 
   const onChange = (value: string | null) => {
     setState({ reCAPTCHA: value });
-  }
+  };
 
   return (
     <div className='view-container central-full'>
@@ -137,4 +137,4 @@ export const SignupForm = () => {
     </div>
   );
 
-}
+};

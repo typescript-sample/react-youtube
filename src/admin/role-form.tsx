@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { createModel, DispatchWithCallback, EditComponentParam, useEdit } from 'react-hook-core';
+import { useNavigate } from 'react-router-dom';
 import { handleError, inputEdit, Status } from 'uione';
-import { Privilege, Role, getRoleService } from './service';
+import { getRoleService, Privilege, Role } from './service';
 
 interface InternalState {
   role: Role;
@@ -127,7 +127,7 @@ export function RoleForm() {
   const { state, setState, back, flag, updateState, save, resource } = useEdit<Role, string, InternalState>(refForm, initialState, getRoleService(), inputEdit(), param);
   React.useEffect(() => {
     showModel(state.role);
-  }, [state.role]);// eslint-disable-line react-hooks/exhaustive-deps
+  }, [state.role]); // eslint-disable-line react-hooks/exhaustive-deps
   function showModel(role: Role) {
     if (!role) {
       return;
