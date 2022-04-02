@@ -42,7 +42,7 @@ const CommentItem = (props: CommentProps) => {
     !props.getComments ? null : <div className='row comments'>
       <div className='col s12 m2 l2 xl1'>
         <div className='img-user'>
-          <img src={props.authorProfileImageUrl} />
+          <img src={props.authorProfileImageUrl} alt='Author Profile'/>
         </div>
       </div>
       <div className='col s12 m10 l10 xl11'>
@@ -54,7 +54,7 @@ const CommentItem = (props: CommentProps) => {
         {
           props.totalReplyCount && props.totalReplyCount > 0 && (
             <>
-              <a className='view' onClick={handleShowMore}>{show ? 'Hide' : 'View'} {props.totalReplyCount} replies</a>
+              <button className='view' onClick={handleShowMore}>{show ? 'Hide' : 'View'} {props.totalReplyCount} replies</button>
               {show && comments.map(c => (
                 <>
                   <CommentItem

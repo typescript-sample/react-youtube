@@ -26,7 +26,7 @@ const PlayListsHorizontal = (props: Props) => {
           <div className='cover'>
             <SlideShow id={item.id} thumbnail={item.mediumThumbnail} thumbnailSize='mediumThumbnail' getVideos={props.getPlaylistVideos} />
           </div>
-          <h4><Link className='card-title' to={`/channels/${item.channelId}`}>{item.title}</Link></h4>
+          <h4><Link to={`/channels/${item.channelId}`}>{item.title}</Link></h4>
         </li>
       )
       )}
