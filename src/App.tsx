@@ -57,7 +57,7 @@ import './assets/css/search.css';
 import './assets/css/layout.css';
 import './assets/css/profile.css';
 import './assets/css/theme.css';
-import "./assets/fonts/Roboto/font.css";
+import './assets/fonts/Roboto/font.css';
 
 let isInit = false;
 export function init() {
@@ -96,20 +96,20 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="signin" element={<SigninForm />} />
-        <Route path="signup" element={<SignupForm />} />
-        <Route path="change-password" element={<ChangePasswordForm />} />
-        <Route path="reset-password" element={<ResetPasswordForm />} />
-        <Route path="forgot-password" element={<ForgotPasswordForm />} />
-        <Route path="" element={<LayoutComponent />}>
+        <Route path='signin' element={<SigninForm />} />
+        <Route path='signup' element={<SignupForm />} />
+        <Route path='change-password' element={<ChangePasswordForm />} />
+        <Route path='reset-password' element={<ResetPasswordForm />} />
+        <Route path='forgot-password' element={<ForgotPasswordForm />} />
+        <Route path='' element={<LayoutComponent />}>
           <Route index element={<HomePage/>} />
-          <Route path="admin/users" element={<UsersForm />} />
-          <Route path="admin/users/add" element={<UserForm />} />
-          <Route path="admin/users/edit/:id" element={<UserForm />} />
-          <Route path="admin/roles" element={<RolesForm />} />
-          <Route path="admin/roles/add" element={<RoleForm />} />
-          <Route path="admin/roles/edit/:id" element={<RoleForm />} />
-          <Route path="admin/roles/assign/:id" element={<RoleAssignmentForm />} />
+          <Route path='admin/users' element={<UsersForm />} />
+          <Route path='admin/users/add' element={<UserForm />} />
+          <Route path='admin/users/edit/:id' element={<UserForm />} />
+          <Route path='admin/roles' element={<RolesForm />} />
+          <Route path='admin/roles/add' element={<RoleForm />} />
+          <Route path='admin/roles/edit/:id' element={<RoleForm />} />
+          <Route path='admin/roles/assign/:id' element={<RoleAssignmentForm />} />
           <Route path='home' element={<HomePage/>} />
           <Route path='search/:key' element={<SearchPage />} />
           <Route path='channels' element={<ChannelsPage />} />

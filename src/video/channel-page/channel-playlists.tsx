@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { storage } from 'uione';
-import { viewPlaylist } from '../event';
 import { buildShownItems, ListResult, Playlist } from '../video-service';
 
 const max = 12;
@@ -13,7 +12,6 @@ export interface Props {
 const ChannelPlayLists = (props: Props) => {
   const { id } = useParams();
   const resource = storage.resource().resource();
-  const navigate = useNavigate();
   const [keyword, setKeyword] = React.useState<string>('');
   const [playlists, setPlaylists] = React.useState<Playlist[]>([]);
   const [allPlaylists, setAllPlaylists] = React.useState<Playlist[]>([]);
@@ -75,7 +73,7 @@ const ChannelPlayLists = (props: Props) => {
                   <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
                     <i>{item.count}</i>
                   </div>
-                  <a href='#' onClick={e => viewPlaylist(item.id, e, navigate)}>{item.title}</a>
+                  <Link to={`/playlists/${item.id}`}>{item.title}</Link>
                   <p className='date'>{item.publishedAt.toDateString()}</p>
                 </section>
               </li>

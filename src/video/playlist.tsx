@@ -125,7 +125,7 @@ export default class PlaylistPage extends React.Component<Props, PlaylistState> 
                           {item.definition && item.definition > 4 && <i>HD</i>}
                         </div>
                         {item.duration && item.duration > 0 ? <p>{this.formatToMinutes(item.duration)}</p> : <p>Short Video</p>}
-                        <a href='#' onClick={e => this.view(e, item)}>{item.title}</a>
+                        <h4 onClick={e => this.view(e, item)}>{item.title}</h4>
                         <p>{item.channelTitle}<i className='date'>{item.publishedAt.toDateString()}</i></p>
                       </section>
                     </li>

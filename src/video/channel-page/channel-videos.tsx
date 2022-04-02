@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { storage } from 'uione';
-import { viewVideo } from '../event';
+import { Link, useParams } from 'react-router-dom';
+import { useResource } from 'uione';
 import { buildShownItems, ListResult, PlaylistVideo } from '../video-service';
 
 const max = 12;
@@ -12,8 +11,7 @@ export interface Props {
 }
 const ChannelVideos = (props: Props) => {
   const { id } = useParams();
-  const resource = storage.resource().resource();
-  const navigate = useNavigate();
+  const resource = useResource();
   const [keyword, setKeyword] = React.useState<string>('');
   const [videos, setVideos] = React.useState<PlaylistVideo[]>([]);
   const [allVideos, setAllVideos] = React.useState<PlaylistVideo[]>([]);
@@ -79,7 +77,7 @@ const ChannelVideos = (props: Props) => {
                     {item.definition && item.definition > 4 && <i>HD</i>}
                   </div>
                   {item.duration && item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>Short Video</p>}
-                  <a href='#' onClick={e => viewVideo(item.id, e, navigate)}>{item.title}</a>
+                  <Link to={`/${item.id}`}>{item.title}</Link>
                   <p className='date'>{item.publishedAt.toDateString()}</p>
                 </section>
               </li>

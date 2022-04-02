@@ -1,5 +1,5 @@
 import {Comment, CommentSnippet, CommentThead, TopLevelCommentSnippet} from './comment';
-import {BigThumbnail, CategorySnippet, Channel, ChannelDetail, ChannelSM, ChannelSnippet, Item, ItemSM, ListDetail, ListItem, ListResult, Playlist, PlaylistSM, PlaylistSnippet, PlaylistVideo, PlaylistVideoSnippet, SearchId, SearchSnippet, StringMap, Thumbnail, Title, Video, VideoCategory, VideoItemDetail, VideoSnippet, YoutubeListResult, YoutubeVideoDetail} from './models';
+import {BigThumbnail, CategorySnippet, Channel, ChannelDetail, ChannelFilter, ChannelSnippet, Item, ItemFilter, ListDetail, ListItem, ListResult, Playlist, PlaylistFilter, PlaylistSnippet, PlaylistVideo, PlaylistVideoSnippet, SearchId, SearchSnippet, StringMap, Thumbnail, Title, Video, VideoCategory, VideoItemDetail, VideoSnippet, YoutubeListResult, YoutubeVideoDetail} from './models';
 import {CommentOrder, HttpRequest, VideoService} from './service';
 import {ChannelSync, getNewVideos, notIn, SyncClient, SyncRepository, SyncService} from './sync';
 import {fromYoutubeCategories, fromYoutubeChannels, fromYoutubePlaylist, fromYoutubePlaylists, fromYoutubeSearch, fromYoutubeVideos, getYoutubeSort} from './youtube';
@@ -153,7 +153,7 @@ export function buildShownItems<T extends Title>(keyword: string, all: T[], incl
   }
   const w = keyword.toLowerCase();
   if (includeDescription) {
-    return all.filter(i => i.title && i.title.toLowerCase().includes(w) || i.description && i.description.toLocaleLowerCase().includes(w));
+    return all.filter(i => (i.title && i.title.toLowerCase().includes(w)) || (i.description && i.description.toLocaleLowerCase().includes(w)));
   } else {
     return all.filter(i => i.title && i.title.toLowerCase().includes(w));
   }
@@ -369,7 +369,7 @@ export class VideoClient implements VideoService {
       throw err;
     });
   }
-  search(sm: ItemSM, max?: number, nextPageToken?: string|number): Promise<ListResult<Item>> {
+  search(sm: ItemFilter, max?: number, nextPageToken?: string|number): Promise<ListResult<Item>> {
     const searchType = sm.type ? `&type=${sm.type}` : '';
     const searchDuration = sm.type === 'video' && (sm.duration === 'long' || sm.duration === 'medium' || sm.duration === 'short') ? `&videoDuration=${sm.duration}` : '';
     const searchOrder = (sm.sort === 'date' || sm.sort === 'rating' || sm.sort === 'title' || sm.sort === 'count' || sm.sort === 'viewCount' ) ? `&sort=${sm.sort}` : '';
@@ -383,7 +383,7 @@ export class VideoClient implements VideoService {
       return r;
     });
   }
-  searchVideos(sm: ItemSM, max?: number, nextPageToken?: string|number, fields?: string[]): Promise<ListResult<Item>> {
+  searchVideos(sm: ItemFilter, max?: number, nextPageToken?: string|number, fields?: string[]): Promise<ListResult<Item>> {
     const searchDuration = sm.type === 'video' && (sm.duration === 'long' || sm.duration === 'medium' || sm.duration === 'short') ? `&videoDuration=${sm.duration}` : '';
     const searchOrder = (sm.sort === 'date' || sm.sort === 'rating' || sm.sort === 'title' || sm.sort === 'count' || sm.sort === 'viewCount' ) ? `&sort=${sm.sort}` : '';
     const regionParam = (sm.regionCode && sm.regionCode.length > 0 ? `&regionCode=${sm.regionCode}` : '');
@@ -400,7 +400,7 @@ export class VideoClient implements VideoService {
       return r;
     });
   }
-  searchPlaylists(sm: PlaylistSM, max?: number, nextPageToken?: string|number, fields?: string[]): Promise<ListResult<Playlist>> {
+  searchPlaylists(sm: PlaylistFilter, max?: number, nextPageToken?: string|number, fields?: string[]): Promise<ListResult<Playlist>> {
     const searchOrder = (sm.sort === 'date' || sm.sort === 'rating' || sm.sort === 'title' || sm.sort === 'count' || sm.sort === 'viewCount' ) ? `&sort=${sm.sort}` : '';
     const pageToken = (nextPageToken ? `&nextPageToken=${nextPageToken}` : '');
     const maxResults = (max && max > 0 ? max : 50); // maximum is 50
@@ -415,7 +415,7 @@ export class VideoClient implements VideoService {
       return r;
     });
   }
-  searchChannels(sm: ChannelSM, max?: number, nextPageToken?: string|number, fields?: string[]): Promise<ListResult<Channel>> {
+  searchChannels(sm: ChannelFilter, max?: number, nextPageToken?: string|number, fields?: string[]): Promise<ListResult<Channel>> {
     const searchOrder = (sm.sort === 'date' || sm.sort === 'rating' || sm.sort === 'title' || sm.sort === 'count' || sm.sort === 'viewCount' ) ? `&sort=${sm.sort}` : '';
     const pageToken = (nextPageToken ? `&nextPageToken=${nextPageToken}` : '');
     const maxResults = (max && max > 0 ? max : 50); // maximum is 50
@@ -647,7 +647,7 @@ export class YoutubeClient implements VideoService {
   getComments(id: string, max?: number, nextPageToken?: string): Promise<ListResult<Comment>> {
     return getComments(this.httpRequest, this.key, id, max, nextPageToken);
   }
-  search(sm: ItemSM, max?: number, nextPageToken?: string | number): Promise<ListResult<Item>> {
+  search(sm: ItemFilter, max?: number, nextPageToken?: string | number): Promise<ListResult<Item>> {
     const searchType = sm.type ? `&type=${sm.type}` : '';
     const searchDuration = (sm.duration === 'long' || sm.duration === 'medium' || sm.duration === 'short') ? `&videoDuration=${sm.duration}` : '';
     const s = getYoutubeSort(sm.sort);
@@ -658,11 +658,11 @@ export class YoutubeClient implements VideoService {
     const url = `https://www.googleapis.com/youtube/v3/search?key=${this.key}&part=snippet${regionParam}&q=${sm.q}&maxResults=${maxResults}${searchType}${searchDuration}${searchOrder}${pageToken}`;
     return this.httpRequest.get<YoutubeListResult<ListItem<SearchId, SearchSnippet, any>>>(url).then(res => fromYoutubeSearch(res));
   }
-  searchVideos(sm: ItemSM, max?: number, nextPageToken?: string | number): Promise<ListResult<Item>> {
+  searchVideos(sm: ItemFilter, max?: number, nextPageToken?: string | number): Promise<ListResult<Item>> {
     sm.type = 'video';
     return this.search(sm, max, nextPageToken);
   }
-  searchPlaylists(sm: PlaylistSM, max?: number, nextPageToken?: string | number): Promise<ListResult<Playlist>> {
+  searchPlaylists(sm: PlaylistFilter, max?: number, nextPageToken?: string | number): Promise<ListResult<Playlist>> {
     const s: any = sm;
     s.type = 'playlist';
     return this.search(s, max, nextPageToken).then(res => {
@@ -683,7 +683,7 @@ export class YoutubeClient implements VideoService {
       return { list, total: res.total, limit: res.limit, nextPageToken: res.nextPageToken };
     });
   }
-  searchChannels(sm: ChannelSM, max?: number, nextPageToken?: string | number): Promise<ListResult<Channel>> {
+  searchChannels(sm: ChannelFilter, max?: number, nextPageToken?: string | number): Promise<ListResult<Channel>> {
     const s: any = sm;
     s.type = 'channel';
     return this.search(s, max, nextPageToken).then(res => {

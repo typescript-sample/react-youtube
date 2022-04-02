@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useResource } from 'uione';
 import PlayListsHorizontal from './components/PlayListsHorizontal';
 import { context } from './service';
@@ -10,7 +10,6 @@ export interface Props {
 }
 const ChannelsPage = () => {
   const resource = useResource();
-  const navigate = useNavigate();
   const videoService = context.getVideoService();
   const [channels, setChannels] = React.useState<Channel[]>([]);
 
@@ -19,10 +18,6 @@ const ChannelsPage = () => {
     const ids = ['UCH5_L3ytGbBziX0CLuYdQ1Q', 'UCBkqDNqao03ldC3u78-Pp8g', 'UCsooa4yRKGN_zEE8iknghZA', 'UCZ4AMrDcNrfy3X6nsU8-rPg', 'UCK7tptUDHh-RYDsdxO1-5QQ', 'UCFMkPeE8jiPirJMv9kttuIg', 'UCQMyhrt92_8XM0KgZH6VnRg', 'UCQD-0MjUbDBwm2UTVYr0Dag', 'UCKMnl27hDMKvch--noWe5CA', 'UCNIuvl7V8zACPpTmmNIqP2A'];
     videoService.getChannels(ids).then(res => setChannels(res));
   }, []);
-  const view = (e: any, id: string) => {
-    e.preventDefault();
-    navigate(`${id}`)
-  };
   return (
     <div className='view-container'>
       <header>
@@ -44,7 +39,7 @@ const ChannelsPage = () => {
         {
           channels && channels.map(c => (
             <form key={c.id} className='list-result'>
-              <h3 style={{ paddingLeft: '20px' }} onClick={e => view(e, c.id)}>{c.title}</h3>
+              <h3 style={{ paddingLeft: '20px' }}><Link to={c.id}>{c.title}</Link></h3>
               <PlayListsHorizontal channelId={c.id} getChannelPlaylists={videoService.getChannelPlaylists} getPlaylistVideos={videoService.getPlaylistVideos} />
             </form>
           ))

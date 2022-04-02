@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ListResult, Playlist, PlaylistVideo } from '../video-service';
 import SlideShow from './SlideShow';
 
@@ -9,7 +9,6 @@ export interface Props {
   getPlaylistVideos: (playlistId: string, max?: number, nextPageToken?: string, fields?: string[]) => Promise<ListResult<PlaylistVideo>>;
 }
 const PlayListsHorizontal = (props: Props) => {
-  const navigate = useNavigate();
   const [playlists, setPlaylists] = React.useState<Playlist[]>([]);
 
   React.useEffect(() => {
@@ -20,13 +19,6 @@ const PlayListsHorizontal = (props: Props) => {
       }
     })();
   }, []);
-
-  const view = (e: any, id?: string) => {
-    e.preventDefault();
-    if (id && id.length > 0) {
-      navigate(`/channels/${id}`);
-    }
-  };
   return (
     <ul className='list-view horizon'>
       {playlists && playlists.map((item) => (
@@ -34,7 +26,7 @@ const PlayListsHorizontal = (props: Props) => {
           <div className='cover'>
             <SlideShow id={item.id} thumbnail={item.mediumThumbnail} thumbnailSize='mediumThumbnail' getVideos={props.getPlaylistVideos} />
           </div>
-          <h4 onClick={e => view(e, item.channelId)}>{item.title}</h4>
+          <h4><Link className='card-title' to={`/channels/${item.channelId}`}>{item.title}</Link></h4>
         </li>
       )
       )}

@@ -8,7 +8,7 @@ export interface ListResult<T> {
   nextPageToken?: string;
 }
 export type ChannelSortType = 'title' | 'count' | 'date';
-export interface ChannelSM {
+export interface ChannelFilter {
   q?: string;
   sort?: SortType; // date, rating, relevance, title, count (for channels)
   forMine?: boolean;
@@ -22,7 +22,7 @@ export interface ChannelSM {
   topicId?: string;
 }
 export type PlaylistSortType = 'title' | 'count' | 'date';
-export interface PlaylistSM {
+export interface PlaylistFilter {
   q?: string;
   sort?: SortType; // date, rating, relevance, title, count (for channels), viewCount (for live broadcast)
   forMine?: boolean;
@@ -46,7 +46,7 @@ export type LicenseType = 'creativeCommon' | 'youtube' | 'any';
 export type SyndicatedType = 'true' | 'any';
 export type VideoType = 'movie' | 'episode' | 'any';
 export type SortType = 'rating' | 'date' | 'count' | 'relevance' | 'title' | 'viewCount';
-export interface ItemSM {
+export interface ItemFilter {
   q?: string;
   type?: ItemType; // video, channel, playlist
   duration?: Duration; // any, long (more than 20 minutes), medium (from 4 minutes to 20 minutes), short (less than 4 minutes)

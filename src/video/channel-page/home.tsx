@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import SlideShow from '../components/SlideShow';
-import { viewPlaylist, viewVideo } from '../event';
 import { context } from '../service';
 import { Playlist, PlaylistVideo } from '../video-service';
 
@@ -10,7 +9,6 @@ const playlistFields = ['id', 'title', 'publishedAt', 'mediumThumbnail', 'count'
 
 const Home = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const videoService = context.getVideoService();
   const [videos, setVideos] = React.useState<PlaylistVideo[]>([]);
   const [playlists, setPlaylists] = React.useState<Playlist[]>([]);
@@ -36,7 +34,7 @@ const Home = () => {
                 {item.definition && item.definition > 4 && <i>HD</i>}
               </div>
               {item.duration && item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>Short Video</p>}
-              <a href='#' onClick={e => viewVideo(item.id, e, navigate)}>{item.title}</a>
+              <Link to={`/${item.id}`}>{item.title}</Link>
               <p className='date'>{item.publishedAt.toDateString()}</p>
             </li>
           );
@@ -50,7 +48,7 @@ const Home = () => {
                 <i style={{ zIndex: 11 }}>{item.count}</i>
                 <SlideShow id={item.id} thumbnail={item.mediumThumbnail} thumbnailSize='mediumThumbnail' getVideos={videoService.getPlaylistVideos} />
               </div>
-              <a href='#' onClick={e => viewPlaylist(item.id, e, navigate)}>{item.title}</a>
+              <Link to={`/playlists/${item.id}`}>{item.title}</Link>
               <p className='date'>{item.publishedAt.toDateString()}</p>
             </li>
           );

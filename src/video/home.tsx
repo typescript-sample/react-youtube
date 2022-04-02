@@ -1,9 +1,8 @@
 import { locale } from 'locale-service';
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getBrowserLanguage, useResource } from 'uione';
 import CategoriesTab from './components/CategoriesTab';
-import { viewChannel, viewVideo } from './event';
 import { context } from './service';
 import { ListResult, Video, VideoCategory } from './video-service';
 
@@ -18,7 +17,6 @@ function getRegion(): string {
 }
 const HomePage = () => {
   const resource = useResource();
-  const navigate = useNavigate();
   const videoService = context.getVideoService();
   const [videos, setVideos] = React.useState<Video[]>([]);
   const [nextPageToken, setNextPageToken] = React.useState<string>();
@@ -89,8 +87,8 @@ const HomePage = () => {
                     {item.definition && item.definition > 4 && <i>HD</i>}
                   </div>
                   {item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>Short Video</p>}
-                  <a href='#' onClick={e => viewVideo(item.id, e, navigate)}>{item.title}</a>
-                  <p><a href='#' onClick={e => viewChannel(item.channelId, e, navigate)}>{item.channelTitle}</a><i className='date'>{item.publishedAt.toDateString()}</i></p>
+                  <Link to={`/${item.id}`}>{item.title}</Link>
+                  <p><Link to={`/channels/${item.channelId}`}>{item.channelTitle}</Link><i className='date'>{item.publishedAt.toDateString()}</i></p>
                 </section>
               </li>
             );

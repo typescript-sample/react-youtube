@@ -460,7 +460,8 @@ section > a,
   font-weight: 500;
   background-color: inherit;
 }
-li.video > section > a {
+li.video > section > a,
+li.video > section > h4 {
   padding-left: 8px;
   padding-right: 8px;
 }

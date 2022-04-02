@@ -1,5 +1,5 @@
 import {Comment, CommentThead} from './comment';
-import {Channel, ChannelSM, Item, ItemSM, ListResult, Playlist, PlaylistSM, PlaylistVideo, Video, VideoCategory} from './models';
+import {Channel, ChannelFilter, Item, ItemFilter, ListResult, Playlist, PlaylistFilter, PlaylistVideo, Video, VideoCategory} from './models';
 
 export type CommentOrder = 'time' | 'relevance';
 export type TextFormat = 'html' | 'plainText';
@@ -15,11 +15,11 @@ export interface VideoService {
   getPopularVideos(regionCode?: string, videoCategoryId?: string, max?: number, nextPageToken?: string, fields?: string[]): Promise<ListResult<Video>>;
   getVideos(ids: string[], fields?: string[]): Promise<Video[]>;
   getVideo(id: string, fields?: string[]): Promise<Video|null|undefined>;
-  search(sm: ItemSM, max?: number, nextPageToken?: string | number, fields?: string[]): Promise<ListResult<Item>>;
+  search(sm: ItemFilter, max?: number, nextPageToken?: string | number, fields?: string[]): Promise<ListResult<Item>>;
   getRelatedVideos?(videoId: string, max?: number, nextPageToken?: string, fields?: string[]): Promise<ListResult<Item>>;
-  searchVideos(sm: ItemSM, max?: number, nextPageToken?: string | number, fields?: string[]): Promise<ListResult<Item>>;
-  searchPlaylists(sm: PlaylistSM, max?: number, nextPageToken?: string | number, fields?: string[]): Promise<ListResult<Playlist>>;
-  searchChannels(sm: ChannelSM, max?: number, nextPageToken?: string | number, fields?: string[]): Promise<ListResult<Channel>>;
+  searchVideos(sm: ItemFilter, max?: number, nextPageToken?: string | number, fields?: string[]): Promise<ListResult<Item>>;
+  searchPlaylists(sm: PlaylistFilter, max?: number, nextPageToken?: string | number, fields?: string[]): Promise<ListResult<Playlist>>;
+  searchChannels(sm: ChannelFilter, max?: number, nextPageToken?: string | number, fields?: string[]): Promise<ListResult<Channel>>;
   /**
    * @param videoId
    * @param order relevance, time (default)

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useResource } from 'uione';
 import { context } from './service';
-import { Duration, Item, ItemSM, ItemType, SortType } from './video-service';
+import { Duration, Item, ItemFilter, ItemType, SortType } from './video-service';
 
 const max = 50;
 const itemFields = ['id', 'title', 'publishedAt', 'highThumbnail', 'channelId', 'channelTitle', 'categoryId', 'publishTime', 'kind', 'duration', 'definition'];
@@ -31,7 +31,7 @@ const SearchPage = () => {
 
   React.useEffect(() => {
     (async () => {
-      const sm: ItemSM = { q: keyword };
+      const sm: ItemFilter = { q: keyword };
       const res = await videoService.searchVideos(sm, max, undefined, itemFields);
       setFilter((prev) => ({ ...prev, nextPageToken: res.nextPageToken }));
       setVideos(res.list);
@@ -52,7 +52,7 @@ const SearchPage = () => {
 
   const handleFilterType = async (value: ItemType) => {
     const type = value;
-    const sm: ItemSM = { q: keyword, type, sort: filter.order };
+    const sm: ItemFilter = { q: keyword, type, sort: filter.order };
     let res: any;
     switch (type) {
       case 'video':
@@ -74,7 +74,7 @@ const SearchPage = () => {
 
   const handleFilterDuration = async (value: Duration) => {
     const videoDuration = value;
-    const sm: ItemSM = { q: keyword, type: filter.type, duration: videoDuration, sort: filter.order };
+    const sm: ItemFilter = { q: keyword, type: filter.type, duration: videoDuration, sort: filter.order };
     const res = await videoService.searchVideos(sm, max, filter.nextPageToken, itemFields);
     setFilter((pre) => ({ ...pre, duration: videoDuration, nextPageToken: res.nextPageToken }));
     setVideos(res.list);
@@ -82,7 +82,7 @@ const SearchPage = () => {
 
   const handleFilterOrder = async (e: { target: { value: string; }; }) => {
     const order = e.target.value as SortType;
-    const sm: ItemSM = { q: keyword, type: filter.type, duration: filter.duration, sort: order };
+    const sm: ItemFilter = { q: keyword, type: filter.type, duration: filter.duration, sort: order };
     let res: any;
     switch (sm.type) {
       case 'video':
@@ -103,7 +103,7 @@ const SearchPage = () => {
   };
 
   const handleLoadMore = async () => {
-    const sm: ItemSM = {
+    const sm: ItemFilter = {
       q: keyword, type: filter.type, duration: filter.duration, sort: filter.order
     };
     let res: any;
@@ -192,7 +192,7 @@ const SearchPage = () => {
                   </div>
                   {item.duration && item.duration && <p>{formatToMinutes(item.duration)}</p>}
                   <h4>{item.title}</h4>
-                  <p><a href='#'>{item.channelTitle}</a>{item.publishedAt.toDateString()}</p>
+                  <p><Link to={`/channels/${item.channelId}`}>{item.channelTitle}</Link>{item.publishedAt.toDateString()}</p>
                 </section>
               </li>
             );
