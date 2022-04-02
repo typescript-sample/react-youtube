@@ -1,0 +1,38 @@
+.commentThreads-container {
+  margin-top: 18px;
+  width: 100%;
+  .comments-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    h2 {
+      padding-top: 4px;
+    }
+    .comments-sort {
+      padding: 4px;
+      width: 200px;
+    }
+  }
+  .comments-total {
+    margin-bottom: 12px;
+  }
+  .comments {
+    margin-bottom: 8px;
+    .img-user {
+      width: 45px;
+      height: 45px;
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+      }
+    }
+  }
+  .view {
+    color: #007bff !important;
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+  }
+}
