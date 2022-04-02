@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { getBrowserLanguage, useResource } from 'uione';
 import CategoriesTab from './components/CategoriesTab';
 import { context } from './service';
-import { ListResult, Video, VideoCategory } from './video-service';
+import { ListResult, Video, VideoCategory } from 'video-service';
 
 const max = 48;
 const videoFields = ['id', 'title', 'publishedAt', 'highThumbnail', 'channelId', 'channelTitle', 'categoryId', 'duration', 'definition'];

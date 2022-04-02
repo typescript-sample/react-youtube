@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { ListResult, Playlist, PlaylistVideo } from '../video-service';
+import { ListResult, Playlist, PlaylistVideo } from 'video-service';
 import SlideShow from './SlideShow';
 
 export interface Props {

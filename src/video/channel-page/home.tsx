@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import SlideShow from '../components/SlideShow';
 import { context } from '../service';
-import { Playlist, PlaylistVideo } from '../video-service';
+import { Playlist, PlaylistVideo } from 'video-service';
 
 const videoFields = ['id', 'title', 'publishedAt', 'highThumbnail', 'definition', 'duration'];
 const playlistFields = ['id', 'title', 'publishedAt', 'mediumThumbnail', 'count'];

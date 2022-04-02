@@ -4,7 +4,7 @@ import { useResource } from 'uione';
 import Comments from './components/Comments';
 import VideoInfoBox from './components/VideoInfoBox';
 import { context } from './service';
-import { Item, Video } from './video-service';
+import { Item, Video } from 'video-service';
 
 const perPage = [12, 12, 12, 12];
 const max = perPage.reduce((a, b) => a + b, 0);

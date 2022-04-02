@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storage, StringMap } from 'uione';
 import Comments from './components/Comments';
 import { context } from './service';
-import { buildShownItems, Comment, CommentOrder, CommentThead, ListResult, Playlist, PlaylistVideo } from './video-service';
+import { buildShownItems, Comment, CommentOrder, CommentThead, ListResult, Playlist, PlaylistVideo } from 'video-service';
 
 const max = 12;
 const videoFields = ['id', 'title', 'publishedAt', 'highThumbnail', 'description', 'videoOwnerChannelId', 'videoOwnerChannelTitle', 'definition', 'duration'];

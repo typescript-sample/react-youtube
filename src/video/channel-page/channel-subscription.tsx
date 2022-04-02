@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import { Channel } from '../video-service';
+import { Channel } from 'video-service';
 import './index.scss';
 
 export interface Props {

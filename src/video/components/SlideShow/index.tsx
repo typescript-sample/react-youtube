@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ListResult, PlaylistVideo } from '../../video-service';
+import { ListResult, PlaylistVideo } from 'video-service';
 import PlayButtonCustom from '../PlayButton';
 import './index.scss';
 

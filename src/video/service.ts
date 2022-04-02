@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { HttpRequest } from 'axios-core';
-import { VideoClient, VideoService } from './video-service';
+import { VideoClient, VideoService } from 'video-service';
 
 const httpRequest = new HttpRequest(axios);
 class ApplicationContext {

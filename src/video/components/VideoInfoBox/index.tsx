@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Channel, Video } from '../../video-service';
+import { Channel, Video } from 'video-service';
 import './index.scss';
 
 const channelFields = ['channelTitle', 'thumbnail'];

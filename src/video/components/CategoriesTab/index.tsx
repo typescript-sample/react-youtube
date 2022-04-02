@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { VideoCategory } from '../../video-service';
+import { VideoCategory } from 'video-service';
 import './index.scss';
 import { TabCategory } from './TabCategory';
 

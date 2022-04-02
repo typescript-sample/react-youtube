@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useResource } from 'uione';
 import { context } from './service';
-import { Duration, Item, ItemFilter, ItemType, SortType } from './video-service';
+import { Duration, Item, ItemFilter, ItemType, SortType } from 'video-service';
 
 const max = 50;
 const itemFields = ['id', 'title', 'publishedAt', 'highThumbnail', 'channelId', 'channelTitle', 'categoryId', 'publishTime', 'kind', 'duration', 'definition'];

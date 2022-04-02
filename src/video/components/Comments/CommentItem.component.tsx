@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Comment, ListResult } from '../../video-service';
+import { Comment, ListResult } from 'video-service';
 
 export interface CommentProps {
   commentId: string;
