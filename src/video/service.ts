@@ -7,7 +7,7 @@ class ApplicationContext {
   public videoService?: VideoService;
   getVideoService(): VideoService {
     if (!this.videoService) {
-      this.videoService = new VideoClient('http://localhost:7070/tube', httpRequest, 3, 3, 'AIzaSyDVRw8jjqyJWijg57zXSOMpUArlZGpC7bE');
+      this.videoService = new VideoClient('http://localhost:7070/tube', httpRequest, 3, 3);
       // this.videoService = new YoutubeClient('AIzaSyDVRw8jjqyJWijg57zXSOMpUArlZGpC7bE', httpRequest, 3, 3);
     }
     return this.videoService;

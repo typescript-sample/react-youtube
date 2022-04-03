@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Channel, Video } from 'video-service';
 import './index.scss';
 
@@ -9,7 +9,6 @@ export interface Props {
   getChannel: (id: string, fields?: string[]) => Promise<Channel | null | undefined>;
 }
 export default function VideoInfoBox(props: Props) {
-  const navigate = useNavigate();
   const [collapsed, setCollapsed] = React.useState(true);
   const [channel, setChannel] = React.useState<Channel>();
   React.useEffect(() => {
@@ -25,9 +24,6 @@ export default function VideoInfoBox(props: Props) {
 
   const handleClick = () => {
     setCollapsed(!collapsed);
-  };
-  const gotoChannel = (channelId?: string) => {
-    navigate(`/channels/${channelId}`);
   };
 
   return (
@@ -45,9 +41,7 @@ export default function VideoInfoBox(props: Props) {
             height={48}
           />
           <div className='channel-info'>
-            <h4 className='channel-name' onClick={() => gotoChannel(props.video.channelId)}>
-              {props.video.channelTitle}
-            </h4>
+            <h4 className='channel-name'><Link to={`/channels/${props.video.channelId}`}>{props.video.channelTitle}</Link></h4>
           </div>
         </div>
         <div className={`video-description ${collapsed ? 'collapsed' : 'extended'} `}>

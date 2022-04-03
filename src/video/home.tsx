@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { getBrowserLanguage, useResource } from 'uione';
 import { ListResult, Video, VideoCategory } from 'video-service';
-import CategoriesTab from './components/CategoriesTab';
+import CategoryTab from './components/CategoryTab';
 import { context } from './service';
 
 const max = 48;
@@ -74,7 +74,7 @@ const HomePage = () => {
             </label>
           </section>
         </form>
-        <CategoriesTab
+        <CategoryTab
           data={videoCategories}
           setSelectedTab={setSelectedCategory}
         />
