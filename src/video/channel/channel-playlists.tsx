@@ -9,7 +9,7 @@ const playlistFields = ['id', 'title', 'publishedAt', 'mediumThumbnail', 'count'
 export interface Props {
   getPlaylists: (channelId: string, max?: number, nextPageToken?: string, fields?: string[]) => Promise<ListResult<Playlist>>;
 }
-const ChannelPlayLists = (props: Props) => {
+const ChannelPlaylists = (props: Props) => {
   const { id } = useParams();
   const resource = storage.resource().resource();
   const [keyword, setKeyword] = React.useState<string>('');
@@ -85,4 +85,4 @@ const ChannelPlayLists = (props: Props) => {
     </div>
   );
 };
-export default ChannelPlayLists;
+export default ChannelPlaylists;

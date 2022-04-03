@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Playlist, PlaylistVideo } from 'video-service';
-import SlideShow from '../components/SlideShow';
+import Slide from '../components/Slide';
 import { context } from '../service';
 
 const videoFields = ['id', 'title', 'publishedAt', 'highThumbnail', 'definition', 'duration'];
@@ -46,7 +46,7 @@ const Home = () => {
             <li key={i} className='video'>
               <div className='cover'>
                 <i style={{ zIndex: 11 }}>{item.count}</i>
-                <SlideShow id={item.id} thumbnail={item.mediumThumbnail} thumbnailSize='mediumThumbnail' getVideos={videoService.getPlaylistVideos} />
+                <Slide id={item.id} thumbnail={item.mediumThumbnail} thumbnailSize='mediumThumbnail' getVideos={videoService.getPlaylistVideos} />
               </div>
               <Link to={`/playlists/${item.id}`}>{item.title}</Link>
               <p className='date'>{item.publishedAt.toDateString()}</p>

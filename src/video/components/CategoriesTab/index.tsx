@@ -47,16 +47,15 @@ export default function CategoriesTab(props: Props) {
         </button>
         <div className='tabs' ref={ref}>
           {data.map((item: VideoCategory) => {
-            if (item.assignable) {
-              return (
-                <TabCategory
-                  key={item.id}
-                  id={item.id}
-                  name={item.title}
-                  setSelectedTab={setSelectedTab}
-                />
-              );
-            }
+            return (
+              item.assignable ?
+              <TabCategory
+                key={item.id}
+                id={item.id}
+                name={item.title}
+                setSelectedTab={setSelectedTab}
+              /> : null
+            );
           })}
         </div>
         <button

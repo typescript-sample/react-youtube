@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { useResource } from 'uione';
 import { Channel } from 'video-service';
-import PlayListsHorizontal from './components/PlayListsHorizontal';
+import HorizontalPlaylists from './components/HorizontalPlaylists';
 import { context } from './service';
 
 export interface Props {
@@ -40,7 +40,7 @@ const ChannelsPage = () => {
           channels && channels.map(c => (
             <form key={c.id} className='list-result'>
               <h3 style={{ paddingLeft: '20px' }}><Link to={c.id}>{c.title}</Link></h3>
-              <PlayListsHorizontal channelId={c.id} getChannelPlaylists={videoService.getChannelPlaylists} getPlaylistVideos={videoService.getPlaylistVideos} />
+              <HorizontalPlaylists channelId={c.id} getChannelPlaylists={videoService.getChannelPlaylists} getPlaylistVideos={videoService.getPlaylistVideos} />
             </form>
           ))
         }

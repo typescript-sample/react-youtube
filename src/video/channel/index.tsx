@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { Channel } from 'video-service';
 import { context } from '../service';
-import ChannelPlayLists from './channel-playlists';
+import ChannelPlaylists from './channel-playlists';
 import ChannelSubscriptions from './channel-subscription';
 import ChannelVideos from './channel-videos';
 import Home from './home';
@@ -63,7 +63,7 @@ export default function ChannelPage() {
       </div>
       {selectTab === 0 && <Home />}
       {selectTab === 1 && <ChannelVideos getChannelVideos={videoService.getChannelVideos} />}
-      {selectTab === 2 && <ChannelPlayLists getPlaylists={videoService.getChannelPlaylists} />}
+      {selectTab === 2 && <ChannelPlaylists getPlaylists={videoService.getChannelPlaylists} />}
       {selectTab === 3 && <ChannelSubscriptions getChannel={videoService.getChannel} />}
     </div>
   );
