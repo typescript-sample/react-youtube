@@ -291,6 +291,12 @@ ul.list-child > li {
 }
 
 @media screen and (min-width: 601px) {
+  .sidebar-off .sidebar {
+    width: 46px;
+  }
+  .sidebar-off .page-container {
+    margin-left: 46px;
+  }
   .sidebar > nav > ul > li.open > ul {
     display: block;
   }

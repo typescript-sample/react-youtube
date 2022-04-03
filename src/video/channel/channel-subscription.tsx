@@ -8,13 +8,13 @@ export interface Props {
 }
 export default function ChannelSubscriptions(props: Props) {
   const { id } = useParams();
-  const [data, setData] = React.useState<Channel[]>([]);
+  const [channels, setChannels] = React.useState<Channel[]>([]);
   React.useEffect(() => {
     (async () => {
       if (id) {
         const res = await props.getChannel(id);
         if (res) {
-          setData(res.channels as Channel[]);
+          setChannels(res.channels as Channel[]);
         }
       }
     })();
@@ -24,7 +24,7 @@ export default function ChannelSubscriptions(props: Props) {
     <div className='channel-subscriptions'>
       <h3 className='title'>Subscriptions</h3>
       <div className='containers'>
-        {data && data.map((x, i) => {
+        {channels && channels.map((x, i) => {
           return (
             <div className='box' key={i}>
               <div className='avatar'>
@@ -41,5 +41,3 @@ export default function ChannelSubscriptions(props: Props) {
     </div>
   );
 }
-
-
