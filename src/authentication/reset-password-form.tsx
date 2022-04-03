@@ -1,8 +1,8 @@
 import { PasswordReset, resetPassword, validateReset } from 'password-client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { OnClick, useMessage, useUpdate } from 'react-hook-core';
 import { Link } from 'react-router-dom';
-import { handleError, initForm, message, registerEvents, storage } from 'uione';
+import { handleError, initForm, message, registerEvents, storage, useResource } from 'uione';
 import logo from '../assets/images/logo.png';
 import { getPasswordService } from './service';
 
@@ -30,8 +30,8 @@ const msgData = {
 };
 
 export const ResetPasswordForm = () => {
+  const resource = useResource();
   const form = useRef();
-  const [resource] = useState(storage.getResource());
   const { msg, showError, hideMessage } = useMessage(msgData);
   const { state, updateState } = useUpdate<ResetState>(signinData, 'user');
   useEffect(() => {

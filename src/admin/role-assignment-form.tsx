@@ -46,12 +46,11 @@ const initialize = (id: string, set: DispatchWithCallback<Partial<InternalState>
 };
 
 export const RoleAssignmentForm = () => {
-  const params = useParams();
-  const r = useResource();
-  const [state, setState] = useState(initialState);
-  const roleService = getRoleService();
-  const navigate = useNavigate();
   const resource = useResource();
+  const navigate = useNavigate();
+  const params = useParams();
+  const roleService = getRoleService();
+  const [state, setState] = useState(initialState);
   const { role, isOpenModel, q } = state;
   let { users, selectedUsers, isCheckboxShown } = state;
 
@@ -116,7 +115,7 @@ export const RoleAssignmentForm = () => {
 
   const onDelete = () => {
 
-    confirm(r.msg_confirm_delete, r.confirm, () => {
+    confirm(resource.msg_confirm_delete, resource.confirm, () => {
       const arr: User[] = [];
       users.map(value => {
         const user = selectedUsers.find(v => v.userId === value.userId);

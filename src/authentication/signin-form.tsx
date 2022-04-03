@@ -55,8 +55,8 @@ function init(getCookie: (name: string) => string): SigninState {
 }
 
 export const SigninForm = () => {
-  const navigate = useNavigate();
   const resource = useResource();
+  const navigate = useNavigate();
   const { msg, showError, hideMessage} = useMessage(msgData);
   const { state, setState, updateState } = useUpdate<SigninState>(signinData, 'user');
   const form = React.useRef();

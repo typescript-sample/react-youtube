@@ -52,9 +52,9 @@ const Slide = (props: Props) => {
   return (
     <div className='carousel-container cover' style={{ width: '100%' }} onMouseEnter={handleFetch}>
       <div className='carousel-wrapper'>
-        <a onClick={prev} className='left-arrow'>
+        <button type='button' onClick={prev} className='left-arrow'>
           &#10094;
-        </a>
+        </button>
         {
           !play && <div className='play-container' onClick={handlePlayVideo}>
             <PlayButtonCustom />
@@ -75,18 +75,18 @@ const Slide = (props: Props) => {
                       allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;'
                     />
                   ) : (
-                    <img className='img-thumb' key={item.title} src={(item as any)[thumbnailSize]} />
+                    <img className='img-thumb' key={item.title} src={(item as any)[thumbnailSize]} alt='video thumbnail'/>
                   )
                 ))
               ) : (
-                <img src={thumbnail} />
+                <img src={thumbnail} alt='video thumbnail'/>
               )
             }
           </div>
         </div>
-        <a onClick={next} className='right-arrow'>
+        <button type='button' onClick={next} className='right-arrow'>
           &#10095;
-        </a>
+        </button>
       </div>
     </div>
   );

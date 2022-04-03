@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { OnClick, useMessage, useUpdate } from 'react-hook-core';
 import { Link } from 'react-router-dom';
 import { isEmail, isValidUsername, Status, strongPassword, validate, validateAndSignup } from 'signup-client';
-import { handleError, initForm, message, registerEvents, storage } from 'uione';
+import { handleError, initForm, message, registerEvents, storage, useResource } from 'uione';
 import logo from '../assets/images/logo.png';
 import { getSignupService } from './service';
 
@@ -48,8 +48,8 @@ interface SignupState {
   message: string;
 }
 export const SignupForm = () => {
+  const resource = useResource();
   const form = useRef();
-  const [resource] = useState(storage.getResource());
   const { msg, showError, hideMessage } = useMessage(msgData);
   const { state, setState, updateState } = useUpdate<SignupState>(userData, 'user');
   useEffect(() => {
@@ -61,14 +61,13 @@ export const SignupForm = () => {
   const signup = (event: OnClick) => {
     event.preventDefault();
     const signupService = getSignupService();
-    const r = storage.resource();
     const { reCAPTCHA } = state;
     if (!reCAPTCHA) {
-      showError(r.value('error_captcha'));
+      showError(resource.error_captcha);
       return;
     }
     const { user, passwordRequired } = state;
-    validateAndSignup(signupService.signup, status, user, passwordRequired, user.confirmPassword, r,
+    validateAndSignup(signupService.signup, status, user, passwordRequired, user.confirmPassword, storage.resource(),
       message, showError, hideMessage,
       isValidUsername, isEmail, validate, handleError, strongPassword, storage.loading());
   };
