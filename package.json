@@ -30,6 +30,7 @@
     "react-scripts": "5.0.0",
     "reactx-nav": "^0.1.0",
     "reactx-pagination": "^0.0.0",
+    "sass": "^1.49.11",
     "signup-client": "^0.1.1",
     "typescript": "^4.6.3",
     "ui-alert": "^0.0.7",

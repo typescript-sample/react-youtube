@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useResource } from 'uione';
 import { Duration, Item, ItemFilter, ItemType, SortType } from 'video-service';
 import { context } from './service';
@@ -14,8 +14,10 @@ export interface Filter {
   duration: Duration;
   order?: SortType;
   nextPageToken?: string;
+  q?: String
 }
 const SearchPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const resource = useResource();
   const navigate = useNavigate();
   const { key } = useParams();
@@ -29,6 +31,16 @@ const SearchPage = () => {
     nextPageToken: ''
   });
 
+  React.useEffect(() => {
+    // const { type , duration, order, nextPageToken, q } = Object.fromEntries([...searchParams])
+    setFilter({
+      type: searchParams.get("type") as ItemType || 'any',
+      duration: searchParams.get("duration") as Duration || 'any',
+      order: searchParams.get("order") as SortType || 'relevance',
+      nextPageToken: searchParams.get("nextPageToken") as string
+    })
+    setKeyword(searchParams.get("q") as string)
+  }, [searchParams])
   React.useEffect(() => {
     (async () => {
       const sm: ItemFilter = { q: keyword };
@@ -47,7 +59,7 @@ const SearchPage = () => {
   };
 
   const handleSearch = () => {
-    navigate(`/search/${keyword}`);
+    navigate(`/search?q=${keyword}`);
   };
 
   const handleFilterType = async (value: ItemType) => {
@@ -68,14 +80,16 @@ const SearchPage = () => {
         res = await videoService.searchVideos(sm, max, undefined, itemFields);
         break;
     }
+    setSearchParams({ ...Object.fromEntries([...searchParams]), type, duration: 'any', nextPageToken: res.nextPageToken })
     setFilter((pre) => ({ ...pre, type, duration: 'any', nextPageToken: res.nextPageToken }));
     setVideos(res.list);
   };
 
   const handleFilterDuration = async (value: Duration) => {
-    const videoDuration = value;
+    const videoDuration = value as Duration;
     const sm: ItemFilter = { q: keyword, type: filter.type, duration: videoDuration, sort: filter.order };
     const res = await videoService.searchVideos(sm, max, filter.nextPageToken, itemFields);
+    setSearchParams({ ...Object.fromEntries([...searchParams]), duration: videoDuration, nextPageToken: res.nextPageToken as string })
     setFilter((pre) => ({ ...pre, duration: videoDuration, nextPageToken: res.nextPageToken }));
     setVideos(res.list);
   };
@@ -98,6 +112,7 @@ const SearchPage = () => {
         res = await videoService.searchVideos(sm, max, undefined, itemFields);
         break;
     }
+    setSearchParams({ ...Object.fromEntries([...searchParams]), order: sm.sort as string, nextPageToken: res.nextPageToken })
     setFilter((pre) => ({ ...pre, order: sm.sort, nextPageToken: res.nextPageToken }));
     setVideos(res.list);
   };
@@ -136,7 +151,7 @@ const SearchPage = () => {
         <h2>{resource.welcome_title}</h2>
       </header>
       <div className=''>
-        <form id='playlistForm' name='playlistForm'>
+        <form id='playlistForm' name='playlistForm' onSubmit={(e) => { e.preventDefault(); handleSearch() }}>
           <section className='row search-group'>
             <label className='col s12 search-input'>
               <i className='btn-search' onClick={handleSearch} />

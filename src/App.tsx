@@ -111,7 +111,7 @@ function App() {
           <Route path='admin/roles/edit/:id' element={<RoleForm />} />
           <Route path='admin/roles/assign/:id' element={<RoleAssignmentForm />} />
           <Route path='home' element={<HomePage/>} />
-          <Route path='search/:key' element={<SearchPage />} />
+          <Route path='search/*' element={<SearchPage />} />
           <Route path='channels' element={<ChannelsPage />} />
           <Route path='channels/:id' element={<ChannelPage />} />
           <Route path='playlists/:id' element={<PlaylistPage />} />
