@@ -28,7 +28,7 @@ const SearchPage = () => {
     type: 'any',
     duration: 'any',
     order: 'relevance',
-    nextPageToken: ''
+    nextPageToken: '',
   });
 
   React.useEffect(() => {
@@ -41,15 +41,20 @@ const SearchPage = () => {
     })
     setKeyword(searchParams.get("q") as string)
   }, [searchParams])
-  React.useEffect(() => {
+  const getData=()=>{
     (async () => {
       const sm: ItemFilter = { q: keyword };
       const res = await videoService.searchVideos(sm, max, undefined, itemFields);
       setFilter((prev) => ({ ...prev, nextPageToken: res.nextPageToken }));
       setVideos(res.list);
     })();
+   }
+  
+  React.useEffect(() => {
+    getData()
   }, []);
 
+ 
   const back = () => {
     navigate(-1);
   };
@@ -60,6 +65,7 @@ const SearchPage = () => {
 
   const handleSearch = () => {
     navigate(`/search?q=${keyword}`);
+    getData()
   };
 
   const handleFilterType = async (value: ItemType) => {
