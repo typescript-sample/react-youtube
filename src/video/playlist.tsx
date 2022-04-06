@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { storage } from 'uione';
 import { buildShownItems, Playlist, PlaylistVideo } from 'video-service';
 import Comments from './components/Comments';
@@ -22,6 +22,7 @@ const videoFields = ['id', 'title', 'publishedAt', 'highThumbnail', 'description
 
 export default function PlaylistPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [resource] = useState(storage.resource().resource());
   const videoService = context.getVideoService();
   const [keyword, setKeyword] = useState('');
@@ -50,14 +51,14 @@ export default function PlaylistPage() {
       });
     }
   }, []);
-  /*
-  back(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+
+  const back = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (e) {
       e.preventDefault();
     }
-    this.props.navigate(-1);
+    navigate(-1);
   }
-  */
+
   const keywordOnChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     const keyword = e.target.value;
     const videos = buildShownItems(keyword, allVideos);
@@ -83,7 +84,7 @@ export default function PlaylistPage() {
   return (
     <div className='view-container'>
       <header>
-        <button type='button' id='btnBack' name='btnBack' className='btn-back' />
+        <button type='button' id='btnBack' name='btnBack' className='btn-back' onClick={back}/>
         <h2>{playlist && playlist.title}</h2>
       </header>
       <div className={show ? 'list-detail-container' : ''}>

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import * as React from 'react';
 import { PageSizeSelect, useMergeState } from 'react-hook-core'
 import { useNavigate } from 'react-router';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { collapseAll, expandAll, Nav } from 'reactx-nav';
 import { options, Privilege, storage, StringMap } from 'uione';
 import logoTitle from '../assets/images/logo-title.png';
@@ -52,6 +52,7 @@ const initialState: InternalState = {
 // const httpRequest = new HttpRequest(axios, options);
 export const LayoutComponent = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { pathname } = useLocation();
   console.log('path:' + pathname);
   const [state, setState] = useMergeState<InternalState>(initialState);
@@ -59,7 +60,7 @@ export const LayoutComponent = () => {
   const [pageSize] = useState<number>(20)
   const [pageSizes] = useState<number[]>([10, 20, 40, 60, 100, 200, 400, 10000])
   const [topClass, setTopClass] = useState('')
-  console.log('user',storage.user())
+  console.log('user', storage.user())
   const [user, setUser] = useState(storage.user())
 
   useEffect(() => {
@@ -149,9 +150,18 @@ export const LayoutComponent = () => {
     }
   }
 
+  const handleInput = (e: { target: { value: string } }) => {
+    setState({ keyword: e.target.value });
+  };
+
+  useEffect(() => {
+    setState({ keyword: searchParams.get("q") as string })
+  }, [searchParams])
+
   useEffect(() => {
     setUser(storage.user())
   }, [storage.user()])// eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     const { isToggleMenu, isToggleSearch } = state;
     const topClassList = ['sidebar-parent'];
@@ -181,7 +191,7 @@ export const LayoutComponent = () => {
           resource={resource}
           pin={pin}
           expand={expandAll}
-          collapse={collapseAll}/>
+          collapse={collapseAll} />
         {/*
         <nav className='expanded-all'>
           <ul>
@@ -213,7 +223,7 @@ export const LayoutComponent = () => {
               </div>
               <label className='search-input'>
                 <PageSizeSelect size={pageSize} sizes={pageSizes} />
-                <input type='text' id='keyword' name='keyword' maxLength={1000} placeholder={resource['keyword']} />
+                <input type='text' id='q' name='q' maxLength={1000} placeholder={resource['keyword']} value={state.keyword} onChange={handleInput} />
                 <button type='button' hidden={!state.keyword} className='btn-remove-text' onClick={clearKeyworkOnClick} />
                 <button type='submit' className='btn-search' onClick={searchOnClick} />
               </label>

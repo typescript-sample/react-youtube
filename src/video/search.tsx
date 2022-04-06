@@ -41,20 +41,20 @@ const SearchPage = () => {
     })
     setKeyword(searchParams.get("q") as string)
   }, [searchParams])
-  const getData=()=>{
+  const getData = () => {
     (async () => {
-      const sm: ItemFilter = { q: keyword };
+      const sm: ItemFilter = { q: searchParams.get("q") as string };
       const res = await videoService.searchVideos(sm, max, undefined, itemFields);
       setFilter((prev) => ({ ...prev, nextPageToken: res.nextPageToken }));
       setVideos(res.list);
     })();
-   }
-  
+  }
+
   React.useEffect(() => {
     getData()
   }, []);
 
- 
+
   const back = () => {
     navigate(-1);
   };
@@ -157,13 +157,15 @@ const SearchPage = () => {
         <h2>{resource.welcome_title}</h2>
       </header>
       <div className=''>
-        <form id='playlistForm' name='playlistForm' onSubmit={(e) => { e.preventDefault(); handleSearch() }}>
+        <form id='playlistForm' name='playlistForm' >
           <section className='row search-group'>
             <label className='col s12 search-input'>
               <i className='btn-search' onClick={handleSearch} />
               <input type='text'
+                name='q'
                 onChange={handleInput}
                 value={keyword}
+                
                 maxLength={40}
               />
             </label>
