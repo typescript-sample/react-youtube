@@ -11,6 +11,7 @@ export interface Config {
   signup_url: string;
   password_url: string;
   oauth2_url: string;
+  public_privilege_url:string;
 }
 const httpRequest = new HttpRequest(axios);
 class ApplicationContext {
@@ -56,11 +57,21 @@ class ApplicationContext {
     }
     return this.oauth2Service;
   }
+  getPublicPrivilege(): AuthenService<User> {
+    if (!this.authenticator) {
+      const c = this.getConfig();
+      this.authenticator = new AuthenClient<User>(httpRequest, c.public_privilege_url);
+    }
+    return this.authenticator;
+  }
 }
 
 export const context = new ApplicationContext();
 export function getAuthen(): AuthenService<User> {
   return context.getAuthenticator();
+}
+export function getPublicPrivilege(): AuthenService<User> {
+  return context.getPublicPrivilege();
 }
 export function getPasswordService(): PasswordService {
   return context.getPasswordService();

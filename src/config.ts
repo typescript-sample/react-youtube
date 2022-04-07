@@ -1,13 +1,14 @@
 export const config = {
-  authentication_url: 'http://localhost:8083',
+  authentication_url: 'http://localhost:8080',
   signup_url: 'http://localhost:8082/signup',
   password_url: 'http://localhost:8082/password',
   oauth2_url: 'http://localhost:8082/oauth2',
 
-  user_url: 'http://localhost:8083/users',
-  role_url: 'http://localhost:8083/roles',
-  privilege_url: 'http://localhost:8083/privileges',
-  audit_log_url: 'http://localhost:8083/audit-logs',
+  user_url: 'http://localhost:8080/users',
+  role_url: 'http://localhost:8080/roles',
+  privilege_url: 'http://localhost:8080/privileges',
+  audit_log_url: 'http://localhost:8080/audit-logs',
+  public_privilege_url:'http://localhost:8080/public-privilege',
 };
 
 export const env = {

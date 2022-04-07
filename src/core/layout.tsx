@@ -2,7 +2,7 @@ import axios from 'axios';
 import { HttpRequest } from 'axios-core';
 import { useEffect, useState } from 'react';
 import * as React from 'react';
-import { PageSizeSelect, useMergeState } from 'react-hook-core'
+import { OnClick, PageSizeSelect, useMergeState } from 'react-hook-core'
 import { useNavigate } from 'react-router';
 import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { collapseAll, expandAll, Nav } from 'reactx-nav';
@@ -10,6 +10,7 @@ import { options, Privilege, storage, StringMap } from 'uione';
 import logoTitle from '../assets/images/logo-title.png';
 import logo from '../assets/images/logo.png';
 import topBannerLogo from '../assets/images/top-banner-logo.png';
+import { getAuthen, getPublicPrivilege } from '../authentication/service';
 
 interface InternalState {
   pageSizes: number[];
@@ -51,6 +52,8 @@ const initialState: InternalState = {
 };
 // const httpRequest = new HttpRequest(axios, options);
 export const LayoutComponent = () => {
+  const location = useLocation()
+  const [isSearch, setIsSearch] = useState(location.pathname === '/search')
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { pathname } = useLocation();
@@ -81,13 +84,18 @@ export const LayoutComponent = () => {
     }
   }, [])// eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    setIsSearch(location.pathname === '/search')
+  }, [location])
   const clearKeyworkOnClick = () => {
     setState({
       keyword: '',
     });
   }
 
-  const searchOnClick = () => { };
+  const searchOnClick = () => {
+    navigate(`search?q=${state.keyword}`)
+  };
   const toggleSearch = () => {
     setState({ isToggleSearch: !state.isToggleSearch });
   }
@@ -116,6 +124,28 @@ export const LayoutComponent = () => {
     storage.setUser(null);
     navigate('/signin');
   }
+
+  useEffect(() => {
+    let authService = sessionStorage.getItem('authService')
+    if (authService) {
+      return
+    }
+    const config: any = storage.config();
+    const httpRequest = new HttpRequest(axios, options);
+    httpRequest.get(config.public_privilege_url).then(
+      (forms: any) => {
+        if (forms && forms.length > 0) {
+          for (let i = 0; i <= forms.length; i++) {
+            if (forms[i]) {
+              forms[i].sequence = i + 1;
+            }
+          }
+        }
+        setState({ forms });
+      }
+    ).catch(err => { });
+
+  }, [])
 
   // const viewMyprofile = (e: { preventDefault: () => void; }) => {
   //   e.preventDefault();
@@ -153,6 +183,10 @@ export const LayoutComponent = () => {
   const handleInput = (e: { target: { value: string } }) => {
     setState({ keyword: e.target.value });
   };
+
+  const handleFilter = (e: OnClick) => {
+    setSearchParams({ ...Object.fromEntries([...searchParams]), filter: searchParams.get('filter') === 'on' ? '' : 'on' || '' })
+  }
 
   useEffect(() => {
     setState({ keyword: searchParams.get("q") as string })
@@ -223,7 +257,8 @@ export const LayoutComponent = () => {
               </div>
               <label className='search-input'>
                 <PageSizeSelect size={pageSize} sizes={pageSizes} />
-                <input type='text' id='q' name='q' maxLength={1000} placeholder={resource['keyword']} value={state.keyword} onChange={handleInput} />
+                <input type='text' id='q' name='q' maxLength={1000} placeholder={resource['keyword']} value={state.keyword||''} onChange={handleInput} />
+                {isSearch && <button type='button' className={`btn-filter ${searchParams.get('filter')}`} onClick={handleFilter} />}
                 <button type='button' hidden={!state.keyword} className='btn-remove-text' onClick={clearKeyworkOnClick} />
                 <button type='submit' className='btn-search' onClick={searchOnClick} />
               </label>

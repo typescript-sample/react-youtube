@@ -20,11 +20,8 @@ const ChannelsPage = () => {
   }, []);
   return (
     <div className='view-container'>
-      <header>
-        <h2>{resource.welcome_title}</h2>
-      </header>
       <div>
-        <form id='channelsForm' name='channelsForm'>
+        {/* <form id='channelsForm' name='channelsForm'>
           <section className='row search-group'>
             <label className='col s12 search-input'>
               <i className='btn-search' />
@@ -35,7 +32,7 @@ const ChannelsPage = () => {
                 placeholder={resource.role_assignment_search_user} />
             </label>
           </section>
-        </form>
+        </form> */}
         {
           channels && channels.map(c => (
             <form key={c.id} className='list-result'>

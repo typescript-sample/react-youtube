@@ -48,7 +48,7 @@ const HorizontalPlaylists = (props: Props) => {
         )}
 
       </ul>
-      <button type='button' onClick={() => scroll('left')} className='left-arrow'>
+      <button type='button' onClick={() => scroll('left')} className='left-arrow' style={{transform:'rotate(180deg)'}}>
         &#10095;
       </button>
       <button type='button' onClick={() => scroll('right')} className='right-arrow'>

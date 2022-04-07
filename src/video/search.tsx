@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useResource } from 'uione';
 import { Duration, Item, ItemFilter, ItemType, SortType } from 'video-service';
+import FilterTube from './components/Filter/Filter';
 import { context } from './service';
 
 const max = 50;
@@ -39,11 +40,11 @@ const SearchPage = () => {
       order: searchParams.get("order") as SortType || 'relevance',
       nextPageToken: searchParams.get("nextPageToken") as string
     })
-    setKeyword(searchParams.get("q") as string)
+    setKeyword(searchParams.get("q") as string || '')
   }, [searchParams])
   const getData = () => {
     (async () => {
-      const sm: ItemFilter = { q: searchParams.get("q") as string };
+      const sm: ItemFilter = { q: searchParams.get("q") as string || '' };
       const res = await videoService.searchVideos(sm, max, undefined, itemFields);
       setFilter((prev) => ({ ...prev, nextPageToken: res.nextPageToken }));
       setVideos(res.list);
@@ -52,6 +53,7 @@ const SearchPage = () => {
 
   React.useEffect(() => {
     getData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -59,14 +61,14 @@ const SearchPage = () => {
     navigate(-1);
   };
 
-  const handleInput = (e: { target: { value: string } }) => {
-    setKeyword(e.target.value);
-  };
+  // const handleInput = (e: { target: { value: string } }) => {
+  //   setKeyword(e.target.value);
+  // };
 
-  const handleSearch = () => {
-    navigate(`/search?q=${keyword}`);
-    getData()
-  };
+  // const handleSearch = () => {
+  //   navigate(`/search?q=${keyword}`);
+  //   getData()
+  // };
 
   const handleFilterType = async (value: ItemType) => {
     const type = value;
@@ -86,8 +88,8 @@ const SearchPage = () => {
         res = await videoService.searchVideos(sm, max, undefined, itemFields);
         break;
     }
-    setSearchParams({ ...Object.fromEntries([...searchParams]), type, duration: 'any', nextPageToken: res.nextPageToken })
-    setFilter((pre) => ({ ...pre, type, duration: 'any', nextPageToken: res.nextPageToken }));
+    setSearchParams({ ...Object.fromEntries([...searchParams]), type, duration: 'any', nextPageToken: res.nextPageToken || '' })
+    setFilter((pre) => ({ ...pre, type, duration: 'any', nextPageToken: res.nextPageToken || '' }));
     setVideos(res.list);
   };
 
@@ -95,13 +97,12 @@ const SearchPage = () => {
     const videoDuration = value as Duration;
     const sm: ItemFilter = { q: keyword, type: filter.type, duration: videoDuration, sort: filter.order };
     const res = await videoService.searchVideos(sm, max, filter.nextPageToken, itemFields);
-    setSearchParams({ ...Object.fromEntries([...searchParams]), duration: videoDuration, nextPageToken: res.nextPageToken as string })
-    setFilter((pre) => ({ ...pre, duration: videoDuration, nextPageToken: res.nextPageToken }));
+    setSearchParams({ ...Object.fromEntries([...searchParams]), duration: videoDuration, nextPageToken: res.nextPageToken as string || '' })
+    setFilter((pre) => ({ ...pre, duration: videoDuration, nextPageToken: res.nextPageToken || '' }));
     setVideos(res.list);
   };
 
-  const handleFilterOrder = async (e: { target: { value: string; }; }) => {
-    const order = e.target.value as SortType;
+  const handleFilterOrder = async (order: SortType) => {
     const sm: ItemFilter = { q: keyword, type: filter.type, duration: filter.duration, sort: order };
     let res: any;
     switch (sm.type) {
@@ -118,8 +119,8 @@ const SearchPage = () => {
         res = await videoService.searchVideos(sm, max, undefined, itemFields);
         break;
     }
-    setSearchParams({ ...Object.fromEntries([...searchParams]), order: sm.sort as string, nextPageToken: res.nextPageToken })
-    setFilter((pre) => ({ ...pre, order: sm.sort, nextPageToken: res.nextPageToken }));
+    setSearchParams({ ...Object.fromEntries([...searchParams]), order: sm.sort as string, nextPageToken: res.nextPageToken || '' })
+    setFilter((pre) => ({ ...pre, order: sm.sort, nextPageToken: res.nextPageToken || '' }));
     setVideos(res.list);
   };
 
@@ -152,54 +153,9 @@ const SearchPage = () => {
   };
   return (
     <div className='view-container'>
-      <header>
-        <button type='button' id='btnBack' name='btnBack' className='btn-back' onClick={back} />
-        <h2>{resource.welcome_title}</h2>
-      </header>
       <div className=''>
-        <form id='playlistForm' name='playlistForm' >
-          <section className='row search-group'>
-            <label className='col s12 search-input'>
-              <i className='btn-search' onClick={handleSearch} />
-              <input type='text'
-                name='q'
-                onChange={handleInput}
-                value={keyword}
-                
-                maxLength={40}
-              />
-            </label>
-          </section>
-        </form>
         <div className='tool-bar'>
-          <ul className='row list-view'>
-            <li className='col s12 m3 l3 xl3'>
-              <select style={{ width: 150 }} value={filter.type} onChange={(e) => handleFilterType(e.target.value as ItemType)}>
-                <option value=''>Search Type</option>
-                <option value='video'>Video</option>
-                <option disabled={filter.duration !== 'any'} value='channel'>Channel</option>
-                <option disabled={filter.duration !== 'any'} value='playlist'>Play List</option>
-              </select>
-              <i onClick={() => handleFilterType('any')}>X</i>
-            </li>
-            <li className='col s12 m3 l3 xl3'>
-              <select disabled={(filter.type === 'channel' || filter.type === 'playlist')} value={filter.duration} onChange={(e) => handleFilterDuration(e.target.value as Duration)}>
-                <option value=''>Duration</option>
-                <option value='short'>Below 4 Minutes</option>
-                <option value='medium'>4-20 Minutes</option>
-                <option value='long'>Over 20 Minutes</option>
-              </select>
-              <i onClick={() => handleFilterDuration('any')}>X</i>
-            </li>
-            <li className='col s12 m3 l3 xl3'>
-              <select value={filter.order} onChange={handleFilterOrder}>
-                <option value=''>Order</option>
-                <option value='relevance'>Relevance</option>
-                <option value='date'>Date</option>
-                <option value='rating'>Rank</option>
-              </select>
-            </li>
-          </ul>
+          <FilterTube handleFilterType={handleFilterType} handleFilterDuration={handleFilterDuration} handleFilterOrder={handleFilterOrder} filter={filter} />
         </div>
         <ul className='row list-view'>
           {videos && videos.map((item, i) => {

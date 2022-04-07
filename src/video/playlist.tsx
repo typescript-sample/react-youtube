@@ -31,6 +31,7 @@ export default function PlaylistPage() {
   const [allVideos, setAllVideos] = useState<PlaylistVideo[]>([]);
   const [nextPageToken, setNextPageToken] = useState('');
   const [playlist, setPlaylist] = useState<Playlist>();
+  
   useEffect(() => {
     if (document) {
       const ele = document.scrollingElement;

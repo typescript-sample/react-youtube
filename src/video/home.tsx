@@ -62,18 +62,8 @@ const HomePage = () => {
   };
   return (
     <div className='view-container'>
-      <header>
-        <h2>{resource.welcome_title}</h2>
-      </header>
       <div className=''>
-        <form id='homeForm' name='homeForm'>
-          <section className='row search-group'>
-            <label className='col s12 search-input'>
-              <i className='btn-search' />
-              <input type='text' maxLength={40} />
-            </label>
-          </section>
-        </form>
+        
         <CategoryTab
           data={videoCategories}
           setSelectedTab={setSelectedCategory}

@@ -9,7 +9,7 @@ import Home from './home';
 
 import './index.scss';
 
-const channelFields = ['id', 'title', 'mediumThumbnail', 'channels'];
+const channelFields = ['id', 'title', 'mediumThumbnail'];
 
 export default function ChannelPage() {
   const videoService = context.getVideoService();
