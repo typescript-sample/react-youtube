@@ -61,31 +61,28 @@ const HomePage = () => {
     return (s - (s %= 60)) / 60 + ':' + s;
   };
   return (
-    <div className='view-container'>
-      <div className=''>
-        
-        <CategoryTab
-          data={videoCategories}
-          setSelectedTab={setSelectedCategory}
-        />
-        <ul className='row list-view'>
-          {videos && videos.map((item, i) => {
-            return (
-              <li key={i} className='col s12 m6 l4 xl3 video'>
-                <section>
-                  <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
-                    {item.definition && item.definition > 4 && <i>HD</i>}
-                  </div>
-                  {item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>Short Video</p>}
-                  <Link to={`/${item.id}`}>{item.title}</Link>
-                  <p><Link to={`/channels/${item.channelId}`}>{item.channelTitle}</Link><i className='date'>{item.publishedAt.toDateString()}</i></p>
-                </section>
-              </li>
-            );
-          })}
-        </ul>
-        {nextPageToken && <button type='submit' id='btnMore' name='btnMore' className='btn-more' onClick={handleLoadMore}>{resource.button_more}</button>}
-      </div>
+    <div>
+      <CategoryTab
+        data={videoCategories}
+        setSelectedTab={setSelectedCategory}
+      />
+      <ul className='row list-view'>
+        {videos && videos.map((item, i) => {
+          return (
+            <li key={i} className='col s12 m6 l4 xl3 video'>
+              <section>
+                <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
+                  {item.definition && item.definition > 4 && <i>HD</i>}
+                </div>
+                {item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>Short Video</p>}
+                <Link to={`/${item.id}`}>{item.title}</Link>
+                <p><Link to={`/channels/${item.channelId}`}>{item.channelTitle}</Link><i className='date'>{item.publishedAt.toDateString()}</i></p>
+              </section>
+            </li>
+          );
+        })}
+      </ul>
+      {nextPageToken && <button type='submit' id='btnMore' name='btnMore' className='btn-more' onClick={handleLoadMore}>{resource.button_more}</button>}
     </div>
   );
 };

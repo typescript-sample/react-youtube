@@ -56,11 +56,6 @@ const SearchPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
-  const back = () => {
-    navigate(-1);
-  };
-
   // const handleInput = (e: { target: { value: string } }) => {
   //   setKeyword(e.target.value);
   // };
@@ -152,33 +147,31 @@ const SearchPage = () => {
     return (s - (s %= 60)) / 60 + ':' + s;
   };
   return (
-    <div className='view-container'>
-      <div className=''>
-        <div className='tool-bar'>
-          <FilterTube handleFilterType={handleFilterType} handleFilterDuration={handleFilterDuration} handleFilterOrder={handleFilterOrder} filter={filter} />
-        </div>
-        <ul className='row list-view'>
-          {videos && videos.map((item, i) => {
-            return (
-              <li
-                key={i}
-                className='col s12 m6 l4 xl3 card'
-              // onClick={e => this.view(e, item)}
-              >
-                <section>
-                  <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
-                    {item.definition && item.definition > 4 && <i>HD</i>}
-                  </div>
-                  {item.duration && item.duration && <p>{formatToMinutes(item.duration)}</p>}
-                  <h4>{item.title}</h4>
-                  <p><Link to={`/channels/${item.channelId}`}>{item.channelTitle}</Link>{item.publishedAt.toDateString()}</p>
-                </section>
-              </li>
-            );
-          })}
-        </ul>
-        {filter.nextPageToken && <button type='submit' id='btnMore' name='btnMore' className='btn-more' onClick={handleLoadMore}>{resource.button_more}</button>}
+    <div>
+      <div className='tool-bar'>
+        <FilterTube handleFilterType={handleFilterType} handleFilterDuration={handleFilterDuration} handleFilterOrder={handleFilterOrder} filter={filter} />
       </div>
+      <ul className='row list-view'>
+        {videos && videos.map((item, i) => {
+          return (
+            <li
+              key={i}
+              className='col s12 m6 l4 xl3 card'
+            // onClick={e => this.view(e, item)}
+            >
+              <section>
+                <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
+                  {item.definition && item.definition > 4 && <i>HD</i>}
+                </div>
+                {item.duration && item.duration && <p>{formatToMinutes(item.duration)}</p>}
+                <h4>{item.title}</h4>
+                <p><Link to={`/channels/${item.channelId}`}>{item.channelTitle}</Link>{item.publishedAt.toDateString()}</p>
+              </section>
+            </li>
+          );
+        })}
+      </ul>
+      {filter.nextPageToken && <button type='submit' id='btnMore' name='btnMore' className='btn-more' onClick={handleLoadMore}>{resource.button_more}</button>}
     </div>
   );
 };
