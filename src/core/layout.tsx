@@ -10,7 +10,6 @@ import { options, Privilege, storage, StringMap } from 'uione';
 import logoTitle from '../assets/images/logo-title.png';
 import logo from '../assets/images/logo.png';
 import topBannerLogo from '../assets/images/top-banner-logo.png';
-import { getAuthen, getPublicPrivilege } from '../authentication/service';
 
 interface InternalState {
   pageSizes: number[];
@@ -57,7 +56,6 @@ export const LayoutComponent = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { pathname } = useLocation();
-  console.log('path:' + pathname);
   const [state, setState] = useMergeState<InternalState>(initialState);
   const [resource] = useState<StringMap>(storage.resource().resource())
   const [pageSize] = useState<number>(20)
@@ -93,7 +91,8 @@ export const LayoutComponent = () => {
     });
   }
 
-  const searchOnClick = () => {
+  const searchOnClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    event.preventDefault();
     navigate(`search?q=${state.keyword}`)
   };
   const toggleSearch = () => {
