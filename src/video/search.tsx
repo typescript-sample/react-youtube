@@ -44,8 +44,27 @@ const SearchPage = () => {
   }, [searchParams])
   const getData = () => {
     (async () => {
-      const sm: ItemFilter = { q: searchParams.get("q") as string || '' };
-      const res = await videoService.searchVideos(sm, max, undefined, itemFields);
+      const sm: ItemFilter = {
+        q: searchParams.get("q") as string || '',
+        type: searchParams.get("type") as ItemType || 'any',
+        duration: searchParams.get("duration") as Duration || 'any',
+        sort: searchParams.get("order") as SortType || 'relevance'
+      };
+      let res: any;
+      switch (sm.type) {
+        case 'video':
+          res = await videoService.searchVideos(sm, max, undefined, itemFields);
+          break;
+        case 'playlist':
+          res = await videoService.searchPlaylists(sm, max, undefined, itemFields);
+          break;
+        case 'channel':
+          res = await videoService.searchChannels(sm, max, undefined, itemFields);
+          break;
+        default:
+          res = await videoService.searchVideos(sm, max, undefined, itemFields);
+          break;
+      }
       setFilter((prev) => ({ ...prev, nextPageToken: res.nextPageToken }));
       setVideos(res.list);
     })();
@@ -146,6 +165,29 @@ const SearchPage = () => {
   const formatToMinutes = (s: number) => {
     return (s - (s %= 60)) / 60 + ':' + s;
   };
+
+  const linkTo = (value: Item) => {
+    let url = ''
+    switch (filter.type) {
+      case 'video':
+        url = `/${value.id}`
+        break;
+      case 'playlist':
+        url = `/playlists/${value.id}`
+        break;
+      case 'channel':
+        url = `/channels/${value.id}`
+        break;
+      default:
+        url = `/channels/${value.id}`
+        break;
+    }
+    navigate(url)
+  }
+
+  React.useEffect(() => {
+    console.log(videos)
+  }, [videos])
   return (
     <div>
       <div className='tool-bar'>
@@ -164,7 +206,7 @@ const SearchPage = () => {
                   {item.definition && item.definition > 4 && <i>HD</i>}
                 </div>
                 {item.duration && item.duration && <p>{formatToMinutes(item.duration)}</p>}
-                <h4>{item.title}</h4>
+                <h4 className='title' onClick={() => linkTo(item)}>{item.title}</h4>
                 <p><Link to={`/channels/${item.channelId}`}>{item.channelTitle}</Link>{item.publishedAt.toDateString()}</p>
               </section>
             </li>

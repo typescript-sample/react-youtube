@@ -389,7 +389,12 @@ ul.list-view>li>section:first-child>div.cover,
   background-position-x: center;
   background-position-y: center;
 }
-
+ul.list-view>li>section:first-child>.title{
+  cursor: pointer;
+}
+ul.list-view>li>section:first-child>.title:hover{
+  text-decoration: underline;
+}
 .cover>img {
   height: 100%;
   width: 100%;
