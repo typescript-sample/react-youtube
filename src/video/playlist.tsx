@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { storage } from 'uione';
 import { buildShownItems, Playlist, PlaylistVideo } from 'video-service';
 import Comments from './components/Comments';
@@ -7,18 +7,6 @@ import { context } from './service';
 
 const max = 12;
 const videoFields = ['id', 'title', 'publishedAt', 'highThumbnail', 'description', 'videoOwnerChannelId', 'videoOwnerChannelTitle', 'definition', 'duration'];
-
-// interface PlaylistState {
-//   id?: string;
-//   title?: string;
-//   description?: string;
-//   keyword: string;
-//   playlist?: Playlist;
-//   allVideos: PlaylistVideo[];
-//   videos: PlaylistVideo[];
-//   video?: PlaylistVideo;
-//   nextPageToken?: string;
-// }
 
 export default function PlaylistPage() {
   const { id } = useParams();
@@ -31,7 +19,7 @@ export default function PlaylistPage() {
   const [allVideos, setAllVideos] = useState<PlaylistVideo[]>([]);
   const [nextPageToken, setNextPageToken] = useState('');
   const [playlist, setPlaylist] = useState<Playlist>();
-  
+
   useEffect(() => {
     if (document) {
       const ele = document.scrollingElement;
@@ -40,9 +28,9 @@ export default function PlaylistPage() {
       }
     }
     if (id) {
-      videoService.getPlaylist(id).then(playlist => {
-        if (playlist) {
-          setPlaylist(playlist);
+      videoService.getPlaylist(id).then(pl => {
+        if (pl) {
+          setPlaylist(pl);
         }
       });
       videoService.getPlaylistVideos(id, 12, undefined, videoFields).then(res => {
@@ -58,16 +46,16 @@ export default function PlaylistPage() {
       e.preventDefault();
     }
     navigate(-1);
-  }
+  };
 
   const keywordOnChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const keyword = e.target.value;
-    const videos = buildShownItems(keyword, allVideos);
-    setKeyword(keyword);
-    setVideos(videos);
+    const word = e.target.value;
+    const vs = buildShownItems(word, allVideos);
+    setKeyword(word);
+    setVideos(vs);
   };
-  const view = (e: any, video: PlaylistVideo) => {
-    setVideo(video);
+  const view = (e: React.MouseEvent<HTMLHeadingElement, MouseEvent>, v: PlaylistVideo) => {
+    setVideo(v);
   };
 
   const loadMore = async () => {

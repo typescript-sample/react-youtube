@@ -70,7 +70,6 @@ const Comments = (props: CommentsProps) => {
                     likeCount={comment.likeCount}
                     textDisplay={comment.textDisplay}
                     getComments={props.getComments}
-                  // getComments={props.getComments}
                   />
                 ))
               }

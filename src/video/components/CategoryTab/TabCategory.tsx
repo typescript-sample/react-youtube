@@ -4,7 +4,7 @@ export interface Props {
   key: string;
   id: string;
   name: string;
-  setSelectedTab: React.Dispatch<React.SetStateAction<string | undefined>>
+  setSelectedTab: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 export function TabCategory(props: Props) {
   const { id, name, setSelectedTab } = props;

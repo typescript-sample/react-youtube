@@ -2,7 +2,7 @@ import axios from 'axios';
 import { HttpRequest } from 'axios-core';
 import { useEffect, useState } from 'react';
 import * as React from 'react';
-import { OnClick, PageSizeSelect, useMergeState } from 'react-hook-core'
+import { OnClick, PageSizeSelect, useMergeState } from 'react-hook-core';
 import { useNavigate } from 'react-router';
 import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { collapseAll, expandAll, Nav } from 'reactx-nav';
@@ -51,18 +51,18 @@ const initialState: InternalState = {
 };
 // const httpRequest = new HttpRequest(axios, options);
 export const LayoutComponent = () => {
-  const location = useLocation()
-  const [isSearch, setIsSearch] = useState(location.pathname === '/search')
+  const location = useLocation();
+  const [isSearch, setIsSearch] = useState(location.pathname === '/search');
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { pathname } = useLocation();
   const [state, setState] = useMergeState<InternalState>(initialState);
-  const [resource] = useState<StringMap>(storage.resource().resource())
-  const [pageSize] = useState<number>(20)
-  const [pageSizes] = useState<number[]>([10, 20, 40, 60, 100, 200, 400, 10000])
-  const [topClass, setTopClass] = useState('')
-  console.log('user', storage.user())
-  const [user, setUser] = useState(storage.user())
+  const [resource] = useState<StringMap>(storage.resource().resource());
+  const [pageSize] = useState<number>(20);
+  const [pageSizes] = useState<number[]>([10, 20, 40, 60, 100, 200, 400, 10000]);
+  const [topClass, setTopClass] = useState('');
+  console.log('user', storage.user());
+  const [user, setUser] = useState(storage.user());
 
   useEffect(() => {
     const forms = storage.privileges();
@@ -80,24 +80,24 @@ export const LayoutComponent = () => {
     if (username || storageRole) {
       setState({ username, userType: storageRole });
     }
-  }, [])// eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    setIsSearch(location.pathname === '/search')
-  }, [location])
+    setIsSearch(location.pathname === '/search');
+  }, [location]);
   const clearKeyworkOnClick = () => {
     setState({
       keyword: '',
     });
-  }
+  };
 
   const searchOnClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.preventDefault();
-    navigate(`search?q=${state.keyword}`)
+    navigate(`search?q=${state.keyword}`);
   };
   const toggleSearch = () => {
     setState({ isToggleSearch: !state.isToggleSearch });
-  }
+  };
 
   const toggleMenu = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     /*
@@ -106,7 +106,7 @@ export const LayoutComponent = () => {
     }
     */
     setState({ isToggleMenu: !state.isToggleMenu });
-  }
+  };
 
   function toggleProfile() {
     setState({ classProfile: state.classProfile === 'show' ? '' : 'show' });
@@ -122,12 +122,12 @@ export const LayoutComponent = () => {
     sessionStorage.clear();
     storage.setUser(null);
     navigate('/signin');
-  }
+  };
 
   useEffect(() => {
-    let authService = sessionStorage.getItem('authService')
+    const authService = sessionStorage.getItem('authService');
     if (authService) {
-      return
+      return;
     }
     const config: any = storage.config();
     const httpRequest = new HttpRequest(axios, options);
@@ -144,7 +144,7 @@ export const LayoutComponent = () => {
       }
     ).catch(err => { });
 
-  }, [])
+  }, []);
 
   // const viewMyprofile = (e: { preventDefault: () => void; }) => {
   //   e.preventDefault();
@@ -177,23 +177,23 @@ export const LayoutComponent = () => {
       pinnedModules.sort((moduleA, moduleB) => sub(moduleA.sequence, moduleB.sequence));
       setState({ forms, pinnedModules });
     }
-  }
+  };
 
   const handleInput = (e: { target: { value: string } }) => {
     setState({ keyword: e.target.value });
   };
 
   const handleFilter = (e: OnClick) => {
-    setSearchParams({ ...Object.fromEntries([...searchParams]), filter: searchParams.get('filter') === 'on' ? '' : 'on' || '' })
-  }
+    setSearchParams({ ...Object.fromEntries([...searchParams]), filter: searchParams.get('filter') === 'on' ? '' : 'on' || '' });
+  };
 
   useEffect(() => {
-    setState({ keyword: searchParams.get("q") as string })
-  }, [searchParams])
+    setState({ keyword: searchParams.get('q') as string });
+  }, [searchParams]);
 
   useEffect(() => {
-    setUser(storage.user())
-  }, [storage.user()])// eslint-disable-line react-hooks/exhaustive-deps
+    setUser(storage.user());
+  }, [storage.user()]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const { isToggleMenu, isToggleSearch } = state;
@@ -205,7 +205,7 @@ export const LayoutComponent = () => {
       topClassList.push('search');
     }
     setTopClass(topClassList.join(' '));
-  }, [state])
+  }, [state]);
 
   return (
     <div className={topClass}>
@@ -256,7 +256,7 @@ export const LayoutComponent = () => {
               </div>
               <label className='search-input'>
                 <PageSizeSelect size={pageSize} sizes={pageSizes} />
-                <input type='text' id='q' name='q' maxLength={1000} placeholder={resource['keyword']} value={state.keyword||''} onChange={handleInput} />
+                <input type='text' id='q' name='q' maxLength={1000} placeholder={resource['keyword']} value={state.keyword || ''} onChange={handleInput} />
                 {isSearch && <button type='button' className={`btn-filter ${searchParams.get('filter')}`} onClick={handleFilter} />}
                 <button type='button' hidden={!state.keyword} className='btn-remove-text' onClick={clearKeyworkOnClick} />
                 <button type='submit' className='btn-search' onClick={searchOnClick} />
@@ -294,5 +294,5 @@ export const LayoutComponent = () => {
       </div>
     </div>
   );
-}
+};
 export default LayoutComponent;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ListResult, PlaylistVideo } from 'video-service';
-import PlayButtonCustom from '../PlayButton';
+import PlayButton from '../PlayButton';
 import './index.scss';
 
 export interface Props {
@@ -57,7 +57,7 @@ const Slide = (props: Props) => {
         </button>
         {
           !play && <div className='play-container' onClick={handlePlayVideo}>
-            <PlayButtonCustom />
+            <PlayButton />
           </div>
         }
         <div className='carousel-content-wrapper'>

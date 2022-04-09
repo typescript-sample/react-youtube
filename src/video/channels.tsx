@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { useResource } from 'uione';
 import { Channel } from 'video-service';
 import HorizontalPlaylists from './components/HorizontalPlaylists';
 import { context } from './service';
@@ -9,7 +8,6 @@ export interface Props {
   getChannels: (ids: string[], fields?: string[]) => Promise<Channel[]>;
 }
 const ChannelsPage = () => {
-  const resource = useResource();
   const videoService = context.getVideoService();
   const [channels, setChannels] = React.useState<Channel[]>([]);
 

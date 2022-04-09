@@ -13,7 +13,6 @@ export interface Role extends Tracking {
   status: string;
   remark: string;
   privileges?: string[];
-  // users?: User[];
 }
 export interface Privilege {
   id: string;

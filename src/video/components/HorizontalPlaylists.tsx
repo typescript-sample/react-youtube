@@ -9,21 +9,21 @@ export interface Props {
   getPlaylistVideos: (playlistId: string, max?: number, nextPageToken?: string, fields?: string[]) => Promise<ListResult<PlaylistVideo>>;
 }
 const HorizontalPlaylists = (props: Props) => {
-  const scrollRef = React.useRef<any>()
-  const liRef = React.useRef<any>()
+  const scrollRef = React.useRef<any>();
+  const liRef = React.useRef<any>();
   const [playlists, setPlaylists] = React.useState<Playlist[]>([]);
 
   const scroll = (dir: string) => {
-    const { current } = scrollRef
-    if (!current) return
-    let childWidth = current.childNodes.length
-    const scrollWidth = (current.scrollWidth / childWidth) * 4
+    const { current } = scrollRef;
+    if (!current) { return; }
+    const childWidth = current.childNodes.length;
+    const scrollWidth = (current.scrollWidth / childWidth) * 4;
     if (dir === 'left') {
-      current.scrollLeft -= scrollWidth
+      current.scrollLeft -= scrollWidth;
     } else {
-      current.scrollLeft += scrollWidth
+      current.scrollLeft += scrollWidth;
     }
-  }
+  };
 
   React.useEffect(() => {
     (async () => {
@@ -48,7 +48,7 @@ const HorizontalPlaylists = (props: Props) => {
         )}
 
       </ul>
-      <button type='button' onClick={() => scroll('left')} className='left-arrow' style={{transform:'rotate(180deg)'}}>
+      <button type='button' onClick={() => scroll('left')} className='left-arrow' style={{transform: 'rotate(180deg)'}}>
         &#10095;
       </button>
       <button type='button' onClick={() => scroll('right')} className='right-arrow'>

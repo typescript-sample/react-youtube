@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useResource } from 'uione';
 import { Duration, Item, ItemFilter, ItemType, SortType } from 'video-service';
-import FilterTube from './components/Filter/Filter';
+import FilterComponent from './components/Filter/Filter';
 import { context } from './service';
 
 const max = 50;
@@ -15,7 +15,7 @@ export interface Filter {
   duration: Duration;
   order?: SortType;
   nextPageToken?: string;
-  q?: String
+  q?: string;
 }
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -35,20 +35,20 @@ const SearchPage = () => {
   React.useEffect(() => {
     // const { type , duration, order, nextPageToken, q } = Object.fromEntries([...searchParams])
     setFilter({
-      type: searchParams.get("type") as ItemType || 'any',
-      duration: searchParams.get("duration") as Duration || 'any',
-      order: searchParams.get("order") as SortType || 'relevance',
-      nextPageToken: searchParams.get("nextPageToken") as string
-    })
-    setKeyword(searchParams.get("q") as string || '')
-  }, [searchParams])
+      type: searchParams.get('type') as ItemType || 'any',
+      duration: searchParams.get('duration') as Duration || 'any',
+      order: searchParams.get('order') as SortType || 'relevance',
+      nextPageToken: searchParams.get('nextPageToken') as string
+    });
+    setKeyword(searchParams.get('q') as string || '');
+  }, [searchParams]);
   const getData = () => {
     (async () => {
       const sm: ItemFilter = {
-        q: searchParams.get("q") as string || '',
-        type: searchParams.get("type") as ItemType || 'any',
-        duration: searchParams.get("duration") as Duration || 'any',
-        sort: searchParams.get("order") as SortType || 'relevance'
+        q: searchParams.get('q') as string || '',
+        type: searchParams.get('type') as ItemType || 'any',
+        duration: searchParams.get('duration') as Duration || 'any',
+        sort: searchParams.get('order') as SortType || 'relevance'
       };
       let res: any;
       switch (sm.type) {
@@ -68,10 +68,10 @@ const SearchPage = () => {
       setFilter((prev) => ({ ...prev, nextPageToken: res.nextPageToken }));
       setVideos(res.list);
     })();
-  }
+  };
 
   React.useEffect(() => {
-    getData()
+    getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -102,7 +102,7 @@ const SearchPage = () => {
         res = await videoService.searchVideos(sm, max, undefined, itemFields);
         break;
     }
-    setSearchParams({ ...Object.fromEntries([...searchParams]), type, duration: 'any', nextPageToken: res.nextPageToken || '' })
+    setSearchParams({ ...Object.fromEntries([...searchParams]), type, duration: 'any', nextPageToken: res.nextPageToken || '' });
     setFilter((pre) => ({ ...pre, type, duration: 'any', nextPageToken: res.nextPageToken || '' }));
     setVideos(res.list);
   };
@@ -111,7 +111,7 @@ const SearchPage = () => {
     const videoDuration = value as Duration;
     const sm: ItemFilter = { q: keyword, type: filter.type, duration: videoDuration, sort: filter.order };
     const res = await videoService.searchVideos(sm, max, filter.nextPageToken, itemFields);
-    setSearchParams({ ...Object.fromEntries([...searchParams]), duration: videoDuration, nextPageToken: res.nextPageToken as string || '' })
+    setSearchParams({ ...Object.fromEntries([...searchParams]), duration: videoDuration, nextPageToken: res.nextPageToken as string || '' });
     setFilter((pre) => ({ ...pre, duration: videoDuration, nextPageToken: res.nextPageToken || '' }));
     setVideos(res.list);
   };
@@ -133,7 +133,7 @@ const SearchPage = () => {
         res = await videoService.searchVideos(sm, max, undefined, itemFields);
         break;
     }
-    setSearchParams({ ...Object.fromEntries([...searchParams]), order: sm.sort as string, nextPageToken: res.nextPageToken || '' })
+    setSearchParams({ ...Object.fromEntries([...searchParams]), order: sm.sort as string, nextPageToken: res.nextPageToken || '' });
     setFilter((pre) => ({ ...pre, order: sm.sort, nextPageToken: res.nextPageToken || '' }));
     setVideos(res.list);
   };
@@ -167,31 +167,31 @@ const SearchPage = () => {
   };
 
   const linkTo = (value: Item) => {
-    let url = ''
+    let url = '';
     switch (filter.type) {
       case 'video':
-        url = `/${value.id}`
+        url = `/${value.id}`;
         break;
       case 'playlist':
-        url = `/playlists/${value.id}`
+        url = `/playlists/${value.id}`;
         break;
       case 'channel':
-        url = `/channels/${value.id}`
+        url = `/channels/${value.id}`;
         break;
       default:
-        url = `/channels/${value.id}`
+        url = `/channels/${value.id}`;
         break;
     }
-    navigate(url)
-  }
+    navigate(url);
+  };
 
   React.useEffect(() => {
-    console.log(videos)
-  }, [videos])
+    console.log(videos);
+  }, [videos]);
   return (
     <div>
       <div className='tool-bar'>
-        <FilterTube handleFilterType={handleFilterType} handleFilterDuration={handleFilterDuration} handleFilterOrder={handleFilterOrder} filter={filter} />
+        <FilterComponent handleFilterType={handleFilterType} handleFilterDuration={handleFilterDuration} handleFilterOrder={handleFilterOrder} filter={filter} />
       </div>
       <ul className='row list-view'>
         {videos && videos.map((item, i) => {

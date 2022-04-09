@@ -9,7 +9,7 @@ import VideoPage from './video';
 export function Video() {
   return (
     <Routes>
-      <Route index element={<HomePage/>} />
+      <Route index={true} element={<HomePage/>} />
       <Route path='' element={<HomePage/>} />
       <Route path='home' element={<HomePage/>} />
       <Route path='search/*' element={<SearchPage />} />

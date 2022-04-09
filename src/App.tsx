@@ -30,6 +30,7 @@ import PlaylistPage from './video/playlist';
 import SearchPage from './video/search';
 import VideoPage from './video/video';
 
+// tslint:disable:ordered-imports
 import './assets/css/reset.css';
 import './App.css';
 import './assets/fonts/material-icon/css/material-icons.css';
@@ -102,7 +103,7 @@ function App() {
         <Route path='reset-password' element={<ResetPasswordForm />} />
         <Route path='forgot-password' element={<ForgotPasswordForm />} />
         <Route path='' element={<LayoutComponent />}>
-          <Route index element={<HomePage/>} />
+          <Route index={true} element={<HomePage/>} />
           <Route path='admin/users' element={<UsersForm />} />
           <Route path='admin/users/add' element={<UserForm />} />
           <Route path='admin/users/edit/:id' element={<UserForm />} />
