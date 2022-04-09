@@ -502,7 +502,9 @@ section > h4 > *,
 .section-header > * {
   margin-left: 10px;
 }
-
+section > h4.title > a {
+  margin-left: unset;
+}
 .subtitle {
   font-size: 13px;
   margin-bottom: 10px;

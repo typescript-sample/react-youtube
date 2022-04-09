@@ -61,7 +61,6 @@ export const LayoutComponent = () => {
   const [pageSize] = useState<number>(20);
   const [pageSizes] = useState<number[]>([10, 20, 40, 60, 100, 200, 400, 10000]);
   const [topClass, setTopClass] = useState('');
-  console.log('user', storage.user());
   const [user, setUser] = useState(storage.user());
 
   useEffect(() => {

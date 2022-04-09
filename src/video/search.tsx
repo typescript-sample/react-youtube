@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { useResource } from 'uione';
 import { Duration, Item, ItemFilter, ItemType, SortType } from 'video-service';
 import FilterComponent from './components/Filter/Filter';
@@ -20,7 +20,6 @@ export interface Filter {
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const resource = useResource();
-  const navigate = useNavigate();
   const { key } = useParams();
   const videoService = context.getVideoService();
   const [videos, setVideos] = React.useState<Item[]>([]);
@@ -74,15 +73,6 @@ const SearchPage = () => {
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // const handleInput = (e: { target: { value: string } }) => {
-  //   setKeyword(e.target.value);
-  // };
-
-  // const handleSearch = () => {
-  //   navigate(`/search?q=${keyword}`);
-  //   getData()
-  // };
 
   const handleFilterType = async (value: ItemType) => {
     const type = value;
@@ -143,7 +133,6 @@ const SearchPage = () => {
       q: keyword, type: filter.type, duration: filter.duration, sort: filter.order
     };
     let res: any;
-    console.log(filter.nextPageToken);
     switch (sm.type) {
       case 'video':
         res = await videoService.searchVideos(sm, max, filter.nextPageToken, itemFields);
@@ -162,32 +151,7 @@ const SearchPage = () => {
     setVideos(newList);
     setFilter((pre) => ({ ...pre, nextPageToken: res.nextPageToken }));
   };
-  const formatToMinutes = (s: number) => {
-    return (s - (s %= 60)) / 60 + ':' + s;
-  };
 
-  const linkTo = (value: Item) => {
-    let url = '';
-    switch (filter.type) {
-      case 'video':
-        url = `/${value.id}`;
-        break;
-      case 'playlist':
-        url = `/playlists/${value.id}`;
-        break;
-      case 'channel':
-        url = `/channels/${value.id}`;
-        break;
-      default:
-        url = `/channels/${value.id}`;
-        break;
-    }
-    navigate(url);
-  };
-
-  React.useEffect(() => {
-    console.log(videos);
-  }, [videos]);
   return (
     <div>
       <div className='tool-bar'>
@@ -196,18 +160,14 @@ const SearchPage = () => {
       <ul className='row list-view'>
         {videos && videos.map((item, i) => {
           return (
-            <li
-              key={i}
-              className='col s12 m6 l4 xl3 card'
-            // onClick={e => this.view(e, item)}
-            >
+            <li key={i} className='col s12 m6 l4 xl3 card'>
               <section>
                 <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
                   {item.definition && item.definition > 4 && <i>HD</i>}
                 </div>
-                {item.duration && item.duration && <p>{formatToMinutes(item.duration)}</p>}
-                <h4 className='title' onClick={() => linkTo(item)}>{item.title}</h4>
-                <p><Link to={`/channels/${item.channelId}`}>{item.channelTitle}</Link>{item.publishedAt.toDateString()}</p>
+                {item.duration && item.duration && <p>{formatTime(item.duration)}</p>}
+                <h4 className='title'><Link to={getLink(item)}>{item.title}</Link></h4>
+                {item.channelId && item.channelTitle && <p><Link to={`/channels/${item.channelId}`}>{item.channelTitle}</Link>{item.publishedAt.toDateString()}</p>}
               </section>
             </li>
           );
@@ -218,3 +178,19 @@ const SearchPage = () => {
   );
 };
 export default SearchPage;
+
+function formatTime(s: number): string {
+  return (s - (s %= 60)) / 60 + ':' + s;
+}
+function getLink(value: Item): string {
+  switch (value.kind) {
+    case 'video':
+      return `/${value.id}`;
+    case 'playlist':
+      return `/playlists/${value.id}`;
+    case 'channel':
+      return `/channels/${value.id}`;
+    default:
+      return `/${value.id}`;
+  }
+}
