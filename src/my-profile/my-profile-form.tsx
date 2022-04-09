@@ -1,10 +1,9 @@
 import * as React from 'react';
 // import Chips from 'react-chips';
 import {BaseComponent, clone} from 'react-hook-core';
-// import Modal from 'react-modal';
 import ReactModal from 'react-modal';
 import { useResource } from 'uione';
-// import imageOnline from '../../assets/images/status/online.svg';
+import imageOnline from '../assets/images/online.svg';
 import GeneralInfo from './general-info';
 import {Achievement, getMyProfileService, Skill, User} from './my-profile';
 
@@ -402,7 +401,7 @@ export class MyProfileForm extends BaseComponent<any, InternalState> {
         <form id='userForm' name='userForm' ref='form'>
           <header className='border-bottom-highlight'>
             <div className='cover-image'>
-              <img src='https://pre00.deviantart.net/6ecb/th/pre/f/2013/086/3/d/facebook_cover_1_by_alphacid-d5zfrww.jpg' />
+              <img src='https://pre00.deviantart.net/6ecb/th/pre/f/2013/086/3/d/facebook_cover_1_by_alphacid-d5zfrww.jpg' alt='cover image'/>
               <div className='contact-group'>
                 <button id='btnPhone' name='btnPhone' className='btn-phone'/>
                 <button id='btnEmail' name='btnEmail' className='btn-email'/>
@@ -412,8 +411,8 @@ export class MyProfileForm extends BaseComponent<any, InternalState> {
             <button id='btnCamera' name='btnCamera' className='btn-camera'/>
             <div className='avatar-wrapper'>
               <img className='avatar'
-                src={user.image || 'https://www.bluebridgewindowcleaning.co.uk/wp-content/uploads/2016/04/default-avatar.png'} />
-              <img className='profile-status' alt='status'/>
+                src={user.image || 'https://www.bluebridgewindowcleaning.co.uk/wp-content/uploads/2016/04/default-avatar.png'} alt='avatar'/>
+              <img className='profile-status' src={imageOnline} alt='status'/>
             </div>
             <div className='profile-title'>
               <h3>{user.displayName}</h3>

@@ -270,6 +270,7 @@ form.list-result > .table-responsive > table > tbody > tr > td,
 .view-subtitle,
 .subtitle,
 
+.profile.view-container > form > .row > .col > div.card > section > p,
 ul.list-view > li > section:first-child > div > h3.inactive {
   color: #999999;
 }

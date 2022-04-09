@@ -56,9 +56,7 @@ export const LayoutComponent = () => {
   const location = useLocation();
   const [isSearch, setIsSearch] = useState(location.pathname === '/search');
   const [searchParams, setSearchParams] = useSearchParams();
-  const { pathname } = useLocation();
   const [state, setState] = useMergeState<InternalState>(initialState);
-  // const [resource] = useState<StringMap>(storage.resource().resource());
   const [pageSize] = useState<number>(20);
   const [pageSizes] = useState<number[]>([10, 20, 40, 60, 100, 200, 400, 10000]);
   const [topClass, setTopClass] = useState('');
@@ -208,7 +206,7 @@ export const LayoutComponent = () => {
       <div className='menu sidebar'>
         <Nav className='expanded-all'
           iconClass='material-icons'
-          path={pathname}
+          path={location.pathname}
           pins={state.pinnedModules}
           items={state.forms}
           resource={resource}

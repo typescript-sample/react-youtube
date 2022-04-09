@@ -296,9 +296,16 @@ header.nav > .profile-followers {
 .profile.view-container > form > .row > .col > div.card > section {
   position: relative;
   margin-top: 16px;
+  border: none;
+  margin-bottom: unset;
+  flex-direction: unset;
 }
 .profile.view-container > form > .row > .col > div.card > section > h3 {
   font-size: 15px;
+  padding-top: unset;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+  color: inherit;
 }
 .profile.view-container > form > .row > .col > div.card > section > .btn-remove {
   position: absolute;
