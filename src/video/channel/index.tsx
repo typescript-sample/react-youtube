@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
+import { useResource } from 'uione';
 import { Channel } from 'video-service';
 import { context } from '../service';
 import ChannelPlaylists from './channel-playlists';
@@ -12,9 +13,10 @@ import './index.scss';
 const channelFields = ['id', 'title', 'mediumThumbnail'];
 
 export default function ChannelPage() {
-  const videoService = context.getVideoService();
+  const resource = useResource();
   const { id } = useParams();
-  const tabName = ['home', 'videos', 'playlists', 'channels'];
+  const videoService = context.getVideoService();
+  const tabName = [resource.home, resource.videos, resource.playlists, resource.channels];
   const [selectTab, setSelectTab] = React.useState(0);
   const [channel, setChannel] = React.useState<Channel>();
 
@@ -82,12 +84,9 @@ const Tab = (props: Props) => {
   };
   return (
     <div>
-      <button className={`tab ${getState === tabId && 'tab-actived'}`}
-        onClick={() => handleOnClick(tabId)}
-      >
+      <button className={`tab ${getState === tabId && 'tab-actived'}`} onClick={() => handleOnClick(tabId)}>
         {tabName.toLocaleUpperCase()}
       </button>
     </div>
   );
 };
-

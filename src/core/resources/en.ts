@@ -216,5 +216,9 @@ export const en = {
 
   filter_playlists: 'Filter Playlists...',
   filter_videos: 'Filter Videos...',
-  filter_items: 'Filter Items...'
+  filter_items: 'Filter Items...',
+  videos: 'Videos',
+  playlists: 'Playlists',
+  channels: 'Channels',
+  subscriptions: 'Subscriptions'
 };

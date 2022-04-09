@@ -15,7 +15,7 @@ interface Props {
   handleFilterOrder: (value: SortType) => Promise<void>;
 }
 
-const FilterComponent = (props: Props) => {
+const FilterBar = (props: Props) => {
   const [searchParams] = useSearchParams();
 
   return (
@@ -55,4 +55,4 @@ const FilterComponent = (props: Props) => {
     </>
   );
 };
-export default FilterComponent;
+export default FilterBar;

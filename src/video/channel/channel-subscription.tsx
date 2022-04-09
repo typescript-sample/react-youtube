@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
+import { useResource } from 'uione';
 import { Channel } from 'video-service';
 import './index.scss';
 
@@ -7,6 +8,7 @@ export interface Props {
   getChannel: (id: string, fields?: string[]) => Promise<Channel | null | undefined>;
 }
 export default function ChannelSubscriptions(props: Props) {
+  const resource = useResource();
   const { id } = useParams();
   const [channels, setChannels] = React.useState<Channel[]>([]);
   React.useEffect(() => {
@@ -22,7 +24,7 @@ export default function ChannelSubscriptions(props: Props) {
 
   return (
     <div className='channel-subscriptions'>
-      <h3 className='title'>Subscriptions</h3>
+      <h3 className='title'>{resource.subscriptions}</h3>
       <div className='containers'>
         {channels && channels.map((x, i) => {
           return (
