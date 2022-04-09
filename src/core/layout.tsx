@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import * as React from 'react';
 import { OnClick, PageSizeSelect, useMergeState } from 'react-hook-core';
 import { useNavigate } from 'react-router';
-import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
+import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { collapseAll, expandAll, Nav } from 'reactx-nav';
-import { options, Privilege, storage, StringMap } from 'uione';
+import { options, Privilege, storage, useResource } from 'uione';
 import logoTitle from '../assets/images/logo-title.png';
 import logo from '../assets/images/logo.png';
 import topBannerLogo from '../assets/images/top-banner-logo.png';
@@ -51,13 +51,14 @@ const initialState: InternalState = {
 };
 // const httpRequest = new HttpRequest(axios, options);
 export const LayoutComponent = () => {
+  const resource = useResource();
+  const navigate = useNavigate();
   const location = useLocation();
   const [isSearch, setIsSearch] = useState(location.pathname === '/search');
-  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { pathname } = useLocation();
   const [state, setState] = useMergeState<InternalState>(initialState);
-  const [resource] = useState<StringMap>(storage.resource().resource());
+  // const [resource] = useState<StringMap>(storage.resource().resource());
   const [pageSize] = useState<number>(20);
   const [pageSizes] = useState<number[]>([10, 20, 40, 60, 100, 200, 400, 10000]);
   const [topClass, setTopClass] = useState('');
@@ -144,16 +145,6 @@ export const LayoutComponent = () => {
     ).catch(err => { });
 
   }, []);
-
-  // const viewMyprofile = (e: { preventDefault: () => void; }) => {
-  //   e.preventDefault();
-  //   navigate('/my-profile');
-  // }
-
-  // const viewMySetting = (e: { preventDefault: () => void; }) => {
-  //   e.preventDefault();
-  //   navigate('/my-profile/my-settings');
-  // }
 
   // const viewChangePassword = (e: { preventDefault: () => void; }) => {
   //   e.preventDefault();
@@ -270,11 +261,10 @@ export const LayoutComponent = () => {
                     </i>
                   )}
                   <ul id='dropdown-basic' className={state.classProfile + ' dropdown-content-profile'}>
+                    <li><Link className='dropdown-item-profile' to={'my-profile'} >{resource.my_profile}</Link></li>
+                    <li><Link className='dropdown-item-profile' to={'my-profile/settings'}>{resource.my_settings}</Link></li>
                     {/*
-                      <li><a className='dropdown-item-profile'
-                             onClick={this.viewMyprofile}>{this.resource.my_profile}</a></li>
-                      <li><a className='dropdown-item-profile'
-                             onClick={this.viewMySetting}>{this.resource.my_settings}</a></li>
+                      
                       <li><a className='dropdown-item-profile'
                              onClick={this.viewChangePassword}>{this.resource.my_password}</a></li>*/}
                     <hr style={{ margin: 0 }} />

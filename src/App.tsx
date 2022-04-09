@@ -9,7 +9,8 @@ import { toast } from 'ui-toast';
 import { storage } from 'uione';
 import { resources as vresources } from 'validation-core';
 import { DefaultCsvService, resources } from 'web-clients';
-import LayoutComponent from './core/layout';
+import { config } from './config';
+import { resources as locales } from './core/resources';
 
 import { RoleAssignmentForm } from './admin/role-assignment-form';
 import { RoleForm } from './admin/role-form';
@@ -21,8 +22,9 @@ import { ForgotPasswordForm } from './authentication/forgot-password-form';
 import { ResetPasswordForm } from './authentication/reset-password-form';
 import { SigninForm } from './authentication/signin-form';
 import { SignupForm } from './authentication/signup-form';
-import { config } from './config';
-import { resources as locales } from './core/resources';
+import LayoutComponent from './core/layout';
+import { MyProfileForm } from './my-profile/my-profile-form';
+import { MySettingsForm } from './my-profile/my-settings-form';
 import ChannelPage from './video/channel';
 import ChannelsPage from './video/channels';
 import HomePage from './video/home';
@@ -111,6 +113,8 @@ function App() {
           <Route path='admin/roles/add' element={<RoleForm />} />
           <Route path='admin/roles/edit/:id' element={<RoleForm />} />
           <Route path='admin/roles/assign/:id' element={<RoleAssignmentForm />} />
+          <Route path='my-profile' element={<MyProfileForm/>} />
+          <Route path='my-profile/settings' element={<MySettingsForm/>} />
           <Route path='home' element={<HomePage/>} />
           <Route path='search/*' element={<SearchPage />} />
           <Route path='channels' element={<ChannelsPage />} />

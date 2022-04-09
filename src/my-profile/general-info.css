@@ -1,0 +1,13 @@
+
+.view-container.profile-info > form > div > section > label.inline-input > i:first-child {
+  width: 31px;
+  height: 28px;
+  margin-top: 5px;
+  margin-right: 12px;
+  padding-top: 5px;
+  font-size: 16px;
+  text-align: center;
+  border: 1px solid;
+  border-radius: 50%;
+  color: #0dcfb0;
+}
