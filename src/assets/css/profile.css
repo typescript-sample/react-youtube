@@ -153,15 +153,15 @@ header.nav > .profile-followers {
   color: #999999;
 }
 
-.profile-followers > a {
+.profile-followers > p {
   display: flex;
   margin-left: 16px;
   margin-right: 16px;
 }
-.profile-followers > a > i {
+.profile-followers > p > i {
   margin-right: 8px;
 }
-.profile-followers > a > i.material-icons {
+.profile-followers > p > i.material-icons {
   font-size: 19px;
 }
 

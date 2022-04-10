@@ -401,7 +401,7 @@ export class MyProfileForm extends BaseComponent<any, InternalState> {
         <form id='userForm' name='userForm' ref='form'>
           <header className='border-bottom-highlight'>
             <div className='cover-image'>
-              <img src='https://pre00.deviantart.net/6ecb/th/pre/f/2013/086/3/d/facebook_cover_1_by_alphacid-d5zfrww.jpg' alt='cover image' />
+              <img src='https://pre00.deviantart.net/6ecb/th/pre/f/2013/086/3/d/facebook_cover_1_by_alphacid-d5zfrww.jpg' alt='cover' />
               <div className='contact-group'>
                 <button id='btnPhone' name='btnPhone' className='btn-phone' />
                 <button id='btnEmail' name='btnEmail' className='btn-email' />
@@ -419,8 +419,8 @@ export class MyProfileForm extends BaseComponent<any, InternalState> {
               <p>{user.website}</p>
             </div>
             <div className='profile-followers'>
-              <a><i className='material-icons highlight'>group</i> {followers}</a>
-              <a><i className='material-icons highlight'>group_add</i> {following}</a>
+              <p><i className='material-icons highlight'>group</i> {followers}</p>
+              <p><i className='material-icons highlight'>group_add</i> {following}</p>
             </div>
           </header>
           <div className='row'>
