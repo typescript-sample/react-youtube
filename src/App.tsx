@@ -31,6 +31,7 @@ import HomePage from './video/home';
 import PlaylistPage from './video/playlist';
 import SearchPage from './video/search';
 import VideoPage from './video/video';
+import { UserPage } from './profile/user-page';
 
 // tslint:disable:ordered-imports
 import './assets/css/reset.css';
@@ -105,7 +106,7 @@ function App() {
         <Route path='reset-password' element={<ResetPasswordForm />} />
         <Route path='forgot-password' element={<ForgotPasswordForm />} />
         <Route path='' element={<LayoutComponent />}>
-          <Route index={true} element={<HomePage/>} />
+          <Route index={true} element={<HomePage />} />
           <Route path='admin/users' element={<UsersForm />} />
           <Route path='admin/users/add' element={<UserForm />} />
           <Route path='admin/users/edit/:id' element={<UserForm />} />
@@ -113,9 +114,10 @@ function App() {
           <Route path='admin/roles/add' element={<RoleForm />} />
           <Route path='admin/roles/edit/:id' element={<RoleForm />} />
           <Route path='admin/roles/assign/:id' element={<RoleAssignmentForm />} />
-          <Route path='my-profile' element={<MyProfileForm/>} />
-          <Route path='my-profile/settings' element={<MySettingsForm/>} />
-          <Route path='home' element={<HomePage/>} />
+          <Route path='my-profile' element={<MyProfileForm />} />
+          <Route path='my-profile/settings' element={<MySettingsForm />} />
+          <Route path='users' element={<UserPage />} />
+          <Route path='home' element={<HomePage />} />
           <Route path='search/*' element={<SearchPage />} />
           <Route path='channels' element={<ChannelsPage />} />
           <Route path='channels/:id' element={<ChannelPage />} />

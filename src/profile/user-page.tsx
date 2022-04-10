@@ -1,11 +1,8 @@
 import * as React from 'react';
-// import Chips from 'react-chips';
 import { BaseComponent, clone } from 'react-hook-core';
-import ReactModal from 'react-modal';
 import { useResource } from 'uione';
 import imageOnline from '../assets/images/online.svg';
-import GeneralInfo from './general-info';
-import { Achievement, getMyProfileService, Skill, User } from './my-profile';
+import { Achievement, getMyProfileService, Skill, User } from './user';
 
 // const MAX_LOOK_UP = 40;
 interface InternalState {
@@ -33,7 +30,7 @@ interface InternalState {
   modalIsOpen: boolean;
 }
 
-export class MyProfileForm extends BaseComponent<any, InternalState> {
+export class UserPage extends BaseComponent<any, InternalState> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -794,20 +791,6 @@ export class MyProfileForm extends BaseComponent<any, InternalState> {
             </div>
           </div>
         </form>
-        <ReactModal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-          contentLabel='Modal'
-          // portalClassName='modal-portal'
-          className='modal-portal-content'
-          bodyOpenClassName='modal-portal-open'
-          overlayClassName='modal-portal-backdrop'
-        >
-          <GeneralInfo
-            resource={resource}
-            close={this.closeModal}
-            user={user} />
-        </ReactModal>
       </div>
     );
   }
