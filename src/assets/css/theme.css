@@ -574,6 +574,8 @@ section > p > label,
 .view-container > header > .btn-back,
 .view-header > .btn-back,
 .btn-close,
+.btn-filter,
+.btn-remove-text,
 .btn-edit, .btn-transfer, .btn-divide {
   color: #808080;
 }
