@@ -211,6 +211,7 @@ export const LayoutComponent = () => {
           items={state.forms}
           resource={resource}
           pin={pin}
+          toggle={toggleMenu}
           expand={expandAll}
           collapse={collapseAll} />
         {/*

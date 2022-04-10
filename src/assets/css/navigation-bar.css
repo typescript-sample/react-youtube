@@ -17,8 +17,8 @@
   border: none;
   background-color: inherit;
   color: inherit;
-  margin-left: -6px;
-  margin-right: 8px;
+  margin-left: -1px;
+  margin-right: 13px;
 }
 .sidebar-off-menu > .expand {
   margin-right: 11px;
@@ -66,7 +66,8 @@
   left: 0;
   overflow-x: hidden;
   transition: 0.25s;
-  width: 246px;
+  width: 46px;
+  overflow-y: hidden;
 }
 
 .sidebar .toggle-menu {
@@ -75,10 +76,68 @@
 
 .page-container {
   height: 100%;
-  margin-left: 246px;
+  margin-left: 46px;
   transition: 0.25s;
 }
-
+.sidebar .menu-item > i {
+  width: 28px;
+  font-size: 18px;
+  text-align: center;
+  margin-left: 4px;
+  margin-right: 15px;
+}
+.menu-on .sidebar > nav > ul > li > .menu-item {
+  padding-left: 4px;
+}
+.menu-on .sidebar {
+  width: 246px;
+  overflow-y: auto;
+}
+.menu-on .menu-item > i {
+  margin-right: unset;
+}
+.sidebar ul.list-child > li {
+  padding-left: 0;
+  background-color: inherit;
+}
+.sidebar > nav > ul > li > ul.list-child > li:hover {
+  transition: 0.3s;
+}
+.sidebar > nav > ul > li > div.menu-item:hover > span,
+.sidebar > nav > ul > li:hover > .menu-item > i > span,
+.sidebar > nav > ul > li:hover > a > span,
+.sidebar > nav > ul > li > ul.list-child > li:hover > a > span {
+  position: fixed;
+  padding: 10px;
+  left: 40px;
+  margin-top: -10px;
+  min-width: 200px;
+  height: 38px;
+  background-color: inherit;
+}
+.menu-on .sidebar > nav > ul > li > div.menu-item:hover > span,
+.menu-on .sidebar > nav > ul > li:hover > .menu-item > i > span,
+.menu-on .sidebar > nav > ul > li:hover > a > span,
+.menu-on .sidebar > nav > ul > li > ul.list-child > li:hover > a > span {
+  position: unset;
+  padding: unset;
+  left: unset;
+  margin-top: unset;
+  min-width: unset;
+}
+.sidebar .expand,
+.sidebar .collapse {
+  display: none;
+}
+.menu-on .sidebar .expand,
+.menu-on .sidebar .collapse {
+  display: inline-block;
+}
+@media screen and (min-width: 769px) {
+  .menu-on .page-container {
+    margin-left: 246px;
+  }
+}
 .icon-down,
 .icon-up {
   position: absolute;
@@ -104,10 +163,6 @@
   max-height: 500px;
   display: block;
 }
-.top-menu .list-child.expanded {
-  max-height: 0;
-}
-
 .sidebar .menu-item {
   position: relative;
   /*display: block;*/
@@ -130,6 +185,17 @@
 .sidebar > nav > ul > li > a.menu-item {
   padding-left: 14px;
 }*/
+.sidebar > nav, 
+.sidebar > nav > ul,
+.sidebar > nav > ul > li {
+  background-color: inherit;
+}
+.sidebar > nav > ul > li > a.menu-item > i {
+  text-decoration: underline;
+}
+.menu-on .sidebar > nav > ul > li > a.menu-item > i {
+  text-decoration: none;
+}
 .sidebar li > div.menu-i,
 .sidebar nav ul {
   white-space: normal;
@@ -146,13 +212,6 @@
 .sidebar nav ul li a.sidebar-off-menu > i {
   margin-right: 5px;
 }
-
-.sidebar .menu-item > i {
-  /*margin-right: 10px;*/
-  width: 28px;
-  font-size: 18px;
-  text-align: center;
-}
 /*
 .sidebar > nav > ul > li > ul > li > a,
 .sidebar > nav > ul > li > a {
@@ -167,13 +226,18 @@
   padding-left: 20px;
 }
 */
-ul.list-child > li {
-  padding-left: 20px;
+.menu-on .sidebar > nav > ul > li > ul.list-child > li {
+  padding-left: 8px;
 }
 .sidebar > nav > ul > li.open > ul {
   display: block;
 }
-
+.sidebar a:hover {
+  text-decoration: none;
+}
+.sidebar a:hover > span {
+  text-decoration: underline;
+}
 .menu-item > i.entity-icon {
   transform: rotate(90deg);
   margin-right: 10px;
@@ -185,88 +249,20 @@ ul.list-child > li {
 .menu-item > i.entity-icon.up {
   font-style: normal;
   font-weight: 800;
-  right: -14px;
+  right: -31px;
   top: 0;
   height: 100%;
   position: absolute;
 }
-.top-menu div.menu-item > span {
-  padding-right: 12px;
+.menu-on .menu-item > i.entity-icon.down,
+.menu-on .menu-item > i.entity-icon.up {
+  right: -13px;
 }
-.top-menu div.menu-item > i.entity-icon.down,
-.top-menu div.menu-item > i.entity-icon.up {
-  right: -16px;
-}
-.top-menu
 .menu-item > i.entity-icon.down:before {
   content: "\203A";
 }
 .menu-item > i.entity-icon.up:before {
     content: "\2039";
-}
-
-@media screen and (max-width: 768px) and (min-width: 601px) {
-  .sidebar {
-    width: 46px;
-    overflow-y: hidden;
-  }
-  .menu-on .sidebar {
-    width: 246px;
-  }
-  .sidebar-off-menu > .expand,
-  .sidebar-off-menu > .collapse {
-    display: none;
-  }
-  .menu-on .sidebar-off-menu > .expand,
-  .menu-on .sidebar-off-menu > .collapse {
-    display: inline-block;
-  }
-  .page-container {
-    margin-left: 46px;
-  }
-  .sidebar .menu-item > i {
-    margin-left: 5px;
-    margin-right: 14px;
-  }
-  .sidebar ul.list-child > li {
-    padding-left: 0;
-  }
-/*
-  .sidebar nav ul li a i {
-    margin-left: 6px;
-    margin-right: 13px;
-  }
-
-  .sidebar > nav > ul > li > a {
-    padding-left: 9px;
-  }
-
-  .sidebar > nav > ul > li > ul > li {
-    padding-left: 0;
-  }
-*/
-  .sidebar > nav > ul > li > ul.list-child > li:hover {
-    transition: 0.3s;
-  }
-  .sidebar > nav > ul > li:hover > div.menu-item > i > span,
-  .sidebar > nav > ul > li:hover > a > span,
-  .sidebar > nav > ul > li > ul.list-child > li:hover > a > span {
-    position: fixed;
-    padding: 10px;
-    left: 40px;
-    margin-top: -10px;
-    min-width: 200px;
-    height: 38px;
-    background-color: inherit;
-  }
-
-  .top-menu .entity-icon.down,
-  .top-menu .entity-icon.up,
-  .top-menu .sidebar-off-menu,
-  .entity-icon.down,
-  .entity-icon.up{
-    display: none;
-  }
 }
 
 @media screen and (max-width: 600px) {
@@ -293,44 +289,16 @@ ul.list-child > li {
 }
 
 @media screen and (min-width: 601px) {
-  .sidebar-off .sidebar {
-    width: 46px;
-    overflow-y: hidden;
-  }
-  .sidebar-off .page-container {
-    margin-left: 46px;
-  }
   .sidebar > nav > ul > li.open > ul {
     display: block;
   }
 }
 
 @media screen and (min-width: 769px) {
-  .sidebar-off ul.list-child > li {
-    padding-left: 5px;
-  }
-  .sidebar-off .sidebar ul.list-child > li .menu-item > i {
-    margin-right: 14px;
-  }
-  .sidebar-off .sidebar > nav > ul > li > .menu-item {
-    padding-left: 14px;
-  }
-  .sidebar-off .sidebar > nav > ul > li > .menu-item > i.material-icons {
-    margin-right: 14px;
-  }
-  .sidebar-off .sidebar > nav > ul > li > ul.list-child > li:hover {
-    transition: 0.3s;
-  }
-  .sidebar-off .sidebar > nav > ul > li:hover > div.menu-item > i > span,
-  .sidebar-off .sidebar > nav > ul > li:hover > a > span,
-  .sidebar-off .sidebar > nav > ul > li > ul.list-child > li:hover > a > span {
-    position: fixed;
-    padding: 10px;
-    left: 40px;
-    margin-top: -10px;
-    min-width: 200px;
-    height: 38px;
-    background-color: inherit;
+  .top-menu .entity-icon.down,
+  .top-menu .entity-icon.up,
+  .top-menu .sidebar-off-menu {
+    display: none;
   }
   .top-menu .menu.sidebar {
     top: 0;
@@ -340,6 +308,10 @@ ul.list-child > li {
     overflow-y: hidden;
   }
 
+  .top-menu .sidebar > nav >ul > li > ul.list-child > li > .menu-item > i {
+    margin-left: -4px;
+    margin-right: 3px;
+  }
   .top-menu .menu.sidebar::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -370,10 +342,43 @@ ul.list-child > li {
   .top-menu .menu.sidebar .sidebar-off-menu {
     display: none;
   }
+  .top-menu .sidebar > nav > ul > li > div.menu-item:hover > span,
+  .top-menu .sidebar > nav > ul > li:hover > .menu-item > i > span,
+  .top-menu .sidebar > nav > ul > li:hover > a > span,
+  .top-menu .sidebar > nav > ul > li > ul.list-child > li:hover > a > span {
+    position: unset;
+    padding: unset;
+    left: unset;
+    margin-top: unset;
+    min-width: unset;
+  }
+  .top-menu .sidebar > nav > ul > li > .menu-item {
+    padding-left: unset;
+    padding-right: unset;
+  }
+  .top-menu .sidebar > nav > ul > li > .menu-item > i {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+  .top-menu .list-child.expanded {
+    max-height: 0;
+  }
+  .top-menu .menu-item > i.entity-icon.down,
+  .top-menu .menu-item > i.entity-icon.up {
+    display: none;
+  }
+  .top-menu nav > ul > li:hover > div.menu-item:hover > span,
+  .top-menu nav > ul > li:hover > .menu-item:hover > span,
+  .top-menu nav > ul > li > .menu-item > span {
+    padding-right: 15px;
+  }
 
+  .top-menu div.menu-item > i.entity-icon.down,
+  .top-menu div.menu-item > i.entity-icon.up {
+    right: -16px;
+  }
   .top-menu .menu.sidebar > nav > ul > li {
     display: inline-block;
-    padding-right: 4px;
   }
 
   .top-menu .menu.sidebar > nav > ul > li > .menu-item {
@@ -524,5 +529,39 @@ nav.expanded-all .sidebar-off-menu > .expand {
   display: none;
 }
 nav.collapsed-all .sidebar-off-menu > .collapse {
+  display: none;
+}
+
+.top-menu .btn-pin {
+  display: none;
+}
+.menu.sidebar .btn-pin {
+  display: none;
+  font-style: normal;
+  right: 25px;
+  top: 0;
+  height: 100%;
+  position: absolute;
+  background-color: transparent;
+  border-color: transparent;
+}
+.menu-on .menu.sidebar .btn-pin {
+  right: 20px;
+}
+.menu.sidebar .btn-pin::after {
+  font-size: 15px;
+  font-weight: 100;
+  font-family: FontAwesome;
+  content: "\f08d";
+  color: white;
+}
+.menu.sidebar nav ul li:hover button.btn-pin {
+  display: inline-block;
+}
+.menu.sidebar .btn-pin.pinned {
+  display: inline-block;
+  transform: rotate(45deg);
+}
+.top-menu .menu.sidebar nav ul li:hover button.btn-pin {
   display: none;
 }

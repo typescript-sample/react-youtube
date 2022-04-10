@@ -212,33 +212,3 @@
     margin-bottom: 0.125rem;
   }
 }
-.top-menu .btn-pin {
-  display: none;
-}
-.menu.sidebar .btn-pin {
-  display: none;
-  font-style: normal;
-  right: 20px;
-  top: 0;
-  height: 100%;
-  position: absolute;
-  background-color: transparent;
-  border-color: transparent;
-}
-.menu.sidebar .btn-pin::after {
-  font-size: 15px;
-  font-weight: 100;
-  font-family: FontAwesome;
-  content: "\f08d";
-  color: white;
-}
-.menu.sidebar nav ul li:hover button.btn-pin {
-  display: inline-block;
-}
-.menu.sidebar .btn-pin.pinned {
-  display: inline-block;
-  transform: rotate(45deg);
-}
-.top-menu .menu.sidebar nav ul li:hover button.btn-pin {
-  display: none;
-}
