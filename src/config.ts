@@ -9,7 +9,7 @@ export const config = {
   privilege_url: 'http://localhost:8080/privileges',
   audit_log_url: 'http://localhost:8080/audit-logs',
   public_privilege_url: 'http://localhost:8080/public-privilege',
-  myprofile_url: 'http://localhost:8082/myprofile'
+  myprofile_url: 'http://localhost:8082/my-profile'
 };
 
 export const env = {

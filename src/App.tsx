@@ -62,6 +62,7 @@ import './assets/css/layout.css';
 import './assets/css/profile.css';
 import './assets/css/theme.css';
 import './assets/fonts/Roboto/font.css';
+import { UserSearchPage } from './profile/user-search-page';
 
 let isInit = false;
 export function init() {
@@ -117,6 +118,7 @@ function App() {
           <Route path='my-profile' element={<MyProfileForm />} />
           <Route path='my-profile/settings' element={<MySettingsForm />} />
           <Route path='users' element={<UserPage />} />
+          <Route path='users/:id' element={<UserSearchPage />} />
           <Route path='home' element={<HomePage />} />
           <Route path='search/*' element={<SearchPage />} />
           <Route path='channels' element={<ChannelsPage />} />
