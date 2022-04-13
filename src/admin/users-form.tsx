@@ -39,7 +39,11 @@ export const UsersForm = () => {
     e.preventDefault();
     navigate(`edit/${id}`);
   };
-
+  const clearKeyworkOnClick = (e:OnClick)=>{
+    e.preventDefault();
+    filter.q = ""; 
+    updateState(e);
+  }
   const { list } = state;
   const filter = value(state.filter);
   return (
@@ -58,7 +62,7 @@ export const UsersForm = () => {
             <Search size={component.pageSize} sizes={component.pageSizes} pageSizeChanged={pageSizeChanged}
               inputChange={updateState} placeholder={resource.keyword}
               toggleFilter={toggleFilter} value={filter.q || ''}
-              search={search} />
+              search={search} clearKeyworkOnClick={clearKeyworkOnClick} />
             <Pagination className='col s12 m8' total={component.total} size={component.pageSize} max={component.pageMaxSize} page={component.pageIndex} onChange={pageChanged} />
           </section>
           <section className='row search-group inline' hidden={component.hideFilter}>

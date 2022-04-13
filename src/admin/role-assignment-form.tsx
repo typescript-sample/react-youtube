@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as React from 'react';
-import { buildId, DispatchWithCallback, error, message } from 'react-hook-core';
+import { buildId, DispatchWithCallback, error, message, OnClick } from 'react-hook-core';
 import { useNavigate, useParams } from 'react-router-dom';
 import { confirm, handleError, showMessage, storage, useResource } from 'uione';
 import femaleIcon from '../assets/images/female.png';
@@ -147,7 +147,10 @@ export const RoleAssignmentForm = () => {
     }
     navigate(-1);
   };
-
+  const clearKeyworkOnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    setState({ ...state, q:''});
+  }
   return (
     <div className='view-container'>
       <form id='roleAssignmentForm' name='roleAssignmentForm' model-name='role'>
@@ -204,6 +207,8 @@ export const RoleAssignmentForm = () => {
                 value={q}
                 maxLength={40}
                 placeholder={resource.role_assignment_search_user} />
+              <button type='button' hidden={!q} className='btn-remove-text' onClick={clearKeyworkOnClick} />
+
             </label>
             <ul className='row list-view'>
               {users && users?.map((user, i) => {

@@ -40,6 +40,7 @@ export interface Props {
   pageSizeChanged?: (event: any) => void;
   search?: React.MouseEventHandler<HTMLElement>;
   toggleFilter?: React.MouseEventHandler<HTMLElement>;
+  clearKeyworkOnClick?:React.MouseEventHandler<HTMLElement>;
   value?: string;
   placeholder?: string;
   inputChange?: (e: any, callback?: (() => void) | undefined, lc?: Locale | undefined) => void;
@@ -50,8 +51,10 @@ export function Search(props: Props) {
       <label className='col s12 m4 search-input'>
         <PageSizeSelect size={props.size} sizes={props.sizes} onChange={props.pageSizeChanged} name={props.name} id={props.id} />
         <input type='text' id='q' name='q' value={props.value || ''} onChange={props.inputChange} maxLength={255} placeholder={props.placeholder} />
+        <button type='button' hidden={!props.value} className='btn-remove-text' onClick={props.clearKeyworkOnClick}/>
         <button type='button' className='btn-filter' onClick={props.toggleFilter} />
         <button type='submit' className='btn-search' onClick={props.search} />
+
       </label>
     </>
   );

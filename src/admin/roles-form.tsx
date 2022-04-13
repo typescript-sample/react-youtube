@@ -33,6 +33,11 @@ export const RolesForm = () => {
     e.preventDefault();
     navigate(`edit/${id}`);
   };
+  const clearKeyworkOnClick = (e:OnClick)=>{
+    e.preventDefault();
+    filter.q = ""; 
+    updateState(e);
+  }
   const filter = value(state.filter);
   return (
     <div className='view-container'>
@@ -50,6 +55,7 @@ export const RolesForm = () => {
             <label className='col s12 m6 search-input'>
               <PageSizeSelect size={component.pageSize} sizes={component.pageSizes} onChange={pageSizeChanged} />
               <input type='text' id='q' name='q' value={filter.q} onChange={updateState} maxLength={255} placeholder={resource.keyword}/>
+              <button type='button' hidden={!filter.q} className='btn-remove-text' onClick={clearKeyworkOnClick}/>
               <button type='button' className='btn-filter' onClick={toggleFilter}/>
               <button type='submit' className='btn-search' onClick={search}/>
             </label>
