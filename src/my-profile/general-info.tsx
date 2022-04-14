@@ -20,7 +20,7 @@ export const GeneralInfo = ({ resource, user, close }: Props) => {
   const { state, setState, updateState } = useUpdate<User>(user);
 
 
-  close = () => {
+  const closeModal = () => {
     close();
     // const msg = ResourceManager.getString('success_save_my_profile');
     // this.showInfo(msg);
@@ -47,7 +47,7 @@ export const GeneralInfo = ({ resource, user, close }: Props) => {
       <form model-name='data'>
         <header>
           <h2>{resource.user_profile_general_info}</h2>
-          <button type='button' id='btnClose' name='btnClose' className='btn-close' onClick={close} />
+          <button type='button' id='btnClose' name='btnClose' className='btn-close' onClick={closeModal} />
         </header>
         <div>
           <section className='row'>
