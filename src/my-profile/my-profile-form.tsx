@@ -8,6 +8,7 @@ import GeneralInfo from './general-info';
 import { Achievement, getMyProfileService, Skill, User } from './my-profile';
 
 // const MAX_LOOK_UP = 40;
+
 interface InternalState {
   message: string;
   isOpen: boolean;
@@ -58,13 +59,20 @@ const data: InternalState = {
   skills: [],
 }
 export const MyProfileForm = () => {
+
+  const getName = (data: any): string => {
+    debugger
+    console.log(data)
+    return 'cc'
+  }
   const resource = useResource();
-  const { state, setState, updateState } = useUpdate<InternalState>(data);
+  const { state, setState, updateState } = useUpdate<InternalState>(data, '');
   useEffect(() => {
     const id = 'XU3rkqafp';
     getMyProfileService().getMyProfile(id).then(user => {
       if (user) {
-        setState({ user });
+        console.log('user', user)
+        setState({ user: user });
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,6 +81,10 @@ export const MyProfileForm = () => {
   const closeModal = () => {
     setState({ modalIsOpen: false });
   }
+
+  useEffect(() => {
+    console.log('state', state)
+  }, [state])
 
   // private readonly skillService = applicationContext.getMyProfileService();
   // private readonly chipSkillSuggestionsService = new DefaultSuggestionService<any>(this.skillService, MAX_LOOK_UP, 'skill', 'skill');
@@ -166,10 +178,10 @@ export const MyProfileForm = () => {
 
   //   }
 
-   const showPopup = (e:OnClick) => {
-      e.preventDefault();
-      setState({ modalIsOpen: true });
-    }
+  const showPopup = (e: OnClick) => {
+    e.preventDefault();
+    setState({ modalIsOpen: true });
+  }
 
   //   close = () => {
   //     const { isEditingBio, isEditingAchievement, isEditingInterest, isEditingSkill, isEditingLookingFor } = this.state;
@@ -407,7 +419,7 @@ export const MyProfileForm = () => {
               <header>
                 <i className='material-icons highlight'>account_box</i>
                 {resource.user_profile_basic_info}
-                <button type='button' id='btnBasicInfo' name='btnBasicInfo' hidden={state.isEditing} className='btn-edit' onClick={showPopup}/>
+                <button type='button' id='btnBasicInfo' name='btnBasicInfo' hidden={state.isEditing} className='btn-edit' onClick={showPopup} />
               </header>
               <p>{state.user.occupation}</p>
               <p>{state.user.company}</p>

@@ -101,7 +101,7 @@ export interface UserService extends Service<User, string, UserFilter> {
 export interface MyProfileService {
   getMyProfile(id: string): Promise<User | null>;
   getMySettings(id: string): Promise<UserSettings | null>;
-  // saveMySettings(id: string, settings: UserSettings): Promise<boolean>;
+  saveMySettings(id: string, settings: UserSettings): Promise<number>;
   // saveMyProfile(id: string, user: User): Promise<boolean>;
 }
 

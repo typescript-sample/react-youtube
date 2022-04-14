@@ -26,7 +26,7 @@ export class MyProfileClient implements MyProfileService {
   getMyProfile(id: string): Promise<User | null> {
     const url = this.url + '/' + id;
     return this.http.get<User>(url).catch(err => {
-      const data = (err &&  err.response) ? err.response : err;
+      const data = (err && err.response) ? err.response : err;
       if (data && (data.status === 404 || data.status === 410)) {
         return null;
       }
@@ -36,13 +36,34 @@ export class MyProfileClient implements MyProfileService {
   getMySettings(id: string): Promise<UserSettings | null> {
     const url = this.url + '/' + id + '/settings';
     return this.http.get<UserSettings>(url).catch(err => {
-      const data = (err &&  err.response) ? err.response : err;
+      const data = (err && err.response) ? err.response : err;
       if (data && (data.status === 404 || data.status === 410)) {
         return null;
       }
       throw err;
     });
   }
+
+  saveMySettings(id: string, data: UserSettings): Promise<number> {
+    return this.http.patch<number>(this.url, { settings: data, id }).catch(err => {
+      const data = (err && err.response) ? err.response : err;
+      if (data && (data.status === 404 || data.status === 410)) {
+        return 0;
+      }
+      throw err;
+    });
+  }
+  saveMyProfile(id: string, data: UserSettings): Promise<number> {
+    const url = this.url + '/' + id + '/settings';
+    return this.http.patch<number>(url, data).catch(err => {
+      const data = (err && err.response) ? err.response : err;
+      if (data && (data.status === 404 || data.status === 410)) {
+        return 0;
+      }
+      throw err;
+    });
+  }
+
 }
 export interface Config {
   myprofile_url: string;
@@ -59,6 +80,7 @@ class ApplicationContext {
     }
     return this.userService;
   }
+
 }
 
 export const context = new ApplicationContext();

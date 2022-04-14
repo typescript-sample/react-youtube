@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { BaseComponent, useUpdate } from 'react-hook-core';
 import { useResource } from 'uione';
-import { getMyProfileService, UserSettings } from './my-profile';
+import { getMyProfileService, MyProfileService, UserSettings } from './my-profile';
 
 interface InternalState {
   message: string;
@@ -23,24 +23,24 @@ export const MySettingsForm = () => {
         setState({ userSettings });
       }
     });
-
-
   }, [])
 
 
-  /*
-  saveOnClick = (e: any) => {
+
+  const saveOnClick = (e: any) => {
     e.preventDefault();
     const userId = 'XU3rkqafp';
-    getMyProfileService().saveMySettings(userId, this.state.userSettings).subscribe((result: any) => {
+    const service: MyProfileService = getMyProfileService()
+    console.log(state.userSettings)
+    service.saveMySettings(userId, state.userSettings).then((result: any) => {
       if (result) {
-        UIUtil.showToast('Save Setting successed');
+        console.log('Save Setting successed');
       } else {
-        this.alertError('Error');
+        console.log('Error');
       }
-    }, this.handleError);
+    });
   }
-*/
+
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
 
@@ -56,11 +56,11 @@ export const MySettingsForm = () => {
             <h4>{resource.user_settings_member_profile_preferences}</h4>
             <label className='switch-container'>
               <input type='checkbox'
-              id='searchEnginesLinksToMyProfile'
-              name='searchEnginesLinksToMyProfile'
-                  // value={state.userSettings.searchEnginesLinksToMyProfile}
-              checked={state.userSettings.searchEnginesLinksToMyProfile}
-              onChange={updateState} />
+                id='searchEnginesLinksToMyProfile'
+                name='searchEnginesLinksToMyProfile'
+                // value={state.userSettings.searchEnginesLinksToMyProfile}
+                checked={state.userSettings.searchEnginesLinksToMyProfile}
+                onChange={updateState} />
               {resource.user_settings_search_engines_links_to_my_profile}
             </label>
             <label className='switch-container'>
@@ -225,9 +225,9 @@ export const MySettingsForm = () => {
           </section>
         </div>
         <footer>
-          <button type='submit' id='btnSave' name='btnSave'>
+          <button type='submit' id='btnSave' name='btnSave' onClick={saveOnClick}>
             {resource.save}
-          </button>
+          </button >
         </footer>
       </form>
     </div>
