@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import Chips from 'react-chips';
 import { clone, OnClick, useUpdate } from 'react-hook-core';
 import ReactModal from 'react-modal';
@@ -6,85 +6,64 @@ import { useResource } from 'uione';
 import imageOnline from '../assets/images/online.svg';
 import GeneralInfo from './general-info';
 import { Achievement, getMyProfileService, Skill, User } from './my-profile';
+import { MyProfileService } from './my-profile/user';
 
 // const MAX_LOOK_UP = 40;
 
-interface InternalState {
-  message: string;
-  isOpen: boolean;
-  isEditing: boolean;
-  isEditingBio: boolean;
-  isEditingInterest: boolean;
-  isEditingLookingFor: boolean;
-  isEditingSkill: boolean;
-  isEditingAchievement: boolean;
-  bio: string;
-  interest: string;
-  lookingFor: string;
-  skill: string;
-  hireable: boolean;
-  subject: string;
-  description: string;
-  highlight: boolean;
-  user: User;
-  objectUser: User;
-  chipsSkill: string[];
-  skillsList: string[];
-  skills: Skill[];
-  modalIsOpen: boolean;
-}
 
-const data: InternalState = {
-  message: '',
-  modalIsOpen: false,
-  isOpen: false,
-  isEditing: false,
-  isEditingBio: false,
-  isEditingInterest: false,
-  isEditingLookingFor: false,
-  isEditingSkill: false,
-  isEditingAchievement: false,
-  bio: '',
-  interest: '',
-  lookingFor: '',
-  skill: '',
-  hireable: false,
-  subject: '',
-  description: '',
-  highlight: false,
-  objectUser: {} as any,
-  user: {} as any,
-  chipsSkill: [],
-  skillsList: [],
-  skills: [],
+interface Edit {
+  edit: {
+    hireable: boolean;
+    lookingFor: string;
+    interest: string;
+    highlight: boolean;
+    description: string;
+    subject: string;
+  }
+}
+const data: Edit = {
+  edit: {
+    hireable: false,
+    lookingFor: '',
+    interest: '',
+    highlight: false,
+    description: '',
+    subject: ''
+  }
 }
 export const MyProfileForm = () => {
-
-  const getName = (data: any): string => {
-    debugger
-    console.log(data)
-    return 'cc'
-  }
+  const [message, setMessage] = useState<string>('');
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isEditingBio, setIsEditingBio] = useState<boolean>(false);
+  const [isEditingInterest, setIsEditingInterest] = useState<boolean>(false);
+  const [isEditingLookingFor, setIsEditingLookingFor] = useState<boolean>(false);
+  const [isEditingSkill, setIsEditingSkill] = useState<boolean>(false);
+  const [isEditingAchievement, setIsEditingAchievement] = useState<boolean>(false);
+  const [bio, setBio] = useState<string>('');
+  const [interest, setInterest] = useState<string>('');
+  const [lookingFor, setLookingFor] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [highlight, setHighlight] = useState<boolean>(false);
+  const [user, setUser] = useState<User>({} as any);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [skill, setSkill] = useState<string>('')
   const resource = useResource();
-  const { state, setState, updateState } = useUpdate<InternalState>(data, '');
+  const { state, setState, updateState } = useUpdate<Edit>(data, 'edit');
   useEffect(() => {
     const id = 'XU3rkqafp';
     getMyProfileService().getMyProfile(id).then(user => {
       if (user) {
         console.log('user', user)
-        setState({ user: user });
+        setUser(user);
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const closeModal = () => {
-    setState({ modalIsOpen: false });
+    setModalIsOpen(false)
   }
-
-  useEffect(() => {
-    console.log('state', state)
-  }, [state])
 
   // private readonly skillService = applicationContext.getMyProfileService();
   // private readonly chipSkillSuggestionsService = new DefaultSuggestionService<any>(this.skillService, MAX_LOOK_UP, 'skill', 'skill');
@@ -180,41 +159,29 @@ export const MyProfileForm = () => {
 
   const showPopup = (e: OnClick) => {
     e.preventDefault();
-    setState({ modalIsOpen: true });
+    setModalIsOpen(true)
   }
 
-  //   close = () => {
-  //     const { isEditingBio, isEditingAchievement, isEditingInterest, isEditingSkill, isEditingLookingFor } = this.state;
-  //     if (isEditingBio) {
-  //       this.setState({ isEditingBio: !isEditingBio });
-  //     }
-  //     if (isEditingInterest) {
-  //       this.setState({
-  //         isEditingInterest: !isEditingInterest,
-  //       });
-  //     }
-  //     if (isEditingLookingFor) {
-  //       this.setState({
-  //         lookingFor: '',
-  //         isEditingLookingFor: !isEditingLookingFor
-  //       });
-  //     }
-  //     if (isEditingSkill) {
-  //       this.setState({
-  //         skill: '',
-  //         isEditingSkill: !isEditingSkill
-  //       });
-  //     }
-  //     if (isEditingAchievement) {
-  //       this.setState({
-  //         subject: '',
-  //         highlight: false,
-  //         description: '',
-  //         isEditingAchievement: !isEditingAchievement,
-  //       });
-  //     }
-  //     this.setState({ isEditing: !this.state.isEditing });
-  //   }
+  const close = () => {
+    if (isEditingBio) {
+      setIsEditingBio(!isEditingBio)
+    }
+    if (isEditingInterest) {
+      setIsEditingInterest(!isEditingInterest)
+    }
+    if (isEditingLookingFor) {
+      setIsEditingLookingFor(!isEditingLookingFor)
+    }
+    if (isEditingSkill) {
+      setSkill('')
+      setIsEditingSkill(!isEditingSkill)
+    }
+    if (isEditingAchievement) {
+      setState({ edit: { ...state.edit, subject: '', highlight: false, description: '' } })
+      setIsEditingAchievement(!isEditingAchievement)
+    }
+    setIsEditing(!isEditing)
+  }
 
   //   // addSkill = (e) => {
   //   //   e.preventDefault();
@@ -255,23 +222,24 @@ export const MyProfileForm = () => {
   //       }
   //     }
   //   }
-  //   saveChanges = (event) => {
-  //     event.preventDefault();
-  //     const { isEditing } = this.state;
-  //     if (isEditing) {
-  //       applicationContext.getMyProfileService().saveMyProfile(storage.getUserId(), this.state.user).subscribe(successs => {
-  //         if (successs) {
-  //           this.initData();
-  //           this.close();
-  //           UIUtil.showToast(ResourceManager.getString('success_save_my_profile'));
-  //         } else {
-  //           UIUtil.alertError(ResourceManager.getString('fail_save_my_profile'), ResourceManager.getString('error'));
-  //         }
-  //       }, err => {
-  //         UIUtil.alertError(ResourceManager.getString('fail_save_my_profile'), ResourceManager.getString('error'));
-  //       });
-  //     }
-  //   }
+  const saveChanges = (event: OnClick) => {
+    event.preventDefault();
+    const userId = 'XU3rkqafp';
+    if (isEditing) {
+      const service: MyProfileService = getMyProfileService()
+      service.saveMyProfile(userId, user).then(successs => {
+        if (successs) {
+          // this.initData();
+          close();
+          // UIUtil.showToast(ResourceManager.getString('success_save_my_profile'));
+          console.log('success')
+        } else {
+          console.log('fail')
+          // UIUtil.alertError(ResourceManager.getString('fail_save_my_profile'), ResourceManager.getString('error'));
+        }
+      });
+    }
+  }
 
   //   saveEmit = (rs) => {
   //     if (rs.status === 'success' && rs.data) {
@@ -284,35 +252,36 @@ export const MyProfileForm = () => {
   // */
   const toggleBio = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    setState({ isEditingBio: !state.isEditingBio, isEditing: !state.isEditing });
+    setIsEditingBio(!isEditingBio)
+    setIsEditing(!isEditing)
   }
   const editBio = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    const { bio, user } = state;
     if (bio && bio.trim() !== '') {
       user.bio = bio;
-      setState({ bio: '', user });
+      setBio('')
+      setUser(user)
     }
   }
   const toggleLookingFor = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    setState({ isEditingLookingFor: !state.isEditingLookingFor, isEditing: !state.isEditing });
+    setIsEditingLookingFor(!isEditingLookingFor)
+    setIsEditing(!isEditing)
   }
   const removeLookingFor = (e: React.MouseEvent<HTMLElement, MouseEvent>, lookingForContent: string) => {
     e.preventDefault();
-    const { user } = state;
     user.lookingFor = user.lookingFor.filter(item => item !== lookingForContent);
-    setState({ user });
+    setUser(user)
   }
   const addLookingFor = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    const { user, lookingFor } = state;
     const lookingForUser = user.lookingFor ? user.lookingFor : [];
     if (lookingFor && lookingFor.trim() !== '') {
       if (!inArray(lookingForUser, lookingFor)) {
         lookingForUser.push(lookingFor);
         user.lookingFor = lookingForUser;
-        setState({ lookingFor: '', user });
+        setLookingFor('')
+        setUser(user)
       } else {
         // UIUtil.alertError(ResourceManager.getString('error_duplicated_looking_for'), ResourceManager.getString('error'));
       }
@@ -320,26 +289,27 @@ export const MyProfileForm = () => {
   }
   const toggleInterest = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    setState({ isEditingInterest: !state.isEditingInterest, isEditing: !state.isEditing });
+    setIsEditingInterest(!isEditingInterest)
+    setIsEditing(!isEditing)
   }
   const removeInterest = (e: React.MouseEvent<HTMLElement, MouseEvent>, subject: string) => {
     e.preventDefault();
-    const { user } = state;
     if (user.interests) {
       const interests = user.interests.filter((item: string) => item !== subject);
       user.interests = interests;
-      setState({ user });
+      setUser(user)
     }
   }
   const addInterest = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    const { interest, user } = state;
+    console.log('alo')
     const interests = user.interests ? user.interests : [];
-    if (interest && interest.trim() !== '') {
+    if (state.edit.interest && state.edit.interest.trim() !== '') {
       if (!inArray(interests, interest)) {
-        interests.push(interest);
+        interests.push(state.edit.interest);
         user.interests = interests;
-        setState({ interest: '', user });
+        setUser(user)
+        setState({ edit: { ...state.edit, interest: '' } })
       } else {
         // UIUtil.alertError(ResourceManager.getString('error_duplicated_interest'), ResourceManager.getString('error'));
       }
@@ -347,39 +317,42 @@ export const MyProfileForm = () => {
   }
   const toggleSkill = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    setState({ isEditingSkill: !state.isEditingSkill, isEditing: !state.isEditing });
+    setIsEditingSkill(!isEditingSkill)
+    setIsEditing(!isEditing)
   }
   const removeSkill = (e: React.MouseEvent<HTMLElement, MouseEvent>, skillContent: string) => {
     e.preventDefault();
-    const { user } = state;
     user.skills = user.skills.filter(item => item['skill'] !== skillContent);
-    setState({ user });
+    setUser(user)
   }
   const toggleAchievement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    setState({ isEditingAchievement: !state.isEditingAchievement, isEditing: !state.isEditing });
+    setIsEditing(!isEditing)
+    setIsEditingAchievement(!isEditingAchievement)
+
   }
   const removeAchievement = (e: React.MouseEvent<HTMLElement, MouseEvent>, subject: string) => {
     e.preventDefault();
-    const { user } = state;
     if (user.achievements) {
       const achievements = user.achievements.filter((item: Achievement) => item['subject'] !== subject);
       user.achievements = achievements;
-      setState({ user });
+      setUser(user)
     }
   }
   const addAchievement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    const { subject, description, highlight, user } = state;
-    const achievement: Achievement = { subject, description, highlight };
+    const achievement: Achievement = { subject: state.edit.subject, description, highlight };
     const achievements = user.achievements ? clone(user.achievements) : [];
-    achievement.subject = subject;
+    achievement.subject = state.edit.subject;
     achievement.description = description;
     achievement.highlight = highlight;
-    if (subject && subject.trim().length > 0 && !inAchievements(achievements, achievement)) {
+    if (state.edit.subject && state.edit.subject.trim().length > 0 && !inAchievements(achievements, achievement)) {
       achievements.push(achievement);
       user.achievements = achievements;
-      setState({ user, subject: '', description: '', highlight });
+      setHighlight(highlight)
+      setUser(user)
+      setState({ edit: { ...state.edit, subject: '' } })
+      setDescription('')
     }
   }
 
@@ -401,12 +374,12 @@ export const MyProfileForm = () => {
           <button id='btnCamera' name='btnCamera' className='btn-camera' />
           <div className='avatar-wrapper'>
             <img className='avatar'
-              src={state.user.image || 'https://www.bluebridgewindowcleaning.co.uk/wp-content/uploads/2016/04/default-avatar.png'} alt='avatar' />
+              src={user.image || 'https://www.bluebridgewindowcleaning.co.uk/wp-content/uploads/2016/04/default-avatar.png'} alt='avatar' />
             <img className='profile-status' src={imageOnline} alt='status' />
           </div>
           <div className='profile-title'>
-            <h3>{state.user.displayName}</h3>
-            <p>{state.user.website}</p>
+            <h3>{user.displayName}</h3>
+            <p>{user.website}</p>
           </div>
           <div className='profile-followers'>
             <p><i className='material-icons highlight'>group</i> {followers}</p>
@@ -419,21 +392,21 @@ export const MyProfileForm = () => {
               <header>
                 <i className='material-icons highlight'>account_box</i>
                 {resource.user_profile_basic_info}
-                <button type='button' id='btnBasicInfo' name='btnBasicInfo' hidden={state.isEditing} className='btn-edit' onClick={showPopup} />
+                <button type='button' id='btnBasicInfo' name='btnBasicInfo' hidden={isEditing} className='btn-edit' onClick={showPopup} />
               </header>
-              <p>{state.user.occupation}</p>
-              <p>{state.user.company}</p>
+              <p>{user.occupation}</p>
+              <p>{user.company}</p>
             </div>
-            {!state.isEditingSkill &&
+            {!isEditingSkill &&
               <div className='card'>
                 <header>
                   <i className='material-icons highlight'>local_mall</i>
                   {resource.skills}
-                  <button type='button' id='btnSkill' name='btnSkill' hidden={state.isEditing} className='btn-edit' onClick={toggleSkill} />
+                  <button type='button' id='btnSkill' name='btnSkill' hidden={isEditing} className='btn-edit' onClick={toggleSkill} />
                 </header>
                 <section>
                   {
-                    state.user.skills && state.user.skills.map((item: Skill, index: number) => {
+                    user.skills && user.skills.map((item: Skill, index: number) => {
                       return <p key={index}>{item.skill}<i hidden={!item.hirable} className='star highlight' /></p>;
                     })
                   }
@@ -445,7 +418,7 @@ export const MyProfileForm = () => {
                 </section>
               </div>
             }
-            {state.isEditingSkill &&
+            {isEditingSkill &&
               <div className='card'>
                 <header>
                   <i className='material-icons highlight'>local_mall</i>
@@ -454,7 +427,7 @@ export const MyProfileForm = () => {
                 </header>
                 <section>
                   {
-                    state.user.skills && state.user.skills.map((item: Skill, index: number) => {
+                    user.skills && user.skills.map((item: Skill, index: number) => {
                       return (
                         <div key={index} className='chip'>
                           {item.skill}
@@ -490,7 +463,7 @@ export const MyProfileForm = () => {
                       <button type='button' id='btnAddSkill' name='btnAddSkill' className='btn-add' onClick={this.addSkill}/>
                     </label>*/}
                   <label className='checkbox-container'>
-                    <input type='checkbox' id='hireable' name='hireable' checked={state.hireable} onChange={updateState} />
+                    <input type='checkbox' id='hireable' name='hireable' checked={state.edit.hireable} onChange={updateState} />
                     {resource.user_profile_hireable_skill}
                   </label>
                   <hr />
@@ -506,23 +479,23 @@ export const MyProfileForm = () => {
               </div>
             }
             {
-              !state.isEditingLookingFor &&
+              !isEditingLookingFor &&
               <div className='card'>
                 <header>
                   <i className='material-icons highlight'>find_in_page</i>
                   {resource.user_profile_looking_for}
-                  <button type='button' id='btnLookingFor' name='btnLookingFor' hidden={state.isEditing && !state.isEditingLookingFor} className='btn-edit' onClick={toggleLookingFor} />
+                  <button type='button' id='btnLookingFor' name='btnLookingFor' hidden={isEditing && !isEditingLookingFor} className='btn-edit' onClick={toggleLookingFor} />
                 </header>
                 <section>
                   {
-                    state.user.lookingFor && state.user.lookingFor.map((item: string, index: number) => {
+                    user.lookingFor && user.lookingFor.map((item: string, index: number) => {
                       return (<p key={index}>{item}</p>);
                     })
                   }
                 </section>
               </div>
             }
-            {state.isEditingLookingFor &&
+            {isEditingLookingFor &&
               <div className='card'>
                 <header>
                   <i className='material-icons highlight'>find_in_page</i>
@@ -531,7 +504,7 @@ export const MyProfileForm = () => {
                 </header>
                 <section>
                   {
-                    state.user.lookingFor && state.user.lookingFor.map((item: string, index: number) => {
+                    user.lookingFor && user.lookingFor.map((item: string, index: number) => {
                       return (<div key={index} className='chip' tabIndex={index}>
                         {item}
                         <button type='button' name='btnRemoveLookingFor' className='close' onClick={(e) => removeLookingFor(e, item)} />
@@ -540,7 +513,7 @@ export const MyProfileForm = () => {
                   }
                   <label className='form-group inline-input'>
                     <input name='lookingFor' className='form-control'
-                      value={state.lookingFor} onChange={updateState}
+                      value={state.edit.lookingFor} onChange={updateState}
                       placeholder={resource.placeholder_user_profile_looking_for} maxLength={100} />
                     <button type='button' id='btnAddLookingFor' name='btnAddLookingFor' className='btn-add' />
                   </label>
@@ -556,98 +529,98 @@ export const MyProfileForm = () => {
               <header>
                 <i className='material-icons highlight'>chat</i>
                 {resource.user_profile_social}
-                <button type='button' id='btnSocial' name='btnSocial' hidden={state.isEditing} className='btn-edit' />
+                <button type='button' id='btnSocial' name='btnSocial' hidden={isEditing} className='btn-edit' />
               </header>
               <div>
                 {
-                  state.user.facebookLink &&
-                  <a href={'https://facebookcom/' + state.user.facebookLink} title='facebook' target='_blank' rel="noreferrer">
+                  user.facebookLink &&
+                  <a href={'https://facebookcom/' + user.facebookLink} title='facebook' target='_blank' rel="noreferrer">
                     <i className='fa fa-facebook' />
                     <span>facebook</span>
                   </a>
                 }
                 {
-                  state.user.skypeLink &&
-                  <a href={'https://skype.com/' + state.user.skypeLink} title='Skype' target='_blank' rel="noreferrer">
+                  user.skypeLink &&
+                  <a href={'https://skype.com/' + user.skypeLink} title='Skype' target='_blank' rel="noreferrer">
                     <i className='fa fa-skype' />
                     <span>Skype</span>
                   </a>
                 }
                 {
-                  state.user.twitterLink &&
-                  <a href={'https://twitter.com/' + state.user.twitterLink} title='Twitter' target='_blank' rel="noreferrer">
+                  user.twitterLink &&
+                  <a href={'https://twitter.com/' + user.twitterLink} title='Twitter' target='_blank' rel="noreferrer">
                     <i className='fa fa-twitter' />
                     <span>Twitter</span>
                   </a>
                 }
                 {
-                  state.user.instagramLink &&
-                  <a href={'https://instagram.com/' + state.user.instagramLink} title='Instagram' target='_blank' rel="noreferrer">
+                  user.instagramLink &&
+                  <a href={'https://instagram.com/' + user.instagramLink} title='Instagram' target='_blank' rel="noreferrer">
                     <i className='fa fa-instagram' />
                     <span>Instagram</span>
                   </a>
                 }
                 {
-                  state.user.linkedinLink &&
-                  <a href={'https://linkedin.com/' + state.user.linkedinLink} title='Linked in' target='_blank' rel="noreferrer">
+                  user.linkedinLink &&
+                  <a href={'https://linkedin.com/' + user.linkedinLink} title='Linked in' target='_blank' rel="noreferrer">
                     <i className='fa fa-linkedin' />
                     <span>Linked in</span>
                   </a>
                 }
                 {
-                  state.user.googleLink &&
-                  <a href={'https://plus.google.com/' + state.user.googleLink} title='Google' target='_blank' rel="noreferrer">
+                  user.googleLink &&
+                  <a href={'https://plus.google.com/' + user.googleLink} title='Google' target='_blank' rel="noreferrer">
                     <i className='fa fa-google' />
                     <span>Google</span>
                   </a>
                 }
                 {
-                  state.user.dribbbleLink &&
-                  <a href={'https://dribbble.com/' + state.user.dribbbleLink} title='dribbble' target='_blank' rel="noreferrer">
+                  user.dribbbleLink &&
+                  <a href={'https://dribbble.com/' + user.dribbbleLink} title='dribbble' target='_blank' rel="noreferrer">
                     <i className='fa fa-dribbble' />
                     <span>dribbble</span>
                   </a>
                 }
 
                 {
-                  state.user.customLink01 &&
-                  <a href={state.user.customLink01} target='_blank' rel="noreferrer">
+                  user.customLink01 &&
+                  <a href={user.customLink01} target='_blank' rel="noreferrer">
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
                 {
-                  state.user.customLink02 &&
-                  <a href={state.user.customLink02} target='_blank' rel="noreferrer">
+                  user.customLink02 &&
+                  <a href={user.customLink02} target='_blank' rel="noreferrer">
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
                 {
-                  state.user.customLink03 && <a href={state.user.customLink03} target='_blank' rel="noreferrer">
+                  user.customLink03 && <a href={user.customLink03} target='_blank' rel="noreferrer">
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
                 {
-                  state.user.customLink04 && <a href={state.user.customLink04} target='_blank' rel="noreferrer">
+                  user.customLink04 && <a href={user.customLink04} target='_blank' rel="noreferrer">
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
                 {
-                  state.user.customLink05 && <a href={state.user.customLink05} target='_blank' rel="noreferrer">
+                  user.customLink05 && <a href={user.customLink05} target='_blank' rel="noreferrer">
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
                 {
-                  state.user.customLink06 && <a href={state.user.customLink06} target='_blank' rel="noreferrer">
+                  user.customLink06 && <a href={user.customLink06} target='_blank' rel="noreferrer">
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
                 {
-                  state.user.customLink07 && <a href={state.user.customLink07} target='_blank' rel="noreferrer">
+                  user.customLink07 && <a href={user.customLink07} target='_blank' rel="noreferrer">
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
                 {
-                  state.user.customLink08 && <a href={state.user.customLink08} target='_blank' rel="noreferrer">
+                  user.customLink08 && <a href={user.customLink08} target='_blank' rel="noreferrer">
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
@@ -660,14 +633,14 @@ export const MyProfileForm = () => {
                 <i className='material-icons highlight'>person</i>
                 {resource.user_profile_bio}
                 <button type='button' id='btnBio' name='btnBio'
-                  hidden={state.isEditing && !state.isEditingBio}
-                  className={(!state.isEditingBio ? 'btn-edit' : 'btn-close')}
+                  hidden={isEditing && !isEditingBio}
+                  className={(!isEditingBio ? 'btn-edit' : 'btn-close')}
                   onClick={toggleBio} />
               </header>
-              {!state.isEditingBio &&
-                <p>{state.user.bio}</p>}
-              {state.isEditingBio && <textarea name='bio' value={state.user.bio} />}
-              {state.isEditingBio &&
+              {!isEditingBio &&
+                <p>{user.bio}</p>}
+              {isEditingBio && <textarea name='bio' value={user.bio} />}
+              {isEditingBio &&
                 <footer>
                   <button type='button' id='btnSaveBio' name='btnSaveBio' >
                     {resource.save}
@@ -680,23 +653,23 @@ export const MyProfileForm = () => {
                 <i className='material-icons highlight'>flash_on</i>
                 {resource.interests}
                 <button type='button' id='btnInterest' name='btnInterest'
-                  hidden={state.isEditing && !state.isEditingInterest}
-                  className={(!state.isEditingInterest ? 'btn-edit' : 'btn-close')}
+                  hidden={isEditing && !isEditingInterest}
+                  className={(!isEditingInterest ? 'btn-edit' : 'btn-close')}
                   onClick={toggleInterest}
                 />
               </header>
-              {!state.isEditingInterest &&
+              {!isEditingInterest &&
                 <section className='row'>
                   {
-                    state.user.interests && state.user.interests.map((item: string, index: number) => {
+                    user.interests && user.interests.map((item: string, index: number) => {
                       return (<span key={index} className='col s4'>{item}</span>);
                     })
                   }
                 </section>
               }
-              {state.isEditingInterest &&
+              {isEditingInterest &&
                 <section className='row'>
-                  {state.user.interests && state.user.interests.map((item: string, index: number) => {
+                  {user.interests && user.interests.map((item: string, index: number) => {
                     return (<div key={index} className='chip' tabIndex={index}>{item}
                       <button type='button' name='btnRemoveInterest' className='close' onClick={(e) => removeInterest(e, item)} />
                     </div>);
@@ -704,12 +677,12 @@ export const MyProfileForm = () => {
                   }
                   <label className='col s12 inline-input'>
                     <input type='text' name='interest' onChange={updateState}
-                      placeholder={resource.placeholder_user_profile_interest} value={state.interest} maxLength={100} />
-                    <button type='button' id='btnAddInterest' name='btnAddInterest' className='btn-add' />
+                      placeholder={resource.placeholder_user_profile_interest} value={state.edit.interest} maxLength={100} />
+                    <button type='button' id='btnAddInterest' name='btnAddInterest' className='btn-add' onClick={addInterest} />
                   </label>
                 </section>
               }
-              {state.isEditingInterest &&
+              {isEditingInterest &&
                 <footer>
                   <button type='button' id='btnSaveInterest' name='btnSaveInterest' >
                     {resource.save}
@@ -722,13 +695,13 @@ export const MyProfileForm = () => {
                 <i className='material-icons highlight'>beenhere</i>
                 {resource.achievements}
                 <button type='button' id='btnAchievement' name='btnAchievement'
-                  hidden={state.isEditing && !state.isEditingAchievement}
-                  className={!state.isEditingAchievement ? 'btn-edit' : 'btn-close'}
+                  hidden={isEditing && !isEditingAchievement}
+                  className={!isEditingAchievement ? 'btn-edit' : 'btn-close'}
                   onClick={toggleAchievement}
                 />
               </header>
               {
-                !state.isEditingAchievement && state.user.achievements && state.user.achievements.map((achievement: Achievement, index: number) => {
+                !isEditingAchievement && user.achievements && user.achievements.map((achievement: Achievement, index: number) => {
                   return <section key={index}>
                     <h3>{achievement.subject}
                       {achievement.highlight && <i className='star highlight float-right' />}
@@ -739,7 +712,7 @@ export const MyProfileForm = () => {
                 })
               }
               {
-                state.isEditingAchievement && state.user.achievements && state.user.achievements.map((achievement: Achievement, index: number) => {
+                isEditingAchievement && user.achievements && user.achievements.map((achievement: Achievement, index: number) => {
                   return <section key={index}>
                     <h3>{achievement.subject}
                       {achievement.highlight && <i className='star highlight' />}
@@ -750,21 +723,21 @@ export const MyProfileForm = () => {
                   </section>;
                 })
               }
-              {state.isEditingAchievement &&
+              {isEditingAchievement &&
                 <section>
                   <div className='form-group'>
                     <input type='text' name='subject' className='form-control'
-                      value={state.subject} onChange={updateState}
+                      value={state.edit.subject} onChange={updateState}
                       placeholder={resource.placeholder_user_profile_achievement_subject}
                       maxLength={50} required={true} />
                     <input type='text' name='description' className='form-control'
-                      value={state.description} onChange={updateState}
+                      value={state.edit.description} onChange={updateState}
                       placeholder={resource.placeholder_user_profile_achievement_description}
                       maxLength={100} required={true} />
                   </div>
                   <label className='checkbox-container'>
                     <input type='checkbox' id='highlight' name='highlight'
-                      checked={state.highlight} onChange={updateState} />
+                      checked={state.edit.highlight} onChange={updateState} />
                     {resource.user_profile_highlight_achievement}
                   </label>
                   <div className='btn-group'>
@@ -773,7 +746,7 @@ export const MyProfileForm = () => {
                   </div>
                 </section>
               }
-              {state.isEditingAchievement &&
+              {isEditingAchievement &&
                 <footer>
                   <button type='button' id='btnSaveAchievement' name='btnSaveAchievement' >
                     {resource.save}
@@ -785,7 +758,7 @@ export const MyProfileForm = () => {
         </div>
       </form>
       <ReactModal
-        isOpen={state.modalIsOpen}
+        isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel='Modal'
         // portalClassName='modal-portal'
@@ -796,7 +769,7 @@ export const MyProfileForm = () => {
         <GeneralInfo
           resource={resource}
           close={closeModal}
-          user={state.user} />
+          user={user} />
       </ReactModal>
     </div>
   );

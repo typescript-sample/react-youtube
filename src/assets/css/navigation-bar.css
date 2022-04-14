@@ -386,10 +386,6 @@
     padding-top: 14px;
   }
 
-  .top-menu .menu.sidebar > nav > ul > li > a > i.fa:first-child {
-    display: none;
-  }
-
   .top-menu .menu.sidebar > nav > ul > li > ul > li {
     padding-left: 0;
   }
@@ -546,11 +542,16 @@ nav.collapsed-all .sidebar-off-menu > .collapse {
   position: absolute;
   background-color: transparent;
   border-color: transparent;
+  transform: rotate(45deg);
+}
+.menu.sidebar .btn-pin.pinned {
+  display: inline-block;
+  transform: unset;
 }
 .menu-on .menu.sidebar .btn-pin {
   right: 20px;
+  padding-top: 6px;
 }
-
 
 .menu-on .menu.sidebar .btn-pin::after {
   display: inline;
