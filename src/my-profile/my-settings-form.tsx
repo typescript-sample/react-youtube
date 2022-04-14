@@ -5,22 +5,22 @@ import { getMyProfileService, MyProfileService, UserSettings } from './my-profil
 
 interface InternalState {
   message: string;
-  userSettings: UserSettings;
+  settings: UserSettings;
 }
 
 const data: InternalState = {
-  userSettings: {} as any,
+  settings: {} as any,
   message: ''
 }
 export const MySettingsForm = () => {
   const resource = useResource();
-  const { state, setState, updateState } = useUpdate<InternalState>(data, 'userSettings');
+  const { state, setState, updateState } = useUpdate<InternalState>(data, 'settings');
 
   useEffect(() => {
     const userId = 'XU3rkqafp';
-    getMyProfileService().getMySettings(userId).then(userSettings => {
-      if (userSettings) {
-        setState({ userSettings });
+    getMyProfileService().getMySettings(userId).then(settings => {
+      if (settings) {
+        setState({ settings });
       }
     });
   }, [])
@@ -31,8 +31,8 @@ export const MySettingsForm = () => {
     e.preventDefault();
     const userId = 'XU3rkqafp';
     const service: MyProfileService = getMyProfileService()
-    console.log(state.userSettings)
-    service.saveMySettings(userId, state.userSettings).then((result: any) => {
+    console.log(state.settings)
+    service.saveMySettings(userId, state.settings).then((result: any) => {
       if (result) {
         console.log('Save Setting successed');
       } else {
@@ -47,7 +47,7 @@ export const MySettingsForm = () => {
   // const btnEmail = storage.getUser().passwordExpiredTime ? resource.button_change_email : resource.button_add_email;
   return (
     <div className='view-container'>
-      <form id='mySettingsForm' name='mySettingsForm' model-name='userSettings'>
+      <form id='mySettingsForm' name='mySettingsForm' model-name='settings'>
         <header>
           <h2>{resource.my_settings}</h2>
         </header>
@@ -58,8 +58,8 @@ export const MySettingsForm = () => {
               <input type='checkbox'
                 id='searchEnginesLinksToMyProfile'
                 name='searchEnginesLinksToMyProfile'
-                // value={state.userSettings.searchEnginesLinksToMyProfile}
-                checked={state.userSettings.searchEnginesLinksToMyProfile}
+                // value={state.settings.searchEnginesLinksToMyProfile}
+                checked={state.settings.searchEnginesLinksToMyProfile}
                 onChange={updateState} />
               {resource.user_settings_search_engines_links_to_my_profile}
             </label>
@@ -67,8 +67,8 @@ export const MySettingsForm = () => {
               <input type='checkbox'
                 id='followingListPublicOnMyProfile'
                 name='followingListPublicOnMyProfile'
-                // value={state.userSettings.followingListPublicOnMyProfile}
-                checked={state.userSettings.followingListPublicOnMyProfile}
+                // value={state.settings.followingListPublicOnMyProfile}
+                checked={state.settings.followingListPublicOnMyProfile}
                 onChange={updateState} />
               {resource.user_settings_search_engines_links_to_my_profile}
             </label>
@@ -79,8 +79,8 @@ export const MySettingsForm = () => {
               <input type='checkbox'
                 id='showMyProfileInSpacesAroundMe'
                 name='showMyProfileInSpacesAroundMe'
-                // value={state.userSettings.showMyProfileInSpacesAroundMe}
-                checked={state.userSettings.showMyProfileInSpacesAroundMe}
+                // value={state.settings.showMyProfileInSpacesAroundMe}
+                checked={state.settings.showMyProfileInSpacesAroundMe}
                 onChange={updateState} />
               {resource.user_settings_show_my_profile_in_spaces_around_me}
             </label>
@@ -88,8 +88,8 @@ export const MySettingsForm = () => {
               <input type='checkbox'
                 id='showAroundMeResultsInMemberFeed'
                 name='showAroundMeResultsInMemberFeed'
-                // value={state.userSettings.showAroundMeResultsInMemberFeed}
-                checked={state.userSettings.showAroundMeResultsInMemberFeed}
+                // value={state.settings.showAroundMeResultsInMemberFeed}
+                checked={state.settings.showAroundMeResultsInMemberFeed}
                 onChange={updateState} />
               {resource.user_settings_show_around_me_results_in_member_feed}
             </label>
@@ -100,8 +100,8 @@ export const MySettingsForm = () => {
               <input type='checkbox'
                 id='notification'
                 name='notification'
-                // value={state.userSettings.notification}
-                checked={state.userSettings.notification}
+                // value={state.settings.notification}
+                checked={state.settings.notification}
                 onChange={updateState} />
               {resource.user_settings_notifications}
             </label>
@@ -112,8 +112,8 @@ export const MySettingsForm = () => {
                   <input type='checkbox'
                     id='notifyFeedUpdates'
                     name='notifyFeedUpdates'
-                    // value={state.userSettings.notifyFeedUpdates}
-                    checked={state.userSettings.notifyFeedUpdates}
+                    // value={state.settings.notifyFeedUpdates}
+                    checked={state.settings.notifyFeedUpdates}
                   // onChange={this.updateState}
                   />
                   {resource.notification}
@@ -122,8 +122,8 @@ export const MySettingsForm = () => {
                   <input type='checkbox'
                     id='emailFeedUpdates'
                     name='emailFeedUpdates'
-                    // value={state.userSettings.emailFeedUpdates}
-                    checked={state.userSettings.emailFeedUpdates}
+                    // value={state.settings.emailFeedUpdates}
+                    checked={state.settings.emailFeedUpdates}
                     onChange={updateState}
                   />
                   {resource.email}
@@ -137,8 +137,8 @@ export const MySettingsForm = () => {
                   <input type='checkbox'
                     id='notifyPostMentions'
                     name='notifyPostMentions'
-                    // value={state.userSettings.notifyPostMentions}
-                    checked={state.userSettings.notifyPostMentions}
+                    // value={state.settings.notifyPostMentions}
+                    checked={state.settings.notifyPostMentions}
                     onChange={updateState} />
                   {resource.notification}
                 </label>
@@ -146,8 +146,8 @@ export const MySettingsForm = () => {
                   <input type='checkbox'
                     id='emailPostMentions'
                     name='emailPostMentions'
-                    // value={state.userSettings.emailPostMentions}
-                    checked={state.userSettings.emailPostMentions}
+                    // value={state.settings.emailPostMentions}
+                    checked={state.settings.emailPostMentions}
                     onChange={updateState} />
                   {resource.email}
                 </label>
@@ -160,8 +160,8 @@ export const MySettingsForm = () => {
                   <input type='checkbox'
                     id='notifyCommentsOfYourPosts'
                     name='notifyCommentsOfYourPosts'
-                    // value={state.userSettings.notifyCommentsOfYourPosts}
-                    checked={state.userSettings.notifyCommentsOfYourPosts}
+                    // value={state.settings.notifyCommentsOfYourPosts}
+                    checked={state.settings.notifyCommentsOfYourPosts}
                     onChange={updateState} />
                   {resource.notification}
                 </label>
@@ -169,8 +169,8 @@ export const MySettingsForm = () => {
                   <input type='checkbox'
                     id='emailCommentsOfYourPosts'
                     name='emailCommentsOfYourPosts'
-                    // value={state.userSettings.emailCommentsOfYourPosts}
-                    checked={state.userSettings.emailCommentsOfYourPosts}
+                    // value={state.settings.emailCommentsOfYourPosts}
+                    checked={state.settings.emailCommentsOfYourPosts}
                     onChange={updateState} />
                   {resource.email}
                 </label>
@@ -183,8 +183,8 @@ export const MySettingsForm = () => {
                   <input type='checkbox'
                     id='notifyEventInvitations'
                     name='notifyEventInvitations'
-                    // value={state.userSettings.notifyEventInvitations}
-                    checked={state.userSettings.notifyEventInvitations}
+                    // value={state.settings.notifyEventInvitations}
+                    checked={state.settings.notifyEventInvitations}
                     onChange={updateState} />
                   {resource.notification}
                 </label>
@@ -192,8 +192,8 @@ export const MySettingsForm = () => {
                   <input type='checkbox'
                     id='emailEventInvitations'
                     name='emailEventInvitations'
-                    // value={state.userSettings.emailEventInvitations}
-                    checked={state.userSettings.emailEventInvitations}
+                    // value={state.settings.emailEventInvitations}
+                    checked={state.settings.emailEventInvitations}
                     onChange={updateState} />
                   {resource.email}
                 </label>
@@ -206,8 +206,8 @@ export const MySettingsForm = () => {
                   <input type='checkbox'
                     id='notifyWhenNewEventsAround'
                     name='notifyWhenNewEventsAround'
-                    // value={state.userSettings.notifyWhenNewEventsAround}
-                    checked={state.userSettings.notifyWhenNewEventsAround}
+                    // value={state.settings.notifyWhenNewEventsAround}
+                    checked={state.settings.notifyWhenNewEventsAround}
                     onChange={updateState} />
                   {resource.notification}
                 </label>
@@ -215,8 +215,8 @@ export const MySettingsForm = () => {
                   <input type='checkbox'
                     id='emailWhenNewEventsAround'
                     name='emailWhenNewEventsAround'
-                    // value={state.userSettings.emailWhenNewEventsAround}
-                    checked={state.userSettings.emailWhenNewEventsAround}
+                    // value={state.settings.emailWhenNewEventsAround}
+                    checked={state.settings.emailWhenNewEventsAround}
                     onChange={updateState} />
                   {resource.email}
                 </label>
