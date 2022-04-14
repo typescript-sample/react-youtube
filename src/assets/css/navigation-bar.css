@@ -531,7 +531,9 @@ nav.expanded-all .sidebar-off-menu > .expand {
 nav.collapsed-all .sidebar-off-menu > .collapse {
   display: none;
 }
-
+.sidebar-parent .menu.sidebar .btn-pin::after{
+  display: none ; 
+}
 .top-menu .btn-pin {
   display: none;
 }
@@ -548,20 +550,23 @@ nav.collapsed-all .sidebar-off-menu > .collapse {
 .menu-on .menu.sidebar .btn-pin {
   right: 20px;
 }
-.menu.sidebar .btn-pin::after {
+
+
+.menu-on .menu.sidebar .btn-pin::after {
+  display: inline;
   font-size: 15px;
   font-weight: 100;
-  font-family: FontAwesome;
-  content: "\f08d";
+  content:url("../images/push_pin_black_24dp.svg");
   color: white;
 }
 .menu.sidebar nav ul li:hover button.btn-pin {
   display: inline-block;
 }
-.menu.sidebar .btn-pin.pinned {
+.menu.sidebar .btn-pin .pinned {
   display: inline-block;
   transform: rotate(45deg);
 }
 .top-menu .menu.sidebar nav ul li:hover button.btn-pin {
   display: none;
 }
+
