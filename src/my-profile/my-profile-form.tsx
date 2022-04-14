@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 // import Chips from 'react-chips';
-import { clone, useUpdate } from 'react-hook-core';
+import { clone, OnClick, useUpdate } from 'react-hook-core';
 import ReactModal from 'react-modal';
 import { useResource } from 'uione';
 import imageOnline from '../assets/images/online.svg';
@@ -166,10 +166,10 @@ export const MyProfileForm = () => {
 
   //   }
 
-  //   showPopup = (e) => {
-  //     e.preventDefault();
-  //     this.setState({ modalIsOpen: true });
-  //   }
+   const showPopup = (e:OnClick) => {
+      e.preventDefault();
+      setState({ modalIsOpen: true });
+    }
 
   //   close = () => {
   //     const { isEditingBio, isEditingAchievement, isEditingInterest, isEditingSkill, isEditingLookingFor } = this.state;
@@ -407,7 +407,7 @@ export const MyProfileForm = () => {
               <header>
                 <i className='material-icons highlight'>account_box</i>
                 {resource.user_profile_basic_info}
-                <button type='button' id='btnBasicInfo' name='btnBasicInfo' hidden={state.isEditing} className='btn-edit' />
+                <button type='button' id='btnBasicInfo' name='btnBasicInfo' hidden={state.isEditing} className='btn-edit' onClick={showPopup}/>
               </header>
               <p>{state.user.occupation}</p>
               <p>{state.user.company}</p>
