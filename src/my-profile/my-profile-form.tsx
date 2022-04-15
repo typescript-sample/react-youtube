@@ -264,7 +264,7 @@ export const MyProfileForm = () => {
   }
 
   const revertBioChages = () => {
-    setBio(user.bio || '')
+    setUser({ ...user, bio })
     setIsEditingBio(!isEditingBio)
     setIsEditing(!isEditing)
     setModalConfirmIsOpen(false)
@@ -272,7 +272,7 @@ export const MyProfileForm = () => {
   const editBio = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     const data = e.target.value;
-    setBio(data)
+    setUser({ ...user, bio: data })
   }
   const toggleLookingFor = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
@@ -651,10 +651,10 @@ export const MyProfileForm = () => {
               </header>
               {!isEditingBio &&
                 <p>{user.bio}</p>}
-              {isEditingBio && <textarea name='bio' value={bio} onChange={editBio} />}
+              {isEditingBio && <textarea name='bio' value={user.bio} onChange={editBio} />}
               {isEditingBio &&
                 <footer>
-                  <button type='button' id='btnSaveBio' name='btnSaveBio' onClick={saveChanges}>
+                  <button type='button' id='btnSaveBio' name='btnSaveBio' onClick={e => { saveChanges(e); setBio(user.bio || '') }}>
                     {resource.save}
                   </button>
                 </footer>
