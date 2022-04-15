@@ -97,8 +97,9 @@ export interface UserFilter extends Filter {
 export interface UserRepository extends Repository<User, string> {
 }
 export interface UserService extends Service<User, string, UserFilter> {
+  getUserBySearch(obj:any):Promise<User[]|null>;
 }
-export interface ProfileService {
+export interface ProfileService{
   getMyProfile(id: string): Promise<User | null>;
   getMySettings(id: string): Promise<UserSettings | null>;
   // saveMySettings(id: string, settings: UserSettings): Promise<boolean>;

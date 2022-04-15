@@ -1,14 +1,29 @@
 import axios from 'axios';
 import { HttpRequest } from 'axios-core';
 import { options, storage } from 'uione';
-import { ProfileService, UserService, User, UserSettings } from './user';
+import { Client } from 'web-clients';
+import { ProfileService, UserService, User, UserSettings, UserFilter, userModel } from './user';
 
 export * from './user';
 
 const httpRequest = new HttpRequest(axios, options);
-
-export class UserClient implements ProfileService {
-  constructor(private http: HttpRequest, private url: string) {
+export class UserClient extends Client<User, string, UserFilter> implements UserService{
+  constructor(http:HttpRequest, url: string){
+    super(http,url,userModel);
+    this.searchGet=true;
+  }
+  getUserBySearch(obj:any):Promise<User[]|null>{
+    return this.http.post<User[]>(this.serviceUrl+'/search',obj).catch(err=>{
+      const data = (err && err.response)?err.response:err;
+      if(data && (data.status === 404||data.status ===410)){
+        return null;
+      }
+      throw err;
+    });
+  }
+}
+export class ProfileClient implements ProfileService {
+  constructor( private http: HttpRequest,private url: string) {
     this.getMyProfile = this.getMyProfile.bind(this);
     this.getMySettings = this.getMySettings.bind(this);
   }
@@ -35,16 +50,25 @@ export class UserClient implements ProfileService {
 }
 export interface Config {
   myprofile_url: string;
+  user_url:string;
 }
 class ApplicationContext {
-  userService?: ProfileService;
+  profileService?: ProfileService;
+  userService?:UserService;
   getConfig(): Config {
     return storage.config();
   }
   getMyProfileService(): ProfileService {
+    if (!this.profileService) {
+      const c = this.getConfig();
+      this.profileService = new ProfileClient(httpRequest, c.myprofile_url);
+    }
+    return this.profileService;
+  }
+  getUserService():UserService{
     if (!this.userService) {
       const c = this.getConfig();
-      this.userService = new UserClient(httpRequest, c.myprofile_url);
+      this.userService = new UserClient(httpRequest, c.user_url);
     }
     return this.userService;
   }
@@ -53,4 +77,8 @@ class ApplicationContext {
 export const context = new ApplicationContext();
 export function getMyProfileService(): ProfileService {
   return context.getMyProfileService();
+}
+
+export function getUserService():UserService{
+  return context.getUserService();
 }
