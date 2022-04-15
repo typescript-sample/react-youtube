@@ -32,7 +32,8 @@ const data: Edit = {
   }
 }
 export const MyProfileForm = () => {
-  const service= useGetMyProfileService()
+  const service = useGetMyProfileService()
+  const { state, setState, updateState } = useUpdate<Edit>(data, 'edit');
   const [message, setMessage] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -43,20 +44,21 @@ export const MyProfileForm = () => {
   const [isEditingAchievement, setIsEditingAchievement] = useState<boolean>(false);
   const [bio, setBio] = useState<string>('');
   const [interest, setInterest] = useState<string>('');
-  const [lookingFor, setLookingFor] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [highlight, setHighlight] = useState<boolean>(false);
   const [user, setUser] = useState<User>({} as any);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [skill, setSkill] = useState<string>('')
+  const [skillsList, setSkillsList] = useState<string[]>([])
+  const [chipsSkill, setChipsSkill] = useState<string[]>([])
+  const [modalConfirmIsOpen, setModalConfirmIsOpen] = useState<boolean>(false)
   const resource = useResource();
-  const { state, setState, updateState } = useUpdate<Edit>(data, 'edit');
+
   useEffect(() => {
     const id = 'XU3rkqafp';
     service.getMyProfile(id).then(user => {
       if (user) {
         console.log('user', user)
         setUser(user);
+        setBio(user.bio || '')
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -102,23 +104,23 @@ export const MyProfileForm = () => {
   //     this.setState({ chipsSkill, skillsList });
   //   }
 
-  //   fetchSuggestions = (keyWords) => {
-  //     return new Promise((resolve, reject) => {
-  //       const { skillsList, preSkillSuggestions } = this.state;
-  //         this.chipSkillSuggestionsService.getSuggestion(keyWords, preSkillSuggestions, skillsList).subscribe(result => {
-  //           const skill = keyWords;
-  //           this.setState({ preSkillSuggestions: result.previousSuggestion , skill});
-  //           resolve(result.response);
-  //         });
-  //     });
-  //   }
+  // fetchSuggestions = (keyWords) => {
+  //   return new Promise((resolve, reject) => {
+  //     const { skillsList, preSkillSuggestions } = this.state;
+  //       this.chipSkillSuggestionsService.getSuggestion(keyWords, preSkillSuggestions, skillsList).subscribe(result => {
+  //         const skill = keyWords;
+  //         this.setState({ preSkillSuggestions: result.previousSuggestion , skill});
+  //         resolve(result.response);
+  //       });
+  //   });
+  // }
 
-  //   onRemoveChips = (id) => {
-  //     let { skillsList, chipsSkill } = this.state;
-  //     skillsList = skillsList.filter(skill => skill !== id);
-  //      chipsSkill = chipsSkill.filter(chip => chip.skill !== id);
-  //     this.setState({ skillsList, chipsSkill });
-  //   }
+  // onRemoveChips = (id:string) => {
+  //   let { skillsList, chipsSkill } = this.state;
+  //   skillsList = skillsList.filter(skill => skill !== id);
+  //    chipsSkill = chipsSkill.filter(chip => chip.skill !== id);
+  //   this.setState({ skillsList, chipsSkill });
+  // }
 
   //   openSkillModal = () => {
   //     this.setState({ modalSkillIsOpen: true });
@@ -225,9 +227,8 @@ export const MyProfileForm = () => {
   //   }
   const saveChanges = (event: OnClick) => {
     event.preventDefault();
-    const userId = 'XU3rkqafp';
     if (isEditing) {
-      service.saveMyProfile(userId, user).then(successs => {
+      service.saveMyProfile(user).then(successs => {
         if (successs) {
           // this.initData();
           close();
@@ -241,27 +242,37 @@ export const MyProfileForm = () => {
     }
   }
 
-  //   saveEmit = (rs) => {
-  //     if (rs.status === 'success' && rs.data) {
-  //       this.setState({ user: ReflectionUtil.clone(rs.data) });
-  //       UIUtil.showToast(ResourceManager.getString('success_save_my_profile'));
-  //     } else {
-  //       UIUtil.alertError(ResourceManager.getString('fail_save_my_profile'), ResourceManager.getString('error'));
-  //     }
-  //   }
-  // */
+  const saveEmit = (rs: any) => {
+    if (rs.status === 'success' && rs.user) {
+      // this.setState({ user:rs.data });
+      setUser(rs.user)
+      console.log(resource.success_save_my_profile)
+    } else {
+      console.log(resource.fail_save_my_profile)
+    }
+  }
+
   const toggleBio = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
+
+    if (user.bio !== bio) {
+      setModalConfirmIsOpen(true)
+    } else {
+      setIsEditingBio(!isEditingBio)
+      setIsEditing(!isEditing)
+    }
+  }
+
+  const revertBioChages = () => {
+    setBio(user.bio || '')
     setIsEditingBio(!isEditingBio)
     setIsEditing(!isEditing)
+    setModalConfirmIsOpen(false)
   }
-  const editBio = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const editBio = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
-    if (bio && bio.trim() !== '') {
-      user.bio = bio;
-      setBio('')
-      setUser(user)
-    }
+    const data = e.target.value;
+    setBio(data)
   }
   const toggleLookingFor = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
@@ -271,17 +282,17 @@ export const MyProfileForm = () => {
   const removeLookingFor = (e: React.MouseEvent<HTMLElement, MouseEvent>, lookingForContent: string) => {
     e.preventDefault();
     user.lookingFor = user.lookingFor.filter(item => item !== lookingForContent);
-    setUser(user)
+    setUser({ ...user })
   }
   const addLookingFor = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
     const lookingForUser = user.lookingFor ? user.lookingFor : [];
-    if (lookingFor && lookingFor.trim() !== '') {
-      if (!inArray(lookingForUser, lookingFor)) {
-        lookingForUser.push(lookingFor);
+    if (state.edit.lookingFor && state.edit.lookingFor.trim() !== '') {
+      if (!inArray(lookingForUser, state.edit.lookingFor)) {
+        lookingForUser.push(state.edit.lookingFor);
         user.lookingFor = lookingForUser;
-        setLookingFor('')
-        setUser(user)
+        setState({ edit: { ...state.edit, lookingFor: '' } })
+        setUser({ ...user })
       } else {
         // UIUtil.alertError(ResourceManager.getString('error_duplicated_looking_for'), ResourceManager.getString('error'));
       }
@@ -297,7 +308,7 @@ export const MyProfileForm = () => {
     if (user.interests) {
       const interests = user.interests.filter((item: string) => item !== subject);
       user.interests = interests;
-      setUser(user)
+      setUser({ ...user })
     }
   }
   const addInterest = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -308,7 +319,7 @@ export const MyProfileForm = () => {
       if (!inArray(interests, interest)) {
         interests.push(state.edit.interest);
         user.interests = interests;
-        setUser(user)
+        setUser({ ...user })
         setState({ edit: { ...state.edit, interest: '' } })
       } else {
         // UIUtil.alertError(ResourceManager.getString('error_duplicated_interest'), ResourceManager.getString('error'));
@@ -323,7 +334,8 @@ export const MyProfileForm = () => {
   const removeSkill = (e: React.MouseEvent<HTMLElement, MouseEvent>, skillContent: string) => {
     e.preventDefault();
     user.skills = user.skills.filter(item => item['skill'] !== skillContent);
-    setUser(user)
+    setUser({ ...user })
+    setState({ edit: { ...state.edit, interest: '' } })
   }
   const toggleAchievement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
@@ -332,31 +344,31 @@ export const MyProfileForm = () => {
 
   }
   const removeAchievement = (e: React.MouseEvent<HTMLElement, MouseEvent>, subject: string) => {
-    e.preventDefault();
     if (user.achievements) {
       const achievements = user.achievements.filter((item: Achievement) => item['subject'] !== subject);
       user.achievements = achievements;
-      setUser(user)
+      setUser({ ...user })
     }
   }
   const addAchievement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    const achievement: Achievement = { subject: state.edit.subject, description, highlight };
+    const achievement: Achievement = { subject: state.edit.subject, description: state.edit.description, highlight: state.edit.highlight };
     const achievements = user.achievements ? clone(user.achievements) : [];
     achievement.subject = state.edit.subject;
-    achievement.description = description;
-    achievement.highlight = highlight;
+    achievement.description = state.edit.description;
+    achievement.highlight = state.edit.highlight;
+    debugger
     if (state.edit.subject && state.edit.subject.trim().length > 0 && !inAchievements(achievements, achievement)) {
       achievements.push(achievement);
       user.achievements = achievements;
-      setHighlight(highlight)
-      setUser(user)
-      setState({ edit: { ...state.edit, subject: '' } })
-      setDescription('')
+      setUser({ ...user })
+      setState({ edit: { ...state.edit, description: '', subject: '' } })
     }
   }
 
-
+  const closeModalConfirm = () => {
+    setModalConfirmIsOpen(false)
+  }
   const followers = '7 followers'; // StringUtil.format(ResourceManager.getString('user_profile_followers'), user.followerCount || 0);
   const following = '10 following'; // StringUtil.format(ResourceManager.getString('user_profile_following'), user.followingCount || 0);
   return (
@@ -437,7 +449,7 @@ export const MyProfileForm = () => {
                       );
                     })
                   }
-                  {/*
+                  {/*                   
                     <label className='form-group inline-input'>
                       <Chips
                           type='text' id='skill' name='skill'
@@ -461,7 +473,7 @@ export const MyProfileForm = () => {
                           placeholder={resource.placeholder_user_profile_skill}
                       />
                       <button type='button' id='btnAddSkill' name='btnAddSkill' className='btn-add' onClick={this.addSkill}/>
-                    </label>*/}
+                    </label> */}
                   <label className='checkbox-container'>
                     <input type='checkbox' id='hireable' name='hireable' checked={state.edit.hireable} onChange={updateState} />
                     {resource.user_profile_hireable_skill}
@@ -515,11 +527,11 @@ export const MyProfileForm = () => {
                     <input name='lookingFor' className='form-control'
                       value={state.edit.lookingFor} onChange={updateState}
                       placeholder={resource.placeholder_user_profile_looking_for} maxLength={100} />
-                    <button type='button' id='btnAddLookingFor' name='btnAddLookingFor' className='btn-add' />
+                    <button type='button' id='btnAddLookingFor' name='btnAddLookingFor' className='btn-add' onClick={addLookingFor} />
                   </label>
                 </section>
                 <footer>
-                  <button type='button' id='btnSaveLookingFor' name='btnSaveLookingFor' >
+                  <button type='button' id='btnSaveLookingFor' name='btnSaveLookingFor' onClick={saveChanges}>
                     {resource.save}
                   </button>
                 </footer>
@@ -529,7 +541,7 @@ export const MyProfileForm = () => {
               <header>
                 <i className='material-icons highlight'>chat</i>
                 {resource.user_profile_social}
-                <button type='button' id='btnSocial' name='btnSocial' hidden={isEditing} className='btn-edit' />
+                <button type='button' id='btnSocial' name='btnSocial' hidden={isEditing} className='btn-edit' onClick={showPopup} />
               </header>
               <div>
                 {
@@ -639,10 +651,10 @@ export const MyProfileForm = () => {
               </header>
               {!isEditingBio &&
                 <p>{user.bio}</p>}
-              {isEditingBio && <textarea name='bio' value={user.bio} />}
+              {isEditingBio && <textarea name='bio' value={bio} onChange={editBio} />}
               {isEditingBio &&
                 <footer>
-                  <button type='button' id='btnSaveBio' name='btnSaveBio' >
+                  <button type='button' id='btnSaveBio' name='btnSaveBio' onClick={saveChanges}>
                     {resource.save}
                   </button>
                 </footer>
@@ -701,7 +713,7 @@ export const MyProfileForm = () => {
                 />
               </header>
               {
-                !isEditingAchievement && user.achievements && user.achievements.map((achievement: Achievement, index: number) => {
+                (!isEditingAchievement && user.achievements) && user.achievements.map((achievement: Achievement, index: number) => {
                   return <section key={index}>
                     <h3>{achievement.subject}
                       {achievement.highlight && <i className='star highlight float-right' />}
@@ -712,16 +724,16 @@ export const MyProfileForm = () => {
                 })
               }
               {
-                isEditingAchievement && user.achievements && user.achievements.map((achievement: Achievement, index: number) => {
-                  return <section key={index}>
+                (isEditingAchievement && user.achievements) && user.achievements.map((achievement: Achievement, index: number) => (
+                  <section key={index}>
                     <h3>{achievement.subject}
                       {achievement.highlight && <i className='star highlight' />}
                     </h3>
                     <p className='description'>{achievement.description}</p>
                     <button type='button' className='btn-remove' onClick={(e) => removeAchievement(e, achievement.subject)} />
                     <hr />
-                  </section>;
-                })
+                  </section>
+                ))
               }
               {isEditingAchievement &&
                 <section>
@@ -741,14 +753,14 @@ export const MyProfileForm = () => {
                     {resource.user_profile_highlight_achievement}
                   </label>
                   <div className='btn-group'>
-                    <button type='button' id='btnAddAchievement' name='btnAddAchievement' className='btn-add' />
+                    <button type='button' id='btnAddAchievement' name='btnAddAchievement' className='btn-add' onClick={addAchievement} />
                     {resource.button_add_achievement}
                   </div>
                 </section>
               }
               {isEditingAchievement &&
                 <footer>
-                  <button type='button' id='btnSaveAchievement' name='btnSaveAchievement' >
+                  <button type='button' id='btnSaveAchievement' name='btnSaveAchievement' onClick={saveChanges}>
                     {resource.save}
                   </button>
                 </footer>
@@ -769,7 +781,37 @@ export const MyProfileForm = () => {
         <GeneralInfo
           resource={resource}
           close={closeModal}
+          saveEmit={saveEmit}
           user={user} />
+      </ReactModal>
+      <ReactModal
+        isOpen={modalConfirmIsOpen}
+        onRequestClose={closeModalConfirm}
+        contentLabel='Modal'
+        // portalClassName='modal-portal'
+        className='modal-portal-content small-width-height'
+        bodyOpenClassName='modal-portal-open'
+        overlayClassName='modal-portal-backdrop'
+      >
+        <div className='view-container profile-info'>
+          <form model-name='data'>
+            <header>
+              <h2>{resource.user_profile_general_info}</h2>
+              <button type='button' id='btnClose' name='btnClose' className='btn-close' onClick={closeModalConfirm} />
+            </header>
+            <div>
+              <section className='row'>
+                <div>  Data will not be saved, are you sure to continue?</div>
+              </section>
+            </div>
+
+            <footer>
+              <button type='button' id='btnSave' name='btnSave' onClick={revertBioChages}>
+                OK
+              </button>
+            </footer>
+          </form>
+        </div>
       </ReactModal>
     </div>
   );

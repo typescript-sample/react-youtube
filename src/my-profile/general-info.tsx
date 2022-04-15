@@ -1,23 +1,22 @@
-import { BaseComponent, useUpdate } from 'react-hook-core';
+import { BaseComponent, OnClick, useUpdate } from 'react-hook-core';
 import './general-info.css';
-import { User } from './my-profile';
+import { useGetMyProfileService, User } from './my-profile';
 import React, { useEffect, useState } from 'react'
 interface Props {
   user: User;
   resource: any;
   close: any;
-  // saveEmit: any;
-}
-interface State {
-  data: any;
+  saveEmit: any;
 }
 
-const data: State = {
-  data: {} as any
+interface State {
+  user: User
 };
 
-export const GeneralInfo = ({ resource, user, close }: Props) => {
-  const { state, setState, updateState } = useUpdate<User>(user);
+
+export const GeneralInfo = ({ resource, user, close, saveEmit }: Props) => {
+  const service = useGetMyProfileService()
+  const { state, setState, updateState } = useUpdate<State>({ user }, 'user');
 
 
   const closeModal = () => {
@@ -25,22 +24,23 @@ export const GeneralInfo = ({ resource, user, close }: Props) => {
     // const msg = ResourceManager.getString('success_save_my_profile');
     // this.showInfo(msg);
   }
-  /*
-    save = () => {
-      const {data} = this.state;
-      getMyProfileService().saveMyProfile(storage.getUserId(), data).subscribe(success => {
-        let status = '';
-        if (success) {
-          status = 'success';
-          this.setState({data});
-        } else {
-          status = 'fail';
-        }
-        this.props.saveEmit({status, data});
-        this.close();
-      });
-    }
-  */
+
+  const save = (e:OnClick) => {
+    e.preventDefault()
+    const { user } = state;
+    service.saveMyProfile(user).then(success => {
+      let status = '';
+      if (success) {
+        status = 'success';
+        setState({ user });
+      } else {
+        status = 'fail';
+      }
+      saveEmit({ status, user });
+      close();
+    });
+  }
+
 
   return (
     <div className='view-container profile-info'>
@@ -55,7 +55,7 @@ export const GeneralInfo = ({ resource, user, close }: Props) => {
             <label className='col s12 m6'>
               {resource.first_name}
               <input id='firstName' name='firstName'
-                value={state.firstName}
+                value={state.user.firstName}
                 onChange={updateState}
                 maxLength={255}
                 placeholder={resource.placeholder_user_profile_first_name} />
@@ -63,7 +63,7 @@ export const GeneralInfo = ({ resource, user, close }: Props) => {
             <label className='col s12 m6'>
               {resource.last_name}
               <input id='lastName' name='lastName'
-                value={state.lastName}
+                value={state.user.lastName}
                 onChange={updateState}
                 maxLength={255}
                 placeholder={resource.placeholder_user_profile_last_name} />
@@ -71,7 +71,7 @@ export const GeneralInfo = ({ resource, user, close }: Props) => {
             <label className='col s12 m6'>
               {resource.user_profile_occupation}
               <input id='occupation' name='occupation'
-                value={state.occupation}
+                value={state.user.occupation}
                 onChange={updateState}
                 maxLength={500}
                 placeholder={resource.placeholder_user_profile_occupation} />
@@ -79,7 +79,7 @@ export const GeneralInfo = ({ resource, user, close }: Props) => {
             <label className='col s12 m6'>
               {resource.user_profile_company}
               <input id='company' name='company'
-                value={state.company}
+                value={state.user.company}
                 onChange={updateState}
                 maxLength={500}
                 placeholder={resource.placeholder_user_profile_company} />
@@ -88,7 +88,7 @@ export const GeneralInfo = ({ resource, user, close }: Props) => {
               {resource.user_profile_website}
               <input id='website' name='website'
                 data-type='url'
-                value={state.website}
+                value={state.user.website}
                 onChange={updateState}
                 maxLength={500}
                 placeholder={resource.placeholder_user_profile_website} />
@@ -100,40 +100,40 @@ export const GeneralInfo = ({ resource, user, close }: Props) => {
               <i className='fa fa-facebook' />
               <input id='facebookLink' maxLength={100} name='facebookLink'
                 onChange={updateState} placeholder={resource.user_profile_facebook}
-                value={state.facebookLink} />
+                value={state.user.facebookLink} />
             </label>
             <label className='inline-input'>
               <i className='fa fa-linkedin' />
               <input id='linkedInLink' maxLength={100} onChange={updateState}
-                placeholder={resource.user_profile_linkedIn} name='linkedinLink' value={state.linkedinLink} />
+                placeholder={resource.user_profile_linkedIn} name='linkedinLink' value={state.user.linkedinLink} />
             </label>
             <label className='inline-input'>
               <i className='fa fa-instagram' />
               <input id='instagramLink' maxLength={100} onChange={updateState}
                 placeholder={resource.user_profile_instagram} name='instagramLink'
-                value={state.instagramLink} />
+                value={state.user.instagramLink} />
             </label>
             <label className='inline-input'>
               <i className='fa fa-twitter' />
               <input id='twitter' maxLength={100} onChange={updateState}
-                placeholder={resource.user_profile_twitter} name='twitterLink' value={state.twitterLink} />
+                placeholder={resource.user_profile_twitter} name='twitterLink' value={state.user.twitterLink} />
             </label>
             <label className='inline-input'>
               <i className='fa fa-skype' />
               <input id='skype' name='skypeLink' maxLength={100}
                 onChange={updateState}
-                placeholder={resource.user_profile_skype} value={state.skypeLink} />
+                placeholder={resource.user_profile_skype} value={state.user.skypeLink} />
             </label>
             <label className='inline-input'>
               <i className='fa fa-dribbble' />
               <input id='dribble' name='dribbbleLink' maxLength={100}
                 onChange={updateState}
-                placeholder={resource.user_profile_dribbble} value={state.dribbbleLink} />
+                placeholder={resource.user_profile_dribbble} value={state.user.dribbbleLink} />
             </label>
           </section>
         </div>
         <footer>
-          <button type='button' id='btnSave' name='btnSave'>
+          <button type='button' id='btnSave' name='btnSave' onClick={save}>
             {resource.save}
           </button>
         </footer>

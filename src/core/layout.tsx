@@ -194,7 +194,6 @@ export const LayoutComponent = () => {
     }
     setTopClass(topClassList.join(' '));
   }, [state]);
-
   return (
     <div className={topClass}>
       <div className='top-banner'>
@@ -204,7 +203,7 @@ export const LayoutComponent = () => {
         </div>
       </div>
       <div className='menu sidebar'>
-        <Nav className='expanded-all'
+        <Nav className={`expanded-all ${state.forms.length === 0 ? 'empty-item' : ''}`}
           iconClass='material-icons'
           path={location.pathname}
           pins={state.pinnedModules}

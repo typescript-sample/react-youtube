@@ -102,7 +102,7 @@ export interface MyProfileService {
   getMyProfile(id: string): Promise<User | null>;
   getMySettings(id: string): Promise<UserSettings | null>;
   saveMySettings(id: string, settings: UserSettings): Promise<number>;
-  saveMyProfile(id: string, user: User): Promise<number>;
+  saveMyProfile(user: User): Promise<number>;
 }
 
 export const skillsModel: Attributes = {
