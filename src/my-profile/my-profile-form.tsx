@@ -19,6 +19,8 @@ interface Edit {
     highlight: boolean;
     description: string;
     subject: string;
+    skill: string;
+    hirable: boolean;
   }
 }
 const data: Edit = {
@@ -28,7 +30,9 @@ const data: Edit = {
     interest: '',
     highlight: false,
     description: '',
-    subject: ''
+    subject: '',
+    skill: '',
+    hirable: false
   }
 }
 export const MyProfileForm = () => {
@@ -186,25 +190,25 @@ export const MyProfileForm = () => {
     setIsEditing(!isEditing)
   }
 
-  //   // addSkill = (e) => {
-  //   //   e.preventDefault();
-  //   //   const { user, skill, hireable } = this.state;
-  //   //   const skillsEditing = user.skills ? user.skills : [];
-  //   //   if (skill && skill.trim() !== '') {
-  //   //     console.log('OOOO', skillsEditing);
-  //   //     const item = {
-  //   //       hirable: hireable,
-  //   //       skill
-  //   //     };
-  //   //     if (!this.isExistInArray(e, skillsEditing, item, 'skill')) {
-  //   //       skillsEditing.push(item);
-  //   //       user.skills = skillsEditing;
-  //   //       this.setState({ skill: '', user });
-  //   //     } else {
-  //   //       UIUtil.alertError(ResourceManager.getString('error_duplicated_skill'), ResourceManager.getString('error'));
-  //   //     }
-  //   //   }
-  //   // }
+  const addSkill = (e: OnClick) => {
+    e.preventDefault();
+    const { skill, hireable } = state.edit;
+    const skillsEditing = user.skills ? user.skills : [];
+    if (skill && skill.trim() !== '') {
+      const item = {
+        hirable: hireable,
+        skill
+      };
+      if (skillsEditing.filter(skillEdit => skillEdit.skill === skill).length === 0) {
+        skillsEditing.push(item);
+        user.skills = skillsEditing;
+        setState({ edit: { ...state.edit, skill: '' } })
+        setUser({ ...user })
+      } else {
+        console.log(resource.error_duplicated_skill)
+      }
+    }
+  }
   //   addSkill = (e) => {
   //     e.preventDefault();
   //     this.onRemoveChips(this.state.skillsList[0]);
@@ -448,6 +452,37 @@ export const MyProfileForm = () => {
                         </div>
                       );
                     })
+                  }
+                  {
+                    (isEditingSkill && user.skills) && user.skills.map((skil: Skill, index: number) => (
+                      <section key={index}>
+                        <h3>{skil.skill}
+                          {skil.hirable && <i className='star highlight' />}
+                        </h3>
+                        <button type='button' className='btn-remove' onClick={(e) => removeAchievement(e, skil.skill)} />
+                        <hr />
+                      </section>
+                    ))
+                  }
+                  {isEditingSkill &&
+                    <section>
+                      <div className='form-group'>
+                        <input type='text' name='skill' className='form-control'
+                          value={state.edit.subject} onChange={updateState}
+                          placeholder={resource.placeholder_user_profile_skill}
+                          maxLength={50} required={true} />
+
+                      </div>
+                      <label className='checkbox-container'>
+                        <input type='checkbox' id='hirable' name='hirable'
+                          checked={state.edit.hirable} onChange={updateState} />
+                        {resource.user_profile_hireable_skill}
+                      </label>
+                      <div className='btn-group'>
+                        <button type='button' id='btnAddAchievement' name='btnAddAchievement' className='btn-add' onClick={addSkill} />
+                        {resource.button_add_achievement}
+                      </div>
+                    </section>
                   }
                   {/*                   
                     <label className='form-group inline-input'>
