@@ -10,6 +10,7 @@ interface RoleSearch extends SearchComponentState<Role, RoleFilter> {
   statusList: Item[];
 }
 const roleFilter: RoleFilter = {
+  q: '',
   roleId: '',
   roleName: '',
   status: [],
@@ -54,7 +55,7 @@ export const RolesForm = () => {
           <section className='row search-group'>
             <label className='col s12 m6 search-input'>
               <PageSizeSelect size={component.pageSize} sizes={component.pageSizes} onChange={pageSizeChanged} />
-              <input type='text' id='q' name='q' value={filter.q} onChange={updateState} maxLength={255} placeholder={resource.keyword}/>
+              <input type='text' id='q' name='q' value={filter.q || ''} onChange={updateState} maxLength={255} placeholder={resource.keyword}/>
               <button type='button' hidden={!filter.q} className='btn-remove-text' onClick={clearKeyworkOnClick}/>
               <button type='button' className='btn-filter' onClick={toggleFilter}/>
               <button type='submit' className='btn-search' onClick={search}/>
@@ -68,7 +69,7 @@ export const RolesForm = () => {
                 type='text'
                 id='roleName'
                 name='roleName'
-                value={filter.roleName}
+                value={filter.roleName || ''}
                 onChange={updateState}
                 maxLength={240}
                 placeholder={resource.roleName} />

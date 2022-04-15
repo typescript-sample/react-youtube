@@ -5,7 +5,7 @@ import ReactModal from 'react-modal';
 import { useResource } from 'uione';
 import imageOnline from '../assets/images/online.svg';
 import GeneralInfo from './general-info';
-import { Achievement, getMyProfileService, Skill, User } from './my-profile';
+import { Achievement, useGetMyProfileService, Skill, User } from './my-profile';
 import { MyProfileService } from './my-profile/user';
 
 // const MAX_LOOK_UP = 40;
@@ -32,6 +32,7 @@ const data: Edit = {
   }
 }
 export const MyProfileForm = () => {
+  const service= useGetMyProfileService()
   const [message, setMessage] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -52,7 +53,7 @@ export const MyProfileForm = () => {
   const { state, setState, updateState } = useUpdate<Edit>(data, 'edit');
   useEffect(() => {
     const id = 'XU3rkqafp';
-    getMyProfileService().getMyProfile(id).then(user => {
+    service.getMyProfile(id).then(user => {
       if (user) {
         console.log('user', user)
         setUser(user);
@@ -65,7 +66,7 @@ export const MyProfileForm = () => {
     setModalIsOpen(false)
   }
 
-  // private readonly skillService = applicationContext.getMyProfileService();
+  // private readonly skillService = applicationContext.useGetMyProfileService();
   // private readonly chipSkillSuggestionsService = new DefaultSuggestionService<any>(this.skillService, MAX_LOOK_UP, 'skill', 'skill');
   // /*
   //   initData() {
@@ -125,7 +126,7 @@ export const MyProfileForm = () => {
 
   //   loadData() {
   //     const userId = storage.getUserId();
-  //     applicationContext.getMyProfileService().getMyProfile(userId).subscribe((user: User) => {
+  //     applicationContext.useGetMyProfileService().getMyProfile(userId).subscribe((user: User) => {
   //       this.setState({ user, objectUser: ReflectionUtil.clone(user) });
   //     }, err => {
   //       UIUtil.alertError(ResourceManager.getString('error_load_user_profile'), ResourceManager.getString('error'));
@@ -136,7 +137,7 @@ export const MyProfileForm = () => {
   //   //   const userId = storage.getUserId();
   //   //   zip(
   //   //       this.skillService.getAll1(),
-  //   //       applicationContext.getMyProfileService().getMyProfile(userId),
+  //   //       applicationContext.useGetMyProfileService().getMyProfile(userId),
   //   //   ).subscribe(([skills, user]) => {
   //   //     this.setState({skills, user, objectUser: ReflectionUtil.clone(user)}, () => {
   //   //       const promise = new Promise((resolve, reject) => {
@@ -226,7 +227,6 @@ export const MyProfileForm = () => {
     event.preventDefault();
     const userId = 'XU3rkqafp';
     if (isEditing) {
-      const service: MyProfileService = getMyProfileService()
       service.saveMyProfile(userId, user).then(successs => {
         if (successs) {
           // this.initData();
@@ -684,7 +684,7 @@ export const MyProfileForm = () => {
               }
               {isEditingInterest &&
                 <footer>
-                  <button type='button' id='btnSaveInterest' name='btnSaveInterest' >
+                  <button type='button' id='btnSaveInterest' name='btnSaveInterest' onClick={saveChanges}>
                     {resource.save}
                   </button>
                 </footer>}

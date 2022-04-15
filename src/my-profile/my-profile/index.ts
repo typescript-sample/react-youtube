@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { HttpRequest } from 'axios-core';
+import { useState } from 'react';
 import { options, storage } from 'uione';
 import { Client } from 'web-clients';
 import { MyProfileService, User, UserFilter, userModel, UserService, UserSettings } from './user';
@@ -73,6 +74,7 @@ class ApplicationContext {
     return storage.config();
   }
   getMyProfileService(): MyProfileService {
+    console.log('service')
     if (!this.userService) {
       const c = this.getConfig();
       this.userService = new MyProfileClient(httpRequest, c.myprofile_url);
@@ -83,6 +85,7 @@ class ApplicationContext {
 }
 
 export const context = new ApplicationContext();
-export function getMyProfileService(): MyProfileService {
-  return context.getMyProfileService();
+export function useGetMyProfileService(): MyProfileService {
+  const [service] = useState(() => { return context.getMyProfileService() })
+  return service;
 }

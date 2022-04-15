@@ -215,13 +215,14 @@ export function RoleForm() {
       );
     }
   };
+  const role = state.role;
   return (
     <div className='view-container'>
       <form id='roleForm' name='roleForm' model-name='role' ref={refForm as any}>
         <header>
           <button type='button' id='btnBack' name='btnBack' className='btn-back' onClick={back} />
           <h2>{flag.newMode ? resource.create : resource.edit} {resource.role}</h2>
-          <button className='btn-group btn-right'><i onClick={e => assign(e, state.role.roleId)} className='material-icons'>group</i></button>
+          <button className='btn-group btn-right'><i onClick={e => assign(e, role.roleId)} className='material-icons'>group</i></button>
         </header>
         <div>
           <section className='row'>
@@ -229,7 +230,7 @@ export function RoleForm() {
               {resource.role_id}
               <input type='text'
                 id='roleId' name='roleId'
-                value={state.role.roleId}
+                value={role.roleId || ''}
                 onChange={updateState}
                 maxLength={20} required={true}
                 readOnly={!flag.newMode}
@@ -239,7 +240,7 @@ export function RoleForm() {
               {resource.role_name}
               <input type='text'
                 id='roleName' name='roleName'
-                value={state.role.roleName}
+                value={role.roleName || ''}
                 onChange={updateState}
                 maxLength={255}
                 placeholder={resource.role_name} />
@@ -248,7 +249,7 @@ export function RoleForm() {
               {resource.remark}
               <input type='text'
                 id='remark' name='remark'
-                value={state.role.remark}
+                value={role.remark || ''}
                 onChange={updateState}
                 maxLength={255}
                 placeholder={resource.remark} />
@@ -262,7 +263,7 @@ export function RoleForm() {
                     id='active'
                     name='status'
                     onChange={(e) => updateState(e, () => setState)}
-                    value='A' checked={state.role.status === 'A'} />
+                    value='A' checked={role.status === 'A'} />
                   {resource.active}
                 </label>
                 <label>
@@ -271,7 +272,7 @@ export function RoleForm() {
                     id='inactive'
                     name='status'
                     onChange={(e) => updateState(e, () => setState)}
-                    value='I' checked={state.role.status === 'I'} />
+                    value='I' checked={role.status === 'I'} />
                   {resource.inactive}
                 </label>
               </div>
