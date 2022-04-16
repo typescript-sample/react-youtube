@@ -23,6 +23,7 @@ const CommentItem = (props: CommentProps) => {
         setComments(res.list);
       }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show]);
 
   const handleShowMore = () => {
@@ -70,7 +71,7 @@ const CommentItem = (props: CommentProps) => {
             </>
           )
         }
-        {nextPage && <a className='view' onClick={() => loadMore(props.commentId)}>View more replies</a>}
+        {nextPage && <button className='view' onClick={() => loadMore(props.commentId)}>View more replies</button>}
       </div>
     </div>
   );

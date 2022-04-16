@@ -29,6 +29,7 @@ const HomePage = () => {
       const res = await videoService.getCagetories(region);
       setVideoCategories(res);
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useEffect(() => {
@@ -43,6 +44,7 @@ const HomePage = () => {
       setNextPageToken(res.nextPageToken);
       setVideos(res.list);
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
   const handleLoadMore = async () => {

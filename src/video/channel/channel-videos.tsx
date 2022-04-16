@@ -27,6 +27,7 @@ const ChannelVideos = (props: Props) => {
         setNextPageToken(res.nextPageToken);
       }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleLoadMore = async (e: React.MouseEvent<HTMLButtonElement>) => {

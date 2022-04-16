@@ -26,6 +26,7 @@ const Comments = (props: CommentsProps) => {
         setCommentThreads(res.list);
       }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSort = async (e: { target: { value: string }; }) => {

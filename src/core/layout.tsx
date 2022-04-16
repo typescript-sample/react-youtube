@@ -2,11 +2,11 @@ import axios from 'axios';
 import { HttpRequest } from 'axios-core';
 import { useEffect, useState } from 'react';
 import * as React from 'react';
-import { OnClick, PageSizeSelect, useMergeState } from 'react-hook-core';
+import { OnClick, PageSizeSelect, pageSizes as sizes, useMergeState } from 'react-hook-core';
 import { useNavigate } from 'react-router';
 import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { collapseAll, expandAll, Nav } from 'reactx-nav';
-import { options, Privilege, storage, useResource } from 'uione';
+import { options, Privilege, storage, user as getUser, useResource } from 'uione';
 import logoTitle from '../assets/images/logo-title.png';
 import logo from '../assets/images/logo.png';
 import topBannerLogo from '../assets/images/top-banner-logo.png';
@@ -37,8 +37,8 @@ export function sub(n1?: number, n2?: number): number {
   return 0;
 }
 const initialState: InternalState = {
-  pageSizes: [10, 20, 40, 60, 100, 200, 400, 10000],
-  pageSize: 10,
+  pageSizes: sizes,
+  pageSize: 12,
   se: {} as any,
   keyword: '',
   classProfile: '',
@@ -58,9 +58,9 @@ export const LayoutComponent = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [state, setState] = useMergeState<InternalState>(initialState);
   const [pageSize] = useState<number>(20);
-  const [pageSizes] = useState<number[]>([10, 20, 40, 60, 100, 200, 400, 10000]);
+  const [pageSizes] = useState<number[]>(sizes);
   const [topClass, setTopClass] = useState('');
-  const [user, setUser] = useState(storage.user());
+  const user = getUser();
 
   useEffect(() => {
     const forms = storage.privileges();
@@ -142,6 +142,7 @@ export const LayoutComponent = () => {
       }
     ).catch(err => { });
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // const viewChangePassword = (e: { preventDefault: () => void; }) => {
@@ -177,12 +178,13 @@ export const LayoutComponent = () => {
 
   useEffect(() => {
     setState({ keyword: searchParams.get('q') as string });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
-
+  /*
   useEffect(() => {
     setUser(storage.user());
   }, [storage.user()]); // eslint-disable-line react-hooks/exhaustive-deps
-
+  */
   useEffect(() => {
     const { isToggleMenu, isToggleSearch } = state;
     const topClassList = ['sidebar-parent'];
@@ -258,20 +260,24 @@ export const LayoutComponent = () => {
                       person
                     </i>
                   )}
+                  {!user &&
                   <ul id='dropdown-basic' className={state.classProfile + ' dropdown-content-profile'}>
-                    <li><Link className='dropdown-item-profile' to={'my-profile'} >{resource.my_profile}</Link></li>
-                    <li><Link className='dropdown-item-profile' to={'my-profile/settings'}>{resource.my_settings}</Link></li>
-                    {/*
-                      
-                      <li><a className='dropdown-item-profile'
-                             onClick={this.viewChangePassword}>{this.resource.my_password}</a></li>*/}
+                    <li><i className="material-icons">account_circle</i><Link className='dropdown-item-profile' to={'signin'} >{resource.signin}</Link></li>
+                  </ul>  
+                  }
+                  {user &&
+                  <ul id='dropdown-basic' className={state.classProfile + ' dropdown-content-profile'}>
+                    <li><i className="material-icons">account_circle</i><Link className='dropdown-item-profile' to={'my-profile'} >{resource.my_profile}</Link></li>
+                    <li><i className="material-icons">settings</i><Link className='dropdown-item-profile' to={'my-profile/settings'}>{resource.my_settings}</Link></li>
                     <hr style={{ margin: 0 }} />
                     <li>
+                      <i className="material-icons">exit_to_app</i>
                       <button className='dropdown-item-profile' onClick={signout}>
                         {resource.button_signout}
                       </button>
                     </li>
                   </ul>
+                  }
                 </div>
               </section>
             </div>
