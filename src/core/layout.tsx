@@ -49,7 +49,6 @@ const initialState: InternalState = {
   userType: '',
   pinnedModules: []
 };
-// const httpRequest = new HttpRequest(axios, options);
 export const LayoutComponent = () => {
   const resource = useResource();
   const navigate = useNavigate();
@@ -98,11 +97,6 @@ export const LayoutComponent = () => {
   };
 
   const toggleMenu = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    /*
-    if (e && e.preventDetault) {
-      e.preventDetault();
-    }
-    */
     setState({ isToggleMenu: !state.isToggleMenu });
   };
 
@@ -141,14 +135,8 @@ export const LayoutComponent = () => {
         setState({ forms });
       }
     ).catch(err => { });
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // const viewChangePassword = (e: { preventDefault: () => void; }) => {
-  //   e.preventDefault();
-  //   navigate('/change-password');
-  // }
 
   const pin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number, m: Privilege) => {
     event.stopPropagation();
@@ -180,11 +168,6 @@ export const LayoutComponent = () => {
     setState({ keyword: searchParams.get('q') as string });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
-  /*
-  useEffect(() => {
-    setUser(storage.user());
-  }, [storage.user()]); // eslint-disable-line react-hooks/exhaustive-deps
-  */
   useEffect(() => {
     const { isToggleMenu, isToggleSearch } = state;
     const topClassList = ['sidebar-parent'];
@@ -215,22 +198,6 @@ export const LayoutComponent = () => {
           toggle={toggleMenu}
           expand={expandAll}
           collapse={collapseAll} />
-        {/*
-        <nav className='expanded-all'>
-          <ul>
-            <li>
-              <button className='toggle-menu' onClick={toggleMenu} />
-              <p className='sidebar-off-menu'>
-                <button className='toggle' onClick={toggleMenu} />
-                <i className='expand' onClick={expandAll} />
-                <i className='collapse' onClick={collapseAll} />
-              </p>
-            </li>
-            {renderItems(pathname, state.pinnedModules, pinModulesHandler, resource, 'material-icons', true, true)}
-            {renderItems(pathname, state.forms, pinModulesHandler, resource, 'material-icons', true)}
-          </ul>
-        </nav>
-        */}
       </div>
       <div className='page-container'>
         <div className='page-header'>

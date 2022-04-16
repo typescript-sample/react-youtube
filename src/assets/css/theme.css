@@ -241,7 +241,8 @@ body,
 .page-body,
 .view-container,
 .full-container,
-.page-header {
+.page-header,
+.dropdown-menu-profile {
   background-color: #fff;
 }
 
