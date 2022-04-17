@@ -43,26 +43,6 @@
   border: none;
   background-color: transparent;
 }
-.page-header > form > div > section > button > .fa,
-.page-header .input-group > .btn > .fa {
-  font-size: 18px;
-}
-
-.dropdown-menu-profile > img,
-.dropdown-menu-profile > i {
-  width: 36px;
-  height: 36px;
-  margin-top: -2px;
-  margin-left: 8px;
-  margin-right: 2px;
-  border: 1px solid;
-  border-radius: 50%;
-}
-
-.dropdown-menu-profile > i {
-  font-size: 32px;
-  padding-left: 1px;
-}
 .page-header .toggle-menu,
 .page-container .toggle-search,
 .page-header .close-search {
@@ -168,6 +148,21 @@
   border: 0;
   cursor: pointer;
   z-index: 30000;
+}
+.dropdown-menu-profile > img,
+.dropdown-menu-profile > i {
+  width: 36px;
+  height: 36px;
+  margin-top: -2px;
+  margin-left: 8px;
+  margin-right: 2px;
+  border: 1px solid;
+  border-radius: 50%;
+}
+
+.dropdown-menu-profile > i {
+  font-size: 32px;
+  padding-left: 1px;
 }
 .dropdown-menu-profile:hover ul {
   display: block;

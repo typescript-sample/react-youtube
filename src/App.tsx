@@ -32,6 +32,7 @@ import PlaylistPage from './video/playlist';
 import SearchPage from './video/search';
 import VideoPage from './video/video';
 import { UserPage } from './profile/user-page';
+import { UsersPage } from './profile/users-page';
 
 // tslint:disable:ordered-imports
 import './assets/css/reset.css';
@@ -39,7 +40,7 @@ import './App.css';
 import './assets/fonts/material-icon/css/material-icons.css';
 import './assets/css/checkbox.css';
 import './assets/css/radio.css';
-import './assets/css/materialize-grid.css';
+import './assets/css/grid.css';
 import './assets/css/alert.css';
 import './assets/css/loader.css';
 import './assets/css/main.css';
@@ -53,16 +54,15 @@ import './assets/css/article.css';
 import './assets/css/list-view.css';
 import './assets/css/table.css';
 import './assets/css/list-detail.css';
-import './assets/css/navigation-bar.css';
+import './assets/css/navigation.css';
 import './assets/css/pagination.css';
 import './assets/css/solid-container.css';
-import './assets/css/common-button.css';
+import './assets/css/button.css';
 import './assets/css/search.css';
 import './assets/css/layout.css';
 import './assets/css/profile.css';
 import './assets/css/theme.css';
 import './assets/fonts/Roboto/font.css';
-import { UsersPage } from './profile/users-page';
 
 let isInit = false;
 export function init() {

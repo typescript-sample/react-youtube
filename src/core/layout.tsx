@@ -15,10 +15,10 @@ interface InternalState {
   pageSizes: number[];
   pageSize: number;
   se: any;
-  isToggleMenu: boolean;
-  isToggleSearch: boolean;
+  isToggleMenu?: boolean;
+  isToggleSearch?: boolean;
   keyword: string;
-  classProfile: string;
+  showProfile: string;
   forms: Privilege[];
   username?: string;
   userType?: string;
@@ -41,9 +41,7 @@ const initialState: InternalState = {
   pageSize: 12,
   se: {} as any,
   keyword: '',
-  classProfile: '',
-  isToggleMenu: false,
-  isToggleSearch: false,
+  showProfile: '',
   forms: [],
   username: '',
   userType: '',
@@ -56,7 +54,7 @@ export const LayoutComponent = () => {
   const [isSearch, setIsSearch] = useState(location.pathname === '/search');
   const [searchParams, setSearchParams] = useSearchParams();
   const [state, setState] = useMergeState<InternalState>(initialState);
-  const [pageSize] = useState<number>(20);
+  const [pageSize] = useState<number>(12);
   const [pageSizes] = useState<number[]>(sizes);
   const [topClass, setTopClass] = useState('');
   const user = getUser();
@@ -101,15 +99,15 @@ export const LayoutComponent = () => {
   };
 
   function toggleProfile() {
-    setState({ classProfile: state.classProfile === 'show' ? '' : 'show' });
+    setState({ showProfile: state.showProfile === 'show' ? '' : 'show' });
   }
 
   const signout = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
-    const httpRequestSignout = new HttpRequest(axios, options);
+    const request = new HttpRequest(axios, options);
     const config: any = storage.config();
     const url = config.authentication_url + '/authentication/signout/' + storage.username();
-    httpRequestSignout.get(url).catch(err => { });
+    request.get(url).catch(err => { });
     sessionStorage.removeItem('authService');
     sessionStorage.clear();
     storage.setUser(null);
@@ -228,12 +226,12 @@ export const LayoutComponent = () => {
                     </i>
                   )}
                   {!user &&
-                  <ul id='dropdown-basic' className={state.classProfile + ' dropdown-content-profile'}>
+                  <ul id='dropdown-basic' className={state.showProfile + ' dropdown-content-profile'}>
                     <li><i className="material-icons">account_circle</i><Link className='dropdown-item-profile' to={'signin'} >{resource.signin}</Link></li>
                   </ul>  
                   }
                   {user &&
-                  <ul id='dropdown-basic' className={state.classProfile + ' dropdown-content-profile'}>
+                  <ul id='dropdown-basic' className={state.showProfile + ' dropdown-content-profile'}>
                     <li><i className="material-icons">account_circle</i><Link className='dropdown-item-profile' to={'my-profile'} >{resource.my_profile}</Link></li>
                     <li><i className="material-icons">settings</i><Link className='dropdown-item-profile' to={'my-profile/settings'}>{resource.my_settings}</Link></li>
                     <hr style={{ margin: 0 }} />
