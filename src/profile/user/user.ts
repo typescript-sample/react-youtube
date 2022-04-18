@@ -1,6 +1,11 @@
 import { Attributes, DateRange, Filter, Repository, Service } from 'onecore';
 
 export interface User {
+  userId: string;
+  imageURL: string;
+  status: string;
+  gender?: string;
+
   id: string;
   username: string;
   displayName: string;
@@ -86,13 +91,17 @@ export interface Appreciation {
 export interface UserFilter extends Filter {
   id: string;
   username: string;
+  displayName: string;
   email?: string;
   phone?: string;
   dateOfBirth?: DateRange;
+  /*
   interests: string[];
   skills: Skill[];
   achievements: Achievement[];
   settings: UserSettings;
+  */
+  status: string[];
 }
 export interface UserRepository extends Repository<User, string> {
 }
