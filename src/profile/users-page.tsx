@@ -1,8 +1,8 @@
 import { useRef } from "react";
-import { DispatchWithCallback, enLocale, getCurrencyCode, getDecodeFromForm, getFields, getModel, getModelName, initFilter, InitSearchComponentParam, mergeParam, OnClick, PageSizeSelect, Searchable, SearchComponentParam, SearchComponentState, useSearch, value } from "../common";
+import { DispatchWithCallback, enLocale, getCurrencyCode, getDecodeFromForm, getFields, getModel, getModelName, InitSearchComponentParam, mergeParam, OnClick, PageSizeSelect, Searchable, SearchComponentState, useSearch, value } from "../common";
 import { useNavigate } from "react-router-dom";
 import Pagination from "reactx-pagination";
-import { handleError, inputSearch } from "uione";
+import {  inputSearch } from "uione";
 import { getUserService, User, UserFilter } from "./user";
 import { Skill } from "./user/user";
 
@@ -142,7 +142,7 @@ export const UsersPage = () => {
   const addSkill = (e: OnClick) => {
     e.preventDefault();
     filter.skills = filter.skills ? filter.skills : [];
-    const {skill,hireable} = state;
+    const {skill} = state;
     const newSkill: Skill = { skill, hirable: state.hireable };
     if(skill && skill.trim()!==''){
       

@@ -6,7 +6,6 @@ import { useResource } from 'uione';
 import imageOnline from '../assets/images/online.svg';
 import GeneralInfo from './general-info';
 import { Achievement, useGetMyProfileService, Skill, User } from './my-profile';
-import { MyProfileService } from './my-profile/user';
 
 // const MAX_LOOK_UP = 40;
 
@@ -38,8 +37,7 @@ const data: Edit = {
 export const MyProfileForm = () => {
   const service = useGetMyProfileService()
   const { state, setState, updateState } = useUpdate<Edit>(data, 'edit');
-  const [message, setMessage] = useState<string>('');
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isEditingBio, setIsEditingBio] = useState<boolean>(false);
   const [isEditingInterest, setIsEditingInterest] = useState<boolean>(false);
@@ -47,12 +45,8 @@ export const MyProfileForm = () => {
   const [isEditingSkill, setIsEditingSkill] = useState<boolean>(false);
   const [isEditingAchievement, setIsEditingAchievement] = useState<boolean>(false);
   const [bio, setBio] = useState<string>('');
-  const [interest, setInterest] = useState<string>('');
   const [user, setUser] = useState<User>({} as any);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [skill, setSkill] = useState<string>('')
-  const [skillsList, setSkillsList] = useState<string[]>([])
-  const [chipsSkill, setChipsSkill] = useState<string[]>([])
   const [modalConfirmIsOpen, setModalConfirmIsOpen] = useState<boolean>(false)
   const resource = useResource();
 
@@ -180,7 +174,7 @@ export const MyProfileForm = () => {
       setIsEditingLookingFor(!isEditingLookingFor)
     }
     if (isEditingSkill) {
-      setSkill('')
+      setState({ edit: { ...state.edit, skill: '' } })
       setIsEditingSkill(!isEditingSkill)
     }
     if (isEditingAchievement) {
@@ -317,10 +311,9 @@ export const MyProfileForm = () => {
   }
   const addInterest = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    console.log('alo')
     const interests = user.interests ? user.interests : [];
     if (state.edit.interest && state.edit.interest.trim() !== '') {
-      if (!inArray(interests, interest)) {
+      if (!inArray(interests, state.edit.interest)) {
         interests.push(state.edit.interest);
         user.interests = interests;
         setUser({ ...user })

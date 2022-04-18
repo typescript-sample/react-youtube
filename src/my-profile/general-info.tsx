@@ -1,7 +1,6 @@
-import { BaseComponent, OnClick, useUpdate } from 'react-hook-core';
+import { OnClick, useUpdate } from 'react-hook-core';
 import './general-info.css';
 import { useGetMyProfileService, User } from './my-profile';
-import React, { useEffect, useState } from 'react'
 interface Props {
   user: User;
   resource: any;
@@ -25,7 +24,7 @@ export const GeneralInfo = ({ resource, user, close, saveEmit }: Props) => {
     // this.showInfo(msg);
   }
 
-  const save = (e:OnClick) => {
+  const save = (e: OnClick) => {
     e.preventDefault()
     const { user } = state;
     service.saveMyProfile(user).then(success => {

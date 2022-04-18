@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { OnClick, useUpdate } from 'react-hook-core';
 import { handleError, message, useResource } from 'uione';
 import { useGetMyProfileService, UserSettings } from './my-profile';
