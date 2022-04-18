@@ -2,6 +2,7 @@ import { Item } from 'onecore';
 import * as React from 'react';
 import { checked, OnClick,  PageSizeSelect, SearchComponentState, useSearch, value } from 'react-hook-core';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Pagination } from 'reactx-pagination';
 import { inputSearch } from 'uione';
 import { getRoleService, Role, RoleFilter } from './service';
@@ -24,21 +25,12 @@ const roleSearch: RoleSearch = {
 export const RolesForm = () => {
   const navigate = useNavigate();
   const refForm = React.useRef();
-  const { state, resource, component, updateState, search, sort, toggleFilter, changeView, pageChanged, pageSizeChanged } = useSearch<Role, RoleFilter, RoleSearch>(refForm, roleSearch, getRoleService(), inputSearch());
+  const { state, resource, component, updateState, search, sort, toggleFilter, clearQ, changeView, pageChanged, pageSizeChanged } = useSearch<Role, RoleFilter, RoleSearch>(refForm, roleSearch, getRoleService(), inputSearch());
 
-  const add = (e: OnClick) => {
-    e.preventDefault();
-    navigate(`add`);
-  };
   const edit = (e: OnClick, id: string) => {
     e.preventDefault();
     navigate(`edit/${id}`);
   };
-  const clearKeyworkOnClick = (e:OnClick)=>{
-    e.preventDefault();
-    filter.q = ""; 
-    updateState(e);
-  }
   const filter = value(state.filter);
   return (
     <div className='view-container'>
@@ -47,7 +39,7 @@ export const RolesForm = () => {
         <div className='btn-group'>
           {component.view !== 'table' && <button type='button' id='btnTable' name='btnTable' className='btn-table' data-view='table' onClick={changeView} />}
           {component.view === 'table' && <button type='button' id='btnListView' name='btnListView' className='btn-list-view' data-view='listview' onClick={changeView} />}
-          {component.addable && <button type='button' id='btnNew' name='btnNew' className='btn-new' onClick={add}/>}
+          {component.addable && <Link id='btnNew' className='btn-new' to='add'></Link>}
         </div>
       </header>
       <div>
@@ -56,7 +48,7 @@ export const RolesForm = () => {
             <label className='col s12 m6 search-input'>
               <PageSizeSelect size={component.pageSize} sizes={component.pageSizes} onChange={pageSizeChanged} />
               <input type='text' id='q' name='q' value={filter.q || ''} onChange={updateState} maxLength={255} placeholder={resource.keyword}/>
-              <button type='button' hidden={!filter.q} className='btn-remove-text' onClick={clearKeyworkOnClick}/>
+              <button type='button' hidden={!filter.q} className='btn-remove-text' onClick={clearQ}/>
               <button type='button' className='btn-filter' onClick={toggleFilter}/>
               <button type='submit' className='btn-search' onClick={search}/>
             </label>
@@ -115,13 +107,15 @@ export const RolesForm = () => {
               </thead>
               {state.list && state.list.length > 0 && state.list.map((item, i) => {
                 return (
-                  <tr key={i} onClick={e => edit(e, item.roleId)}>
-                    <td className='text-right'>{(item as any).sequenceNo}</td>
-                    <td>{item.roleId}</td>
-                    <td>{item.roleName}</td>
-                    <td>{item.remark}</td>
-                    <td>{item.status}</td>
-                  </tr>
+                  <tbody>
+                    <tr key={i} onClick={e => edit(e, item.roleId)}>
+                      <td className='text-right'>{(item as any).sequenceNo}</td>
+                      <td>{item.roleId}</td>
+                      <td><Link to={`edit/${item.roleId}`}>{item.roleName}</Link></td>
+                      <td>{item.remark}</td>
+                      <td>{item.status}</td>
+                    </tr>
+                  </tbody>
                 );
               })}
             </table>
@@ -132,7 +126,7 @@ export const RolesForm = () => {
                 <li key={i} className='col s12 m6 l4 xl3' onClick={e => edit(e, item.roleId)}>
                   <section>
                     <div>
-                      <h3 className={item.status === 'I' ? 'inactive' : ''}>{item.roleName}</h3>
+                      <h3 className={item.status === 'I' ? 'inactive' : ''}><Link to={`edit/${item.roleId}`}>{item.roleName}</Link></h3>
                       <p>{item.remark}</p>
                     </div>
                     <button className='btn-detail' />

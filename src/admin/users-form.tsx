@@ -1,12 +1,12 @@
 import { Item } from 'onecore';
 import * as React from 'react';
-import { checked, OnClick, SearchComponentState, useSearch, value } from 'react-hook-core';
+import { checked, OnClick, Search, SearchComponentState, useSearch, value } from 'react-hook-core';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Pagination } from 'reactx-pagination';
 import { inputSearch } from 'uione';
 import femaleIcon from '../assets/images/female.png';
 import maleIcon from '../assets/images/male.png';
-import { Search } from './search';
 import { getUserService, User, UserFilter } from './service';
 
 interface UserSearch extends SearchComponentState<User, UserFilter> {
@@ -31,10 +31,6 @@ export const UsersForm = () => {
   const { state, resource, component, updateState, search, sort, toggleFilter, changeView, pageChanged, pageSizeChanged } = useSearch<User, UserFilter, UserSearch>(refForm, initialState, getUserService(), inputSearch());
   component.viewable = true;
   component.editable = true;
-  const add = (e: OnClick) => {
-    e.preventDefault();
-    navigate(`add`);
-  };
   const edit = (e: OnClick, id: string) => {
     e.preventDefault();
     navigate(`edit/${id}`);
@@ -53,16 +49,16 @@ export const UsersForm = () => {
         <div className='btn-group'>
           {component.view !== 'table' && <button type='button' id='btnTable' name='btnTable' className='btn-table' data-view='table' onClick={changeView} />}
           {component.view === 'table' && <button type='button' id='btnListView' name='btnListView' className='btn-list-view' data-view='listview' onClick={changeView} />}
-          {component.addable && <button type='button' id='btnNew' name='btnNew' className='btn-new' onClick={add} />}
+          {component.addable && <Link id='btnNew' className='btn-new' to='add'></Link>}
         </div>
       </header>
       <div>
         <form id='usersForm' name='usersForm' noValidate={true} ref={refForm as any}>
           <section className='row search-group'>
-            <Search size={component.pageSize} sizes={component.pageSizes} pageSizeChanged={pageSizeChanged}
-              inputChange={updateState} placeholder={resource.keyword}
-              toggleFilter={toggleFilter} value={filter.q || ''}
-              search={search} clearKeyworkOnClick={clearKeyworkOnClick} />
+            <Search className='col s12 m4 search-input' size={component.pageSize} sizes={component.pageSizes} pageSizeChanged={pageSizeChanged}
+              onChange={updateState} placeholder={resource.keyword}
+              toggle={toggleFilter} value={filter.q || ''}
+              search={search} clear={clearKeyworkOnClick} />
             <Pagination className='col s12 m8' total={component.total} size={component.pageSize} max={component.pageMaxSize} page={component.pageIndex} onChange={pageChanged} />
           </section>
           <section className='row search-group inline' hidden={component.hideFilter}>
@@ -126,14 +122,16 @@ export const UsersForm = () => {
               </thead>
               {list && list.length > 0 && list.map((user, i) => {
                 return (
-                  <tr key={i} onClick={e => edit(e, user.userId)}>
-                    <td className='text-right'>{(user as any).sequenceNo}</td>
-                    <td>{user.userId}</td>
-                    <td>{user.username}</td>
-                    <td>{user.email}</td>
-                    <td>{user.displayName}</td>
-                    <td>{user.status}</td>
-                  </tr>
+                  <tbody>
+                    <tr key={i} onClick={e => edit(e, user.userId)}>
+                      <td className='text-right'>{(user as any).sequenceNo}</td>
+                      <td>{user.userId}</td>
+                      <td><Link to={`edit/${user.userId}`}>{user.username}</Link></td>
+                      <td>{user.email}</td>
+                      <td>{user.displayName}</td>
+                      <td>{user.status}</td>
+                    </tr>
+                  </tbody>
                 );
               })}
             </table>
@@ -145,7 +143,7 @@ export const UsersForm = () => {
                   <section>
                     <img src={user.imageURL && user.imageURL.length > 0 ? user.imageURL : (user.gender === 'F' ? femaleIcon : maleIcon)} alt='user' className='round-border' />
                     <div>
-                      <h3 className={user.status === 'I' ? 'inactive' : ''}>{user.displayName}</h3>
+                      <h3 className={user.status === 'I' ? 'inactive' : ''}><Link to={`edit/${user.userId}`}>{user.displayName}</Link></h3>
                       <p>{user.email}</p>
                     </div>
                     <button className='btn-detail' />

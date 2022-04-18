@@ -272,7 +272,8 @@ form.list-result > .table-responsive > table > tbody > tr > td,
 .subtitle,
 
 .profile.view-container > form > .row > .col > div.card > section > p,
-ul.list-view > li > section:first-child > div > h3.inactive {
+ul.list-view > li > section:first-child > div > h3.inactive,
+ul.list-view > li > section:first-child > div > h3.inactive > a {
   color: #999999;
 }
 
@@ -387,6 +388,7 @@ div.card {
 .view-container > form > div > h2,
 .card > section > h3,
 ul.list-view > li > section:first-child > div > h3,
+ul.list-view > li > section:first-child > div > h3 > a,
 ul.list-view > li > div > h3,
 ul.list-view > li > h3,
 div.card > div > h3,
@@ -395,6 +397,7 @@ div.card > h3,
 .btn-select,
 .btn-add,
 .btn-new,
+a.btn-new:hover,
 .btn-table,
 .btn-list-view,
 .btn-search,
@@ -403,6 +406,7 @@ div.card > h3,
 .page-header > form > div > section > button,
 .round-border.active {
   color: #4db6ac;
+  text-decoration: none;
 }
 
 .chips.focus {
