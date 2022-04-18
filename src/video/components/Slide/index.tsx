@@ -25,6 +25,7 @@ const Slide = (props: Props) => {
         setLength(res.list.length);
       }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetching]);
 
   const next = () => {

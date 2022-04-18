@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { storage } from 'uione';
+import { useResource } from 'uione';
 import { buildShownItems, ListResult, Playlist } from 'video-service';
 
 const max = 12;
@@ -11,7 +11,7 @@ export interface Props {
 }
 const ChannelPlaylists = (props: Props) => {
   const { id } = useParams();
-  const resource = storage.resource().resource();
+  const resource = useResource();
   const [keyword, setKeyword] = React.useState<string>('');
   const [playlists, setPlaylists] = React.useState<Playlist[]>([]);
   const [allPlaylists, setAllPlaylists] = React.useState<Playlist[]>([]);
@@ -27,6 +27,7 @@ const ChannelPlaylists = (props: Props) => {
         setNextPageToken(res.nextPageToken);
       }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleLoadMore = async (e: React.MouseEvent<HTMLButtonElement>) => {

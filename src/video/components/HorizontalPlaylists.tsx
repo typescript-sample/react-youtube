@@ -32,6 +32,7 @@ const HorizontalPlaylists = (props: Props) => {
         setPlaylists(res.list);
       }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

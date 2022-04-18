@@ -39,6 +39,7 @@ export default function PlaylistPage() {
         setNextPageToken(res.nextPageToken ?? '');
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const back = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

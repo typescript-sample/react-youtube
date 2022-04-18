@@ -20,6 +20,7 @@ const Home = () => {
         videoService.getChannelPlaylists(id, 12, undefined, playlistFields).then(res => setPlaylists(res.list));
       }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const formatToMinutes = (s: number) => {
     return (s - (s %= 60)) / 60 + ':' + s;

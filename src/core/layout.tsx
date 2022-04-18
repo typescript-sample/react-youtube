@@ -2,11 +2,11 @@ import axios from 'axios';
 import { HttpRequest } from 'axios-core';
 import { useEffect, useState } from 'react';
 import * as React from 'react';
-import { OnClick, PageSizeSelect, useMergeState } from 'react-hook-core';
+import { OnClick, PageSizeSelect, pageSizes as sizes, useMergeState } from 'react-hook-core';
 import { useNavigate } from 'react-router';
 import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { collapseAll, expandAll, Nav } from 'reactx-nav';
-import { options, Privilege, storage, useResource } from 'uione';
+import { options, Privilege, storage, user as getUser, useResource } from 'uione';
 import logoTitle from '../assets/images/logo-title.png';
 import logo from '../assets/images/logo.png';
 import topBannerLogo from '../assets/images/top-banner-logo.png';
@@ -15,10 +15,10 @@ interface InternalState {
   pageSizes: number[];
   pageSize: number;
   se: any;
-  isToggleMenu: boolean;
-  isToggleSearch: boolean;
+  isToggleMenu?: boolean;
+  isToggleSearch?: boolean;
   keyword: string;
-  classProfile: string;
+  showProfile: string;
   forms: Privilege[];
   username?: string;
   userType?: string;
@@ -37,19 +37,16 @@ export function sub(n1?: number, n2?: number): number {
   return 0;
 }
 const initialState: InternalState = {
-  pageSizes: [10, 20, 40, 60, 100, 200, 400, 10000],
-  pageSize: 10,
+  pageSizes: sizes,
+  pageSize: 12,
   se: {} as any,
   keyword: '',
-  classProfile: '',
-  isToggleMenu: false,
-  isToggleSearch: false,
+  showProfile: '',
   forms: [],
   username: '',
   userType: '',
   pinnedModules: []
 };
-// const httpRequest = new HttpRequest(axios, options);
 export const LayoutComponent = () => {
   const resource = useResource();
   const navigate = useNavigate();
@@ -57,10 +54,10 @@ export const LayoutComponent = () => {
   const [isSearch, setIsSearch] = useState(location.pathname === '/search');
   const [searchParams, setSearchParams] = useSearchParams();
   const [state, setState] = useMergeState<InternalState>(initialState);
-  const [pageSize] = useState<number>(20);
-  const [pageSizes] = useState<number[]>([10, 20, 40, 60, 100, 200, 400, 10000]);
+  const [pageSize] = useState<number>(12);
+  const [pageSizes] = useState<number[]>(sizes);
   const [topClass, setTopClass] = useState('');
-  const [user, setUser] = useState(storage.user());
+  const user = getUser();
 
   useEffect(() => {
     const forms = storage.privileges();
@@ -98,24 +95,19 @@ export const LayoutComponent = () => {
   };
 
   const toggleMenu = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    /*
-    if (e && e.preventDetault) {
-      e.preventDetault();
-    }
-    */
     setState({ isToggleMenu: !state.isToggleMenu });
   };
 
   function toggleProfile() {
-    setState({ classProfile: state.classProfile === 'show' ? '' : 'show' });
+    setState({ showProfile: state.showProfile === 'show' ? '' : 'show' });
   }
 
   const signout = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
-    const httpRequestSignout = new HttpRequest(axios, options);
+    const request = new HttpRequest(axios, options);
     const config: any = storage.config();
     const url = config.authentication_url + '/authentication/signout/' + storage.username();
-    httpRequestSignout.get(url).catch(err => { });
+    request.get(url).catch(err => { });
     sessionStorage.removeItem('authService');
     sessionStorage.clear();
     storage.setUser(null);
@@ -141,13 +133,8 @@ export const LayoutComponent = () => {
         setState({ forms });
       }
     ).catch(err => { });
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // const viewChangePassword = (e: { preventDefault: () => void; }) => {
-  //   e.preventDefault();
-  //   navigate('/change-password');
-  // }
 
   const pin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number, m: Privilege) => {
     event.stopPropagation();
@@ -177,12 +164,8 @@ export const LayoutComponent = () => {
 
   useEffect(() => {
     setState({ keyword: searchParams.get('q') as string });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
-
-  useEffect(() => {
-    setUser(storage.user());
-  }, [storage.user()]); // eslint-disable-line react-hooks/exhaustive-deps
-
   useEffect(() => {
     const { isToggleMenu, isToggleSearch } = state;
     const topClassList = ['sidebar-parent'];
@@ -213,22 +196,6 @@ export const LayoutComponent = () => {
           toggle={toggleMenu}
           expand={expandAll}
           collapse={collapseAll} />
-        {/*
-        <nav className='expanded-all'>
-          <ul>
-            <li>
-              <button className='toggle-menu' onClick={toggleMenu} />
-              <p className='sidebar-off-menu'>
-                <button className='toggle' onClick={toggleMenu} />
-                <i className='expand' onClick={expandAll} />
-                <i className='collapse' onClick={collapseAll} />
-              </p>
-            </li>
-            {renderItems(pathname, state.pinnedModules, pinModulesHandler, resource, 'material-icons', true, true)}
-            {renderItems(pathname, state.forms, pinModulesHandler, resource, 'material-icons', true)}
-          </ul>
-        </nav>
-        */}
       </div>
       <div className='page-container'>
         <div className='page-header'>
@@ -258,20 +225,24 @@ export const LayoutComponent = () => {
                       person
                     </i>
                   )}
-                  <ul id='dropdown-basic' className={state.classProfile + ' dropdown-content-profile'}>
-                    <li><Link className='dropdown-item-profile' to={'my-profile'} >{resource.my_profile}</Link></li>
-                    <li><Link className='dropdown-item-profile' to={'my-profile/settings'}>{resource.my_settings}</Link></li>
-                    {/*
-                      
-                      <li><a className='dropdown-item-profile'
-                             onClick={this.viewChangePassword}>{this.resource.my_password}</a></li>*/}
+                  {!user &&
+                  <ul id='dropdown-basic' className={state.showProfile + ' dropdown-content-profile'}>
+                    <li><i className="material-icons">account_circle</i><Link className='dropdown-item-profile' to={'signin'} >{resource.signin}</Link></li>
+                  </ul>  
+                  }
+                  {user &&
+                  <ul id='dropdown-basic' className={state.showProfile + ' dropdown-content-profile'}>
+                    <li><i className="material-icons">account_circle</i><Link className='dropdown-item-profile' to={'my-profile'} >{resource.my_profile}</Link></li>
+                    <li><i className="material-icons">settings</i><Link className='dropdown-item-profile' to={'my-profile/settings'}>{resource.my_settings}</Link></li>
                     <hr style={{ margin: 0 }} />
                     <li>
+                      <i className="material-icons">exit_to_app</i>
                       <button className='dropdown-item-profile' onClick={signout}>
                         {resource.button_signout}
                       </button>
                     </li>
                   </ul>
+                  }
                 </div>
               </section>
             </div>
