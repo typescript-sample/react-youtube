@@ -453,62 +453,20 @@ export const MyProfileForm = () => {
                       );
                     })
                   }
-                  {
-                    (isEditingSkill && user.skills) && user.skills.map((skil: Skill, index: number) => (
-                      <section key={index}>
-                        <h3>{skil.skill}
-                          {skil.hirable && <i className='star highlight' />}
-                        </h3>
-                        <button type='button' className='btn-remove' onClick={(e) => removeAchievement(e, skil.skill)} />
-                        <hr />
-                      </section>
-                    ))
-                  }
-                  {isEditingSkill &&
-                    <section>
-                      <div className='form-group'>
-                        <input type='text' name='skill' className='form-control'
-                          value={state.edit.subject} onChange={updateState}
-                          placeholder={resource.placeholder_user_profile_skill}
-                          maxLength={50} required={true} />
 
-                      </div>
-                      <label className='checkbox-container'>
-                        <input type='checkbox' id='hirable' name='hirable'
-                          checked={state.edit.hirable} onChange={updateState} />
-                        {resource.user_profile_hireable_skill}
-                      </label>
-                      <div className='btn-group'>
-                        <button type='button' id='btnAddAchievement' name='btnAddAchievement' className='btn-add' onClick={addSkill} />
-                        {resource.button_add_achievement}
-                      </div>
-                    </section>
-                  }
-                  {/*                   
-                    <label className='form-group inline-input'>
-                      <Chips
-                          type='text' id='skill' name='skill'
-                          value={chipsSkill}
-                          onChange={this.onChangeSkillChips}
-                          fetchSuggestions={(value) => this.fetchSuggestions(value)}
-                          shouldRenderSuggestions={value => value.length >= 1}
-                          renderChip={(item) => (
-                              <div>
-                                <div>{item.skill} <span onClick={() => this.onRemoveChips(item.skill)}>&times; &nbsp;</span></div>
-                              </div>
-                          )}
-                          fromSuggestionsOnly={false}
-                          renderSuggestion={(item, { query }) => (
-                              <div
-                                  key={item.skill}>
-                                {item.skill}
-                              </div>
-                          )}
-                          getSuggestionValue={suggestion => suggestion.skill}
-                          placeholder={resource.placeholder_user_profile_skill}
-                      />
-                      <button type='button' id='btnAddSkill' name='btnAddSkill' className='btn-add' onClick={this.addSkill}/>
-                    </label> */}
+                  <section>
+                    <div className='form-group'>
+                      <input type='text' name='skill' className='form-control'
+                        value={state.edit.skill} onChange={updateState}
+                        placeholder={resource.placeholder_user_profile_skill}
+                        maxLength={50} required={true} />
+
+                    </div>
+                    <div className='btn-group'>
+                      <button type='button' id='btnAddAchievement' name='btnAddAchievement' className='btn-add' onClick={addSkill} />
+                      {resource.button_add_achievement}
+                    </div>
+                  </section>
                   <label className='checkbox-container'>
                     <input type='checkbox' id='hireable' name='hireable' checked={state.edit.hireable} onChange={updateState} />
                     {resource.user_profile_hireable_skill}
@@ -519,7 +477,7 @@ export const MyProfileForm = () => {
                   </p>
                 </section>
                 <footer>
-                  <button type='button' id='btnSaveSkill' name='btnSaveSkill'>
+                  <button type='button' id='btnSaveSkill' name='btnSaveSkill' onClick={saveChanges}>
                     {resource.save}
                   </button>
                 </footer>
