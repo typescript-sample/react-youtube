@@ -120,12 +120,11 @@
 .quick-nav > button,
 .quick-nav > a {
   background-color: transparent;
-  border: none;
   color: inherit;
   border: 1px solid;
   border-radius: 50%;
-  width: 37px;
-  height: 37px;
+  width: 36px;
+  height: 36px;
   margin-top: -2px;
   margin-left: 4px;
   padding-top: 3px;

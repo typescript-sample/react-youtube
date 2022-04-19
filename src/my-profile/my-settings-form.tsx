@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { OnClick, useUpdate } from 'react-hook-core';
-import { handleError, message, useResource } from 'uione';
+import { confirm, handleError, message, useResource } from 'uione';
 import { useGetMyProfileService, UserSettings } from './my-profile';
 
 interface InternalState {
@@ -28,11 +28,13 @@ export const MySettingsForm = () => {
 
   const save = (e: OnClick) => {
     e.preventDefault();
-    const userId = 'XU3rkqafp';
-    service.saveMySettings(userId, state.settings).then((res: number) => {
-      const msg = res > 0 ? resource.success_save_my_settings : resource.fail_save_my_settings;
-      message(msg);
-    }).catch(handleError);
+    confirm(resource.msg_confirm_save, resource.confirm, () => {
+      const userId = 'XU3rkqafp';
+      service.saveMySettings(userId, state.settings).then((res: number) => {
+        const msg = res > 0 ? resource.success_save_my_settings : resource.fail_save_my_settings;
+        message(msg);
+      }).catch(handleError);
+    }, resource.no, resource.yes);
   }
 
   return (
