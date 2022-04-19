@@ -561,3 +561,8 @@ section > h4.title > a {
   }
   */
 }
+.page-body > .full {
+  max-height: calc(100vh - 44px);
+  height: calc(100vh - 44px);
+  overflow-x: auto;
+}

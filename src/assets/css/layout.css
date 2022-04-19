@@ -85,6 +85,9 @@
   .page-header .toggle-menu, .page-container .toggle-search {
     display: inline-block;
     position: relative;
+    width: 26px;
+    border: none;
+    background-color: transparent;
   }
   .page-header .toggle-menu {width: 40px; height: 30px;}
   .page-header .search-input {display: none !important;}
@@ -95,12 +98,15 @@
   .search .page-header .toggle-menu,
   .search .page-header> form > div > section:last-child {display: none;}
 
-  .search .page-header .close-search {display: inline-block;}
+  .search .page-header .close-search {
+    display: inline-block;
+    border: none;
+    height: 33px;
+  }
   .search .page-header .search-input {
     display: flex !important;
     margin-left: 32px !important;
     width: calc(100% - 34px) !important;
-
   }
   .search .view-header > .btn-back {display: none;}
 
