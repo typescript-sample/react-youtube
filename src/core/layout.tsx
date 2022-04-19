@@ -23,6 +23,7 @@ interface InternalState {
   username?: string;
   userType?: string;
   pinnedModules: Privilege[];
+  isSidebar: boolean;
 }
 export function sub(n1?: number, n2?: number): number {
   if (!n1 && !n2) {
@@ -45,7 +46,8 @@ const initialState: InternalState = {
   forms: [],
   username: '',
   userType: '',
-  pinnedModules: []
+  pinnedModules: [],
+  isSidebar: true,
 };
 export const LayoutComponent = () => {
   const resource = useResource();
@@ -101,6 +103,16 @@ export const LayoutComponent = () => {
   function toggleProfile() {
     setState({ showProfile: state.showProfile === 'show' ? '' : 'show' });
   }
+
+  const changeMenu = () => {
+    if (state.isSidebar) {
+      document.getElementById('sysBody')?.classList.add('top-menu');
+    } else {
+      document.getElementById('sysBody')?.classList.remove('top-menu');
+    }
+    setState({ isSidebar: !state.isSidebar })
+  }
+
   const signin = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (!user) {
       navigate('/signin');
@@ -137,7 +149,7 @@ export const LayoutComponent = () => {
         setState({ forms });
       }
     ).catch(err => { });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const pin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number, m: Privilege) => {
@@ -168,7 +180,7 @@ export const LayoutComponent = () => {
 
   useEffect(() => {
     setState({ keyword: searchParams.get('q') as string });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
   useEffect(() => {
     const { isToggleMenu, isToggleSearch } = state;
@@ -189,7 +201,7 @@ export const LayoutComponent = () => {
           <img src={logoTitle} className='banner-logo-title' alt='Logo of The Company' />
         </div>
       </div>
-      <div className='menu sidebar'>
+      <div className='menu sidebar top-menu'>
         <Nav className={`expanded-all ${state.forms.length === 0 ? 'empty-item' : ''}`}
           iconClass='material-icons'
           path={location.pathname}
@@ -231,22 +243,24 @@ export const LayoutComponent = () => {
                     </i>
                   )}
                   {!user &&
-                  <ul id='dropdown-basic' className={state.showProfile + ' dropdown-content-profile'}>
-                    <li><i className="material-icons">account_circle</i><Link className='dropdown-item-profile' to={'signin'} >{resource.signin}</Link></li>
-                  </ul>  
+                    <ul id='dropdown-basic' className={state.showProfile + ' dropdown-content-profile'}>
+                      <li><i className="material-icons">account_circle</i><Link className='dropdown-item-profile' to={'signin'} >{resource.signin}</Link></li>
+                    </ul>
                   }
                   {user &&
-                  <ul id='dropdown-basic' className={state.showProfile + ' dropdown-content-profile'}>
-                    <li><i className="material-icons">account_circle</i><Link className='dropdown-item-profile' to={'my-profile'} >{resource.my_profile}</Link></li>
-                    <li><i className="material-icons">settings</i><Link className='dropdown-item-profile' to={'my-profile/settings'}>{resource.my_settings}</Link></li>
-                    <hr style={{ margin: 0 }} />
-                    <li>
-                      <i className="material-icons">exit_to_app</i>
-                      <button className='dropdown-item-profile' onClick={signout}>
-                        {resource.button_signout}
-                      </button>
-                    </li>
-                  </ul>
+                    <ul id='dropdown-basic' className={state.showProfile + ' dropdown-content-profile'}>
+                      <li><i className="material-icons">account_circle</i><Link className='dropdown-item-profile' to={'my-profile'} >{resource.my_profile}</Link></li>
+                      <li><i className="material-icons">settings</i><Link className='dropdown-item-profile' to={'my-profile/settings'}>{resource.my_settings}</Link></li>
+                      {state.isSidebar && <li onClick={changeMenu}><span className="material-icons">view_sidebar</span>TopBar</li>}
+                      {!state.isSidebar && <li onClick={changeMenu}><i className="material-icons" ></i>Sidebar</li>}
+                      <hr style={{ margin: 0 }} />
+                      <li>
+                        <i className="material-icons">exit_to_app</i>
+                        <button className='dropdown-item-profile' onClick={signout}>
+                          {resource.button_signout}
+                        </button>
+                      </li>
+                    </ul>
                   }
                 </div>
               </section>
