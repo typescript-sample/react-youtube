@@ -101,7 +101,11 @@ export const LayoutComponent = () => {
   function toggleProfile() {
     setState({ showProfile: state.showProfile === 'show' ? '' : 'show' });
   }
-
+  const signin = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    if (!user) {
+      navigate('/signin');
+    }
+  }
   const signout = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     const request = new HttpRequest(axios, options);
@@ -216,10 +220,11 @@ export const LayoutComponent = () => {
                 <button type='button' hidden={!state.keyword} className='btn-remove-text' onClick={clearKeyworkOnClick} />
                 <button type='submit' className='btn-search' onClick={searchOnClick} />
               </label>
-              <section>
-                {/*<button type='button'><i className='fa fa-bell-o'/></button>
-                  <button type='button'><i className='fa fa-envelope-o'/></button>*/}
-                <div className='dropdown-menu-profile'>
+              <section className='quick-nav'>
+                {/*<button type='button' className='notifications'><i className='material-icons'>notifications</i></button>
+                <button type='button' className='mail'><i className='material-icons'>mail</i></button>*/}
+                <Link to=''><i className='material-icons'>home</i></Link>
+                <div className='dropdown-menu-profile' onClick={signin}>
                   {(!user || !user.imageURL) && (
                     <i className='material-icons' onClick={toggleProfile}>
                       person
