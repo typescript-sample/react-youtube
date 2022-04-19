@@ -8,7 +8,7 @@
     align-items: center;
     background-color: #181818;
     color: #FFF;
-    padding: 16px 107px 4px;
+    padding: 16px 92px 4px;
     .channel-avatar{
       border-radius: 50%;
     }
@@ -41,7 +41,7 @@
     background-color: #181818;
     color: #AAA;
     height: 47px;
-    padding: 0 107px;
+    padding: 0 92px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -106,4 +106,27 @@
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
   box-sizing: border-box;
+}
+.channel-page > div > form.list-result {
+  max-height: calc(100vh - 229px);
+  overflow-x: auto;
+}
+@media only screen and (max-width: 630px) {
+  .channel-page .channel-information {
+    padding-left: 16px;
+  }
+  .channel-page .tabs {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .channel-page .tabs > div {
+    width: 25%;
+  }
+  .channel-page .tabs .tab {
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+  }
 }

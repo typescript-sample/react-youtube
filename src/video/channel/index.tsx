@@ -32,7 +32,7 @@ export default function ChannelPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div className='channel-page'>
+    <div className='channel-page full'>
       {
         channel && (
           <div className='channel-information'>

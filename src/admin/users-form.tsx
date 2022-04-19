@@ -28,18 +28,13 @@ const initialState: UserSearch = {
 export const UsersForm = () => {
   const navigate = useNavigate();
   const refForm = React.useRef();
-  const { state, resource, component, updateState, search, sort, toggleFilter, changeView, pageChanged, pageSizeChanged } = useSearch<User, UserFilter, UserSearch>(refForm, initialState, getUserService(), inputSearch());
+  const { state, resource, component, updateState, search, sort, toggleFilter, clearQ, changeView, pageChanged, pageSizeChanged } = useSearch<User, UserFilter, UserSearch>(refForm, initialState, getUserService(), inputSearch());
   component.viewable = true;
   component.editable = true;
   const edit = (e: OnClick, id: string) => {
     e.preventDefault();
     navigate(`edit/${id}`);
   };
-  const clearKeyworkOnClick = (e:OnClick)=>{
-    e.preventDefault();
-    filter.q = ""; 
-    updateState(e);
-  }
   const { list } = state;
   const filter = value(state.filter);
   return (
@@ -58,7 +53,7 @@ export const UsersForm = () => {
             <Search className='col s12 m4 search-input' size={component.pageSize} sizes={component.pageSizes} pageSizeChanged={pageSizeChanged}
               onChange={updateState} placeholder={resource.keyword}
               toggle={toggleFilter} value={filter.q || ''}
-              search={search} clear={clearKeyworkOnClick} />
+              search={search} clear={clearQ} />
             <Pagination className='col s12 m8' total={component.total} size={component.pageSize} max={component.pageMaxSize} page={component.pageIndex} onChange={pageChanged} />
           </section>
           <section className='row search-group inline' hidden={component.hideFilter}>

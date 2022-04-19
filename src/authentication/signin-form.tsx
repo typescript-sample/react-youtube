@@ -173,6 +173,7 @@ export const SigninForm = () => {
           <button type='submit' id='btnSignin' name='btnSignin' onClick={signin}>{resource.button_signin}</button>
           <Link id='btnForgotPassword' to='/forgot-password'>{resource.button_forgot_password}</Link>
           <Link id='btnSignup' to='/signup'>{resource.button_signup}</Link>
+          <Link id='btnHome' to='/'>{resource.button_home}</Link>
         </div>
       </form>
     </div>

@@ -63,11 +63,12 @@ const HomePage = () => {
     return (s - (s %= 60)) / 60 + ':' + s;
   };
   return (
-    <div>
+    <div className='full'>
       <CategoryTab
         data={videoCategories}
         setSelectedTab={setSelectedCategory}
       />
+      <div style={{maxHeight: 'calc(100vh - 44px - 56px)'}}>
       <ul className='row list-view'>
         {videos && videos.map((item, i) => {
           return (
@@ -85,6 +86,7 @@ const HomePage = () => {
         })}
       </ul>
       {nextPageToken && <button type='submit' id='btnMore' name='btnMore' className='btn-more' onClick={handleLoadMore}>{resource.button_more}</button>}
+      </div>
     </div>
   );
 };
