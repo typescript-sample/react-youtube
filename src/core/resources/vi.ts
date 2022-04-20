@@ -11,7 +11,9 @@ export const vi = {
   sidebar: 'Sidebar',
   dark_mode: 'Dark mode',
   light_mode: 'Light mode',
- 
+  classic_menu: 'Classic menu',
+  modern_menu: 'Modern menu',
+
   confirm: 'Confirm',
   create: 'Create',
   add: 'Add',

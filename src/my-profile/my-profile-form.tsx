@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
-// import Chips from 'react-chips';
 import { clone, OnClick, useUpdate } from 'react-hook-core';
 import ReactModal from 'react-modal';
-import { useResource } from 'uione';
+import { alert, message, useResource } from 'uione';
 import imageOnline from '../assets/images/online.svg';
 import GeneralInfo from './general-info';
-import { Achievement, useGetMyProfileService, Skill, User } from './my-profile';
-
-// const MAX_LOOK_UP = 40;
-
+import { Achievement, Skill, useGetMyProfileService, User } from './my-profile';
 
 interface Edit {
   edit: {
-    hireable: boolean;
     lookingFor: string;
     interest: string;
     highlight: boolean;
@@ -20,11 +15,10 @@ interface Edit {
     subject: string;
     skill: string;
     hirable: boolean;
-  }
+  };
 }
 const data: Edit = {
   edit: {
-    hireable: false,
     lookingFor: '',
     interest: '',
     highlight: false,
@@ -33,11 +27,12 @@ const data: Edit = {
     skill: '',
     hirable: false
   }
-}
+};
 export const MyProfileForm = () => {
-  const service = useGetMyProfileService()
+  const service = useGetMyProfileService();
   const { state, setState, updateState } = useUpdate<Edit>(data, 'edit');
 
+  const resource = useResource();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isEditingBio, setIsEditingBio] = useState<boolean>(false);
   const [isEditingInterest, setIsEditingInterest] = useState<boolean>(false);
@@ -47,24 +42,22 @@ export const MyProfileForm = () => {
   const [bio, setBio] = useState<string>('');
   const [user, setUser] = useState<User>({} as any);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [modalConfirmIsOpen, setModalConfirmIsOpen] = useState<boolean>(false)
-  const resource = useResource();
+  const [modalConfirmIsOpen, setModalConfirmIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const id = 'XU3rkqafp';
-    service.getMyProfile(id).then(user => {
-      if (user) {
-        console.log('user', user)
-        setUser(user);
-        setBio(user.bio || '')
+    service.getMyProfile(id).then(usr => {
+      if (usr) {
+        setUser(usr);
+        setBio(usr.bio || '');
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   const closeModal = () => {
-    setModalIsOpen(false)
-  }
+    setModalIsOpen(false);
+  };
 
   // private readonly skillService = applicationContext.useGetMyProfileService();
   // private readonly chipSkillSuggestionsService = new DefaultSuggestionService<any>(this.skillService, MAX_LOOK_UP, 'skill', 'skill');
@@ -160,58 +153,55 @@ export const MyProfileForm = () => {
 
   const showPopup = (e: OnClick) => {
     e.preventDefault();
-    setModalIsOpen(true)
-  }
+    setModalIsOpen(true);
+  };
 
   const close = () => {
     if (isEditingBio) {
-      setIsEditingBio(!isEditingBio)
+      setIsEditingBio(!isEditingBio);
     }
     if (isEditingInterest) {
-      setIsEditingInterest(!isEditingInterest)
+      setIsEditingInterest(!isEditingInterest);
     }
     if (isEditingLookingFor) {
-      setIsEditingLookingFor(!isEditingLookingFor)
+      setIsEditingLookingFor(!isEditingLookingFor);
     }
     if (isEditingSkill) {
-      setState({ edit: { ...state.edit, skill: '' } })
-      setIsEditingSkill(!isEditingSkill)
+      setState({ edit: { ...state.edit, skill: '' } });
+      setIsEditingSkill(!isEditingSkill);
     }
     if (isEditingAchievement) {
-      setState({ edit: { ...state.edit, subject: '', highlight: false, description: '' } })
-      setIsEditingAchievement(!isEditingAchievement)
+      setState({ edit: { ...state.edit, subject: '', highlight: false, description: '' } });
+      setIsEditingAchievement(!isEditingAchievement);
     }
-    setIsEditing(!isEditing)
-  }
+    setIsEditing(!isEditing);
+  };
 
   const addSkill = (e: OnClick) => {
     e.preventDefault();
-    const { skill, hireable } = state.edit;
+    const { skill, hirable } = state.edit;
     const skillsEditing = user.skills ? user.skills : [];
     if (skill && skill.trim() !== '') {
-      const item = {
-        hirable: hireable,
-        skill
-      };
+      const item = { hirable, skill };
       if (skillsEditing.filter(skillEdit => skillEdit.skill === skill).length === 0) {
         skillsEditing.push(item);
         user.skills = skillsEditing;
-        setState({ edit: { ...state.edit, skill: '' } })
-        setUser({ ...user })
+        setState({ edit: { ...state.edit, skill: '' } });
+        setUser({ ...user });
       } else {
-        console.log(resource.error_duplicated_skill)
+        alert(resource.error_duplicated_skill, resource.error);
       }
     }
-  }
+  };
   //   addSkill = (e) => {
   //     e.preventDefault();
   //     this.onRemoveChips(this.state.skillsList[0]);
-  //     const { user, hireable } = this.state;
+  //     const { user, hirable } = this.state;
   //     const skill = this.state.skillsList.length !== 0 ? this.state.skillsList[0] : this.state.skill;
   //     const skillsEditing = user.skills ? user.skills : [];
   //     if (skill) {
   //       const item = {
-  //         hirable: hireable,
+  //         hirable: hirable,
   //         skill
   //       };
   //       if (!this.isExistInArray(e, skillsEditing, item, 'skill')) {
@@ -228,60 +218,56 @@ export const MyProfileForm = () => {
     if (isEditing) {
       service.saveMyProfile(user).then(successs => {
         if (successs) {
-          // this.initData();
+          message(resource.success_save_my_profile);
           close();
-          // UIUtil.showToast(ResourceManager.getString('success_save_my_profile'));
-          console.log('success')
         } else {
-          console.log('fail')
-          // UIUtil.alertError(ResourceManager.getString('fail_save_my_profile'), ResourceManager.getString('error'));
+          alert(resource.fail_save_my_profile, resource.error);
         }
       });
     }
-  }
+  };
 
   const saveEmit = (rs: any) => {
     if (rs.status === 'success' && rs.user) {
-      // this.setState({ user:rs.data });
-      setUser(rs.user)
-      console.log(resource.success_save_my_profile)
+      setUser(rs.user);
+      message(resource.success_save_my_profile);
     } else {
-      console.log(resource.fail_save_my_profile)
+      alert(resource.fail_save_my_profile, resource.error);
     }
-  }
+  };
 
   const toggleBio = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
 
     if (user.bio !== bio) {
-      setModalConfirmIsOpen(true)
+      setModalConfirmIsOpen(true);
     } else {
-      setIsEditingBio(!isEditingBio)
-      setIsEditing(!isEditing)
+      setIsEditingBio(!isEditingBio);
+      setIsEditing(!isEditing);
     }
-  }
+  };
 
   const revertBioChages = () => {
-    setUser({ ...user, bio })
-    setIsEditingBio(!isEditingBio)
-    setIsEditing(!isEditing)
-    setModalConfirmIsOpen(false)
-  }
+    setUser({ ...user, bio });
+    setIsEditingBio(!isEditingBio);
+    setIsEditing(!isEditing);
+    setModalConfirmIsOpen(false);
+  };
   const editBio = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
-    const data = e.target.value;
-    setUser({ ...user, bio: data })
-  }
+    const bioText = e.target.value;
+    setUser({ ...user, bio: bioText });
+  };
   const toggleLookingFor = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    setIsEditingLookingFor(!isEditingLookingFor)
-    setIsEditing(!isEditing)
-  }
+    setIsEditingLookingFor(!isEditingLookingFor);
+    setIsEditing(!isEditing);
+  };
   const removeLookingFor = (e: React.MouseEvent<HTMLElement, MouseEvent>, lookingForContent: string) => {
     e.preventDefault();
     user.lookingFor = user.lookingFor.filter(item => item !== lookingForContent);
-    setUser({ ...user })
-  }
+    setUser({ ...user });
+  };
   const addLookingFor = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
     const lookingForUser = user.lookingFor ? user.lookingFor : [];
@@ -289,26 +275,26 @@ export const MyProfileForm = () => {
       if (!inArray(lookingForUser, state.edit.lookingFor)) {
         lookingForUser.push(state.edit.lookingFor);
         user.lookingFor = lookingForUser;
-        setState({ edit: { ...state.edit, lookingFor: '' } })
-        setUser({ ...user })
+        setState({ edit: { ...state.edit, lookingFor: '' } });
+        setUser({ ...user });
       } else {
-        // UIUtil.alertError(ResourceManager.getString('error_duplicated_looking_for'), ResourceManager.getString('error'));
+        alert(resource.error_duplicated_looking_for, resource.error);
       }
     }
-  }
+  };
   const toggleInterest = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    setIsEditingInterest(!isEditingInterest)
-    setIsEditing(!isEditing)
-  }
+    setIsEditingInterest(!isEditingInterest);
+    setIsEditing(!isEditing);
+  };
   const removeInterest = (e: React.MouseEvent<HTMLElement, MouseEvent>, subject: string) => {
     e.preventDefault();
     if (user.interests) {
       const interests = user.interests.filter((item: string) => item !== subject);
       user.interests = interests;
-      setUser({ ...user })
+      setUser({ ...user });
     }
-  }
+  };
   const addInterest = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
     const interests = user.interests ? user.interests : [];
@@ -316,37 +302,36 @@ export const MyProfileForm = () => {
       if (!inArray(interests, state.edit.interest)) {
         interests.push(state.edit.interest);
         user.interests = interests;
-        setUser({ ...user })
-        setState({ edit: { ...state.edit, interest: '' } })
+        setUser({ ...user });
+        setState({ edit: { ...state.edit, interest: '' } });
       } else {
-        // UIUtil.alertError(ResourceManager.getString('error_duplicated_interest'), ResourceManager.getString('error'));
+        alert(resource.error_duplicated_interest, resource.error);
       }
     }
-  }
+  };
   const toggleSkill = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    setIsEditingSkill(!isEditingSkill)
-    setIsEditing(!isEditing)
-  }
+    setIsEditingSkill(!isEditingSkill);
+    setIsEditing(!isEditing);
+  };
   const removeSkill = (e: React.MouseEvent<HTMLElement, MouseEvent>, skillContent: string) => {
     e.preventDefault();
     user.skills = user.skills.filter(item => item['skill'] !== skillContent);
-    setUser({ ...user })
-    setState({ edit: { ...state.edit, interest: '' } })
-  }
+    setUser({ ...user });
+    setState({ edit: { ...state.edit, interest: '' } });
+  };
   const toggleAchievement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    setIsEditing(!isEditing)
-    setIsEditingAchievement(!isEditingAchievement)
-
-  }
+    setIsEditing(!isEditing);
+    setIsEditingAchievement(!isEditingAchievement);
+  };
   const removeAchievement = (e: React.MouseEvent<HTMLElement, MouseEvent>, subject: string) => {
     if (user.achievements) {
       const achievements = user.achievements.filter((item: Achievement) => item['subject'] !== subject);
       user.achievements = achievements;
-      setUser({ ...user })
+      setUser({ ...user });
     }
-  }
+  };
   const addAchievement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
     const achievement: Achievement = { subject: state.edit.subject, description: state.edit.description, highlight: state.edit.highlight };
@@ -354,18 +339,17 @@ export const MyProfileForm = () => {
     achievement.subject = state.edit.subject;
     achievement.description = state.edit.description;
     achievement.highlight = state.edit.highlight;
-    debugger
     if (state.edit.subject && state.edit.subject.trim().length > 0 && !inAchievements(achievements, achievement)) {
       achievements.push(achievement);
       user.achievements = achievements;
-      setUser({ ...user })
-      setState({ edit: { ...state.edit, description: '', subject: '' } })
+      setUser({ ...user });
+      setState({ edit: { ...state.edit, description: '', subject: '' } });
     }
-  }
+  };
 
   const closeModalConfirm = () => {
-    setModalConfirmIsOpen(false)
-  }
+    setModalConfirmIsOpen(false);
+  };
   const followers = '7 followers'; // StringUtil.format(ResourceManager.getString('user_profile_followers'), user.followerCount || 0);
   const following = '10 following'; // StringUtil.format(ResourceManager.getString('user_profile_following'), user.followingCount || 0);
   return (
@@ -422,7 +406,7 @@ export const MyProfileForm = () => {
                   <hr />
                   <p className='description'>
                     <i className='star highlight' />
-                    {resource.user_profile_hireable_skill}
+                    {resource.user_profile_hirable_skill}
                   </p>
                 </section>
               </div>
@@ -461,12 +445,12 @@ export const MyProfileForm = () => {
                     </div>
                   </section>
                   <label className='checkbox-container'>
-                    <input type='checkbox' id='hireable' name='hireable' checked={state.edit.hireable} onChange={updateState} />
-                    {resource.user_profile_hireable_skill}
+                    <input type='checkbox' id='hirable' name='hirable' checked={state.edit.hirable} onChange={updateState} />
+                    {resource.user_profile_hirable_skill}
                   </label>
                   <hr />
                   <p className='description'>
-                    <i className='star highlight' />{resource.user_profile_hireable_skill}
+                    <i className='star highlight' />{resource.user_profile_hirable_skill}
                   </p>
                 </section>
                 <footer>
@@ -532,49 +516,49 @@ export const MyProfileForm = () => {
               <div>
                 {
                   user.facebookLink &&
-                  <a href={'https://facebookcom/' + user.facebookLink} title='facebook' target='_blank' rel="noreferrer">
+                  <a href={'https://facebookcom/' + user.facebookLink} title='facebook' target='_blank' rel='noreferrer'>
                     <i className='fa fa-facebook' />
                     <span>facebook</span>
                   </a>
                 }
                 {
                   user.skypeLink &&
-                  <a href={'https://skype.com/' + user.skypeLink} title='Skype' target='_blank' rel="noreferrer">
+                  <a href={'https://skype.com/' + user.skypeLink} title='Skype' target='_blank' rel='noreferrer'>
                     <i className='fa fa-skype' />
                     <span>Skype</span>
                   </a>
                 }
                 {
                   user.twitterLink &&
-                  <a href={'https://twitter.com/' + user.twitterLink} title='Twitter' target='_blank' rel="noreferrer">
+                  <a href={'https://twitter.com/' + user.twitterLink} title='Twitter' target='_blank' rel='noreferrer'>
                     <i className='fa fa-twitter' />
                     <span>Twitter</span>
                   </a>
                 }
                 {
                   user.instagramLink &&
-                  <a href={'https://instagram.com/' + user.instagramLink} title='Instagram' target='_blank' rel="noreferrer">
+                  <a href={'https://instagram.com/' + user.instagramLink} title='Instagram' target='_blank' rel='noreferrer'>
                     <i className='fa fa-instagram' />
                     <span>Instagram</span>
                   </a>
                 }
                 {
                   user.linkedinLink &&
-                  <a href={'https://linkedin.com/' + user.linkedinLink} title='Linked in' target='_blank' rel="noreferrer">
+                  <a href={'https://linkedin.com/' + user.linkedinLink} title='Linked in' target='_blank' rel='noreferrer'>
                     <i className='fa fa-linkedin' />
                     <span>Linked in</span>
                   </a>
                 }
                 {
                   user.googleLink &&
-                  <a href={'https://plus.google.com/' + user.googleLink} title='Google' target='_blank' rel="noreferrer">
+                  <a href={'https://plus.google.com/' + user.googleLink} title='Google' target='_blank' rel='noreferrer'>
                     <i className='fa fa-google' />
                     <span>Google</span>
                   </a>
                 }
                 {
                   user.dribbbleLink &&
-                  <a href={'https://dribbble.com/' + user.dribbbleLink} title='dribbble' target='_blank' rel="noreferrer">
+                  <a href={'https://dribbble.com/' + user.dribbbleLink} title='dribbble' target='_blank' rel='noreferrer'>
                     <i className='fa fa-dribbble' />
                     <span>dribbble</span>
                   </a>
@@ -582,43 +566,43 @@ export const MyProfileForm = () => {
 
                 {
                   user.customLink01 &&
-                  <a href={user.customLink01} target='_blank' rel="noreferrer">
+                  <a href={user.customLink01} target='_blank' rel='noreferrer'>
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
                 {
                   user.customLink02 &&
-                  <a href={user.customLink02} target='_blank' rel="noreferrer">
+                  <a href={user.customLink02} target='_blank' rel='noreferrer'>
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
                 {
-                  user.customLink03 && <a href={user.customLink03} target='_blank' rel="noreferrer">
+                  user.customLink03 && <a href={user.customLink03} target='_blank' rel='noreferrer'>
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
                 {
-                  user.customLink04 && <a href={user.customLink04} target='_blank' rel="noreferrer">
+                  user.customLink04 && <a href={user.customLink04} target='_blank' rel='noreferrer'>
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
                 {
-                  user.customLink05 && <a href={user.customLink05} target='_blank' rel="noreferrer">
+                  user.customLink05 && <a href={user.customLink05} target='_blank' rel='noreferrer'>
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
                 {
-                  user.customLink06 && <a href={user.customLink06} target='_blank' rel="noreferrer">
+                  user.customLink06 && <a href={user.customLink06} target='_blank' rel='noreferrer'>
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
                 {
-                  user.customLink07 && <a href={user.customLink07} target='_blank' rel="noreferrer">
+                  user.customLink07 && <a href={user.customLink07} target='_blank' rel='noreferrer'>
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
                 {
-                  user.customLink08 && <a href={user.customLink08} target='_blank' rel="noreferrer">
+                  user.customLink08 && <a href={user.customLink08} target='_blank' rel='noreferrer'>
                     <i className='fab fa-globe-asia' />
                   </a>
                 }
@@ -640,7 +624,7 @@ export const MyProfileForm = () => {
               {isEditingBio && <textarea name='bio' value={user.bio} onChange={editBio} />}
               {isEditingBio &&
                 <footer>
-                  <button type='button' id='btnSaveBio' name='btnSaveBio' onClick={e => { saveChanges(e); setBio(user.bio || '') }}>
+                  <button type='button' id='btnSaveBio' name='btnSaveBio' onClick={e => { saveChanges(e); setBio(user.bio || ''); }}>
                     {resource.save}
                   </button>
                 </footer>
@@ -802,7 +786,7 @@ export const MyProfileForm = () => {
     </div>
   );
 
-}
+};
 export function inArray(arr: string[], item: string): boolean {
   if (!arr || arr.length === 0) {
     return false;

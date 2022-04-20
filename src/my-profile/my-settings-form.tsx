@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 import { OnClick, useUpdate } from 'react-hook-core';
 import { confirm, handleError, message, useResource } from 'uione';
 import { useGetMyProfileService, UserSettings } from './my-profile';
@@ -9,9 +9,9 @@ interface InternalState {
 
 const data: InternalState = {
   settings: {} as any
-}
+};
 export const MySettingsForm = () => {
-  const service = useGetMyProfileService()
+  const service = useGetMyProfileService();
   const resource = useResource();
   // const service = useGetMyProfileService();
   const { state, setState, updateState } = useUpdate<InternalState>(data, 'settings');
@@ -24,7 +24,7 @@ export const MySettingsForm = () => {
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   const save = (e: OnClick) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ export const MySettingsForm = () => {
         message(msg);
       }).catch(handleError);
     }, resource.no, resource.yes);
-  }
+  };
 
   return (
     <div className='view-container'>
@@ -209,4 +209,4 @@ export const MySettingsForm = () => {
       </form>
     </div>
   );
-}
+};

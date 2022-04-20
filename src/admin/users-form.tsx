@@ -44,7 +44,7 @@ export const UsersForm = () => {
         <div className='btn-group'>
           {component.view !== 'table' && <button type='button' id='btnTable' name='btnTable' className='btn-table' data-view='table' onClick={changeView} />}
           {component.view === 'table' && <button type='button' id='btnListView' name='btnListView' className='btn-list-view' data-view='listview' onClick={changeView} />}
-          {component.addable && <Link id='btnNew' className='btn-new' to='add'></Link>}
+          {component.addable && <Link id='btnNew' className='btn-new' to='add'/>}
         </div>
       </header>
       <div>
@@ -115,9 +115,9 @@ export const UsersForm = () => {
                   <th data-field='status'><button type='button' id='sortStatus' onClick={sort}>{resource.status}</button></th>
                 </tr>
               </thead>
+              <tbody>
               {list && list.length > 0 && list.map((user, i) => {
                 return (
-                  <tbody>
                     <tr key={i} onClick={e => edit(e, user.userId)}>
                       <td className='text-right'>{(user as any).sequenceNo}</td>
                       <td>{user.userId}</td>
@@ -126,9 +126,9 @@ export const UsersForm = () => {
                       <td>{user.displayName}</td>
                       <td>{user.status}</td>
                     </tr>
-                  </tbody>
                 );
               })}
+              </tbody>
             </table>
           </div>}
           {component.view !== 'table' && <ul className='row list-view'>

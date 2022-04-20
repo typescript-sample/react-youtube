@@ -24,7 +24,7 @@ export default function ChannelSubscriptions(props: Props) {
   }, []);
 
   return (
-    <div className='channel-subscriptions'>
+    <div className='content channel-subscriptions'>
       <h3 className='title'>{resource.subscriptions}</h3>
       <div className='containers'>
         {channels && channels.map((x, i) => {

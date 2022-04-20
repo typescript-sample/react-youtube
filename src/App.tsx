@@ -25,14 +25,14 @@ import { SignupForm } from './authentication/signup-form';
 import LayoutComponent from './core/layout';
 import { MyProfileForm } from './my-profile/my-profile-form';
 import { MySettingsForm } from './my-profile/my-settings-form';
+import { UserPage } from './profile/user-page';
+import { UsersPage } from './profile/users-page';
 import ChannelPage from './video/channel';
 import ChannelsPage from './video/channels';
 import HomePage from './video/home';
 import PlaylistPage from './video/playlist';
 import SearchPage from './video/search';
 import VideoPage from './video/video';
-import { UserPage } from './profile/user-page';
-import { UsersPage } from './profile/users-page';
 
 // tslint:disable:ordered-imports
 import './assets/css/reset.css';

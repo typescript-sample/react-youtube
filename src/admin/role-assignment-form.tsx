@@ -149,8 +149,8 @@ export const RoleAssignmentForm = () => {
   };
   const clearKeyworkOnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    setState({ ...state, q:''});
-  }
+    setState({ ...state, q: ''});
+  };
   return (
     <div className='view-container'>
       <form id='roleAssignmentForm' name='roleAssignmentForm' model-name='role'>

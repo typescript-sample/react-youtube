@@ -26,7 +26,7 @@ const Home = () => {
     return (s - (s %= 60)) / 60 + ':' + s;
   };
   return (
-    <div style={{maxHeight: 'calc(100vh - 229px)', overflowX: 'auto'}}>
+    <div className='content'>
       <ul className='list-view horizon'>
         {videos && videos.map((item, i) => {
           return (

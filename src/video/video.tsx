@@ -48,7 +48,7 @@ const VideoPage = () => {
     setSliceData([...sliceData, ...listRelated.slice(begin, end)]);
     setPage(page + 1);
   };
-  const css = videoService.getRelatedVideos && sliceData && sliceData.length > 0 ? 'col s12 m12 l9 xl9' : 'col s12 m12 l12 xl12';
+  const css = videoService.getRelatedVideos && sliceData && sliceData.length > 0 ? 'col s12 m12 l9 xl9 video-content' : 'col s12 m12 l12 xl12 video-content';
   return (
     <div className='view-container'>
       <header>
@@ -76,7 +76,7 @@ const VideoPage = () => {
           </form>
           <Comments videoId={id} getCommentThreads={videoService.getCommentThreads} getComments={videoService.getComments} />
         </div>
-        {videoService.getRelatedVideos && sliceData && sliceData.length > 0 && <div className='col s12 m12 l3 xl3'>
+        {videoService.getRelatedVideos && sliceData && sliceData.length > 0 && <div className='col s12 m12 l3 xl3 video-content'>
           <form className='list-result'>
             <ul className='list-view'>
               {sliceData.map((item, i) => {

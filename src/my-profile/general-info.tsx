@@ -9,37 +9,32 @@ interface Props {
 }
 
 interface State {
-  user: User
-};
-
+  user: User;
+}
 
 export const GeneralInfo = ({ resource, user, close, saveEmit }: Props) => {
-  const service = useGetMyProfileService()
+  const service = useGetMyProfileService();
   const { state, setState, updateState } = useUpdate<State>({ user }, 'user');
-
 
   const closeModal = () => {
     close();
-    // const msg = ResourceManager.getString('success_save_my_profile');
-    // this.showInfo(msg);
-  }
+  };
 
   const save = (e: OnClick) => {
-    e.preventDefault()
-    const { user } = state;
-    service.saveMyProfile(user).then(success => {
+    e.preventDefault();
+    const usr = state.user;
+    service.saveMyProfile(usr).then(success => {
       let status = '';
       if (success) {
         status = 'success';
-        setState({ user });
+        setState({ user: usr });
       } else {
         status = 'fail';
       }
-      saveEmit({ status, user });
+      saveEmit({ status, user: usr });
       close();
     });
-  }
-
+  };
 
   return (
     <div className='view-container profile-info'>
@@ -138,8 +133,7 @@ export const GeneralInfo = ({ resource, user, close, saveEmit }: Props) => {
         </footer>
       </form>
     </div>);
-
-}
+};
 /*
 // @ts-ignore
 GeneralInfo.propTypes = {

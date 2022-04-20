@@ -2,7 +2,7 @@ import axios from 'axios';
 import { HttpRequest } from 'axios-core';
 import { useEffect, useState } from 'react';
 import * as React from 'react';
-import { OnClick, PageSizeSelect, pageSizes as sizes, useMergeState } from 'react-hook-core';
+import { OnClick, pageSizes as sizes, PageSizeSelect, useMergeState } from 'react-hook-core';
 import { useNavigate } from 'react-router';
 import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { collapseAll, expandAll, Nav } from 'reactx-nav';
@@ -15,10 +15,11 @@ interface InternalState {
   pageSizes: number[];
   pageSize: number;
   se: any;
+  isToggleSearch?: boolean;
   isToggleMenu?: boolean;
   isMenu?: boolean;
+  classicMenu?: boolean;
   darkMode?: boolean;
-  isToggleSearch?: boolean;
   keyword: string;
   showProfile: string;
   forms: Privilege[];
@@ -55,17 +56,36 @@ export const renderItem = (resource: StringMap): any => {
   const top = isTopMenu();
   if (top) {
     return (
-      <>
-        <i className='material-icons'>view_list</i><span className='dropdown-item-profile'>{resource.sidebar}</span>
-      </>
+      <><i className='material-icons'>view_list</i><span className='dropdown-item-profile'>{resource.sidebar}</span></>
     );
   } else {
     return (
-      <>
-        <i className='material-icons'>credit_card</i><span className='dropdown-item-profile'>{resource.menu}</span>
-      </>
-    )
+      <><i className='material-icons'>credit_card</i><span className='dropdown-item-profile'>{resource.menu}</span></>
+    );
   }
+};
+export const renderClassicMenu = (resource: StringMap): any => {
+  const top = isClassicMenu();
+  if (top) {
+    return (
+      <><i className='material-icons'>assessment</i><span className='dropdown-item-profile'>{resource.modern_menu}</span></>
+    );
+  } else {
+    return (
+      <><i className='material-icons'>credit_card</i><span className='dropdown-item-profile'>{resource.classic_menu}</span></>
+    );
+  }
+};
+function isClassicMenu(): boolean {
+  if (!sysBody) {
+    sysBody = document.getElementById('sysBody');
+  }
+  if (sysBody) {
+    if (sysBody.classList.contains('classic')) {
+      return true;
+    }
+  }
+  return false;
 }
 function isDarkMode(): boolean {
   if (!sysBody) {
@@ -85,18 +105,14 @@ export const renderMode = (resource: StringMap): any => {
   const dark = isDarkMode();
   if (dark) {
     return (
-      <>
-        <i className='material-icons'>radio_button_checked</i><span className='dropdown-item-profile'>{resource.light_mode}</span>
-      </>
+      <><i className='material-icons'>radio_button_checked</i><span className='dropdown-item-profile'>{resource.light_mode}</span></>
     );
   } else {
     return (
-      <>
-        <i className='material-icons'>timelapse</i><span className='dropdown-item-profile'>{resource.dark_mode}</span>
-      </>
-    )
+      <><i className='material-icons'>timelapse</i><span className='dropdown-item-profile'>{resource.dark_mode}</span></>
+    );
   }
-}
+};
 const initialState: InternalState = {
   pageSizes: sizes,
   pageSize: 12,
@@ -114,7 +130,6 @@ export const LayoutComponent = () => {
   const resource = useResource();
   const navigate = useNavigate();
   const location = useLocation();
-  console.log('locatoin:' + location.pathname);
   const [isSearch, setIsSearch] = useState(location.pathname === '/search');
   const [searchParams, setSearchParams] = useSearchParams();
   const [state, setState] = useMergeState<InternalState>(initialState);
@@ -168,7 +183,20 @@ export const LayoutComponent = () => {
       setState({ showProfile: state.showProfile === 'show' ? '' : 'show' });
     }
   }
-
+  const changeClassicMenu = () => {
+    if (!sysBody) {
+      sysBody = document.getElementById('sysBody');
+    }
+    if (sysBody) {
+      if (sysBody.classList.contains('classic')) {
+        sysBody.classList.remove('classic');
+        setState({ classicMenu: true });
+      } else {
+        sysBody.classList.add('classic');
+        setState({ classicMenu: false });
+      }
+    }
+  };
   const changeMenu = () => {
     if (!sysBody) {
       sysBody = document.getElementById('sysBody');
@@ -176,13 +204,13 @@ export const LayoutComponent = () => {
     if (sysBody) {
       if (sysBody.classList.contains('top-menu')) {
         sysBody.classList.remove('top-menu');
-        setState({ isMenu: true })
+        setState({ isMenu: true });
       } else {
         sysBody.classList.add('top-menu');
-        setState({ isMenu: false })
+        setState({ isMenu: false });
       }
     }
-  }
+  };
   const changeMode = () => {
     if (!sysBody) {
       sysBody = document.getElementById('sysBody');
@@ -192,14 +220,14 @@ export const LayoutComponent = () => {
       if (parent) {
         if (parent.classList.contains('dark')) {
           parent.classList.remove('dark');
-          setState({ darkMode: false })
+          setState({ darkMode: false });
         } else {
           parent.classList.add('dark');
-          setState({ darkMode: true })
+          setState({ darkMode: true });
         }
       }
     }
-  }
+  };
   const signout = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     const request = new HttpRequest(axios, options);
@@ -326,18 +354,20 @@ export const LayoutComponent = () => {
                   )}
                   {!user &&
                     <ul id='dropdown-basic' className={state.showProfile + ' dropdown-content-profile'}>
-                      <li onClick={changeMode}>{renderMode(resource)}</li>
+                      <li className='menu' onClick={changeMenu}>{renderItem(resource)}</li>
+                      <li className='classic-menu' onClick={changeClassicMenu}>{renderClassicMenu(resource)}</li>
                       <hr style={{ margin: 0 }} />
-                      <li onClick={changeMenu}>{renderItem(resource)}</li>
+                      <li onClick={changeMode}>{renderMode(resource)}</li>
                       <hr style={{ margin: 0 }} />
                       <li><i className='material-icons'>account_circle</i><Link className='dropdown-item-profile' to={'signin'} >{resource.signin}</Link></li>
                     </ul>
                   }
                   {user &&
                     <ul id='dropdown-basic' className={state.showProfile + ' dropdown-content-profile'}>
-                      <li onClick={changeMode}>{renderMode(resource)}</li>
+                      <li className='menu' onClick={changeMenu}>{renderItem(resource)}</li>
+                      <li className='classic-menu' onClick={changeClassicMenu}>{renderClassicMenu(resource)}</li>
                       <hr style={{ margin: 0 }} />
-                      <li onClick={changeMenu}>{renderItem(resource)}</li>
+                      <li onClick={changeMode}>{renderMode(resource)}</li>
                       <hr style={{ margin: 0 }} />
                       <li><i className='material-icons'>account_circle</i><Link className='dropdown-item-profile' to={'my-profile'} >{state.username}</Link></li>
                       <li><i className='material-icons'>settings</i><Link className='dropdown-item-profile' to={'my-profile/settings'}>{resource.my_settings}</Link></li>

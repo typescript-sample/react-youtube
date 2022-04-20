@@ -128,33 +128,35 @@ export function RoleForm() {
   React.useEffect(() => {
     showModel(state.role);
   }, [state.role]); // eslint-disable-line react-hooks/exhaustive-deps
-  function showModel(role: Role) {
-    if (!role) {
+  function showModel(obj: Role) {
+    if (!obj) {
       return;
     }
     const { all } = state;
-    if (!role.privileges) {
-      role.privileges = [];
+    if (!obj.privileges) {
+      obj.privileges = [];
     } else {
-      role.privileges = role.privileges.map(p => p.split(' ', 1)[0]);
+      obj.privileges = obj.privileges.map(p => p.split(' ', 1)[0]);
     }
-    setState({ role }, () => isCheckedAll(role.privileges, all, setState));
+    setState({ role: obj }, () => isCheckedAll(obj.privileges, all, setState));
   }
   const handleCheckAll = (event: any) => {
-    const { role, all } = state;
+    const { all } = state;
+    const obj = state.role;
     event.persist();
     const checkedAll = event.target.checked;
-    role.privileges = (checkedAll ? all : []);
-    setState({ role, checkedAll });
+    obj.privileges = (checkedAll ? all : []);
+    setState({ role: obj, checkedAll });
   };
   const handleCheck = (event: any) => {
-    const { role, all, allPrivileges } = state;
+    const { all, allPrivileges } = state;
     event.persist();
+    const obj = state.role;
     const target = event.target;
     const id = target.getAttribute('data-id');
     const type = target.getAttribute('data-type');
-    role.privileges = buildPrivileges(id, type, role.privileges ? role.privileges : [], allPrivileges);
-    setState({ role }, () => isCheckedAll(role.privileges, all, setState));
+    obj.privileges = buildPrivileges(id, type, obj.privileges ? obj.privileges : [], allPrivileges);
+    setState({ role: obj }, () => isCheckedAll(role.privileges, all, setState));
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const q = e.target.value;

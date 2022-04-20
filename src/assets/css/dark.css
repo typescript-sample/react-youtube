@@ -1,24 +1,29 @@
 .dark ::-webkit-scrollbar-thumb {
   background: #747978;
 }
-
-.dark .top-menu .menu.sidebar::-webkit-scrollbar-thumb {
-  background: #747979;
+@media screen and (min-width: 769px) {
+  .dark .top-menu .menu.sidebar::-webkit-scrollbar-thumb {
+    background: #747979;
+  }
 }
 .dark .switch-container > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]):before,
 .dark input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]).switch:before {
-  border: 1px solid #b2b2b2;
+  border-color: #b2b2b2;
   color: #4c4c4c;
   background:#000;
 }
 .dark .switch-container > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]):after,
 .dark input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]).switch:after {
-  border: 1px solid #7f7f7f;
+  border-color: #7f7f7f;
   color: #000;
   background:#4db6ac;
 }
-
+.dark input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]):before {
+  border-color: #b2b2b2;
+  background: #000;
+}
 .dark input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]):after {
+  color: #000;
   background: #4db6ac;
 }
 
@@ -266,7 +271,6 @@
 .dark .view-header > h5,
 .dark .view-subtitle,
 .dark .subtitle,
-.dark .quick-nav,
 .dark .profile.view-container > form > .row > .col > div.card > section > p,
 .dark ul.list-view > li > section:first-child > div > h3.inactive,
 .dark ul.list-view > li > section:first-child > div > h3.inactive > a {
@@ -571,6 +575,7 @@
 .dark .article-notice,
 .dark .btn-detail,
 
+.dark .quick-nav,
 .dark .detail-content > form > header > .btn-back,
 .dark .view-container > form > header > .btn-back,
 .dark .view-container > header > .btn-back,

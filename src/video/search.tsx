@@ -153,7 +153,7 @@ const SearchPage = () => {
   };
 
   return (
-    <div>
+    <div className='full'>
       <div className='tool-bar'>
         <FilterBar handleFilterType={handleFilterType} handleFilterDuration={handleFilterDuration} handleFilterOrder={handleFilterOrder} filter={filter} />
       </div>
