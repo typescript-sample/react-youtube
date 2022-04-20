@@ -130,6 +130,9 @@
   padding-top: 3px;
   padding-left: 2px;
 }
+.dark section.quick-nav > a {
+  color: inherit;
+}
 .quick-nav > button > i,
 .quick-nav > a > i {
   font-size: 31px;
@@ -209,8 +212,12 @@
   text-align: inherit;
   background-color: transparent;
 }
+span.dropdown-item-profile,
 a.dropdown-item-profile {
   padding-top: 2px;
+}
+span.dropdown-item-profile:hover {
+  text-decoration: underline;
 }
 /*
 .dropdown-item-profile.active,

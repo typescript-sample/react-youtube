@@ -413,6 +413,6 @@ ul.list-view>li>section:first-child>.title:hover{
   font-style: normal;
   font-weight: 600;
   opacity: 0.78;
-  background: black;
-  color: white;
+  background: #000;
+  color: #fff;
 }

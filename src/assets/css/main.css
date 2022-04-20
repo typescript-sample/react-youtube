@@ -566,3 +566,7 @@ section > h4.title > a {
   height: calc(100vh - 44px);
   overflow-x: auto;
 }
+.top-menu .page-body > .full {
+  max-height: calc(100vh - 44px - 46px);
+  height: calc(100vh - 44px - 46px);
+}

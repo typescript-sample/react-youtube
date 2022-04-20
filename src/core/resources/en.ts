@@ -7,6 +7,10 @@ export const en = {
   settings: 'Settings',
   help: 'Help',
   events_history: 'Event History',
+  menu: 'Menu',
+  sidebar: 'Sidebar',
+  dark_mode: 'Dark mode',
+  light_mode: 'Light mode',
 
   confirm: 'Confirm',
   create: 'Create',

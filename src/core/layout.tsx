@@ -6,7 +6,7 @@ import { OnClick, PageSizeSelect, pageSizes as sizes, useMergeState } from 'reac
 import { useNavigate } from 'react-router';
 import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { collapseAll, expandAll, Nav } from 'reactx-nav';
-import { options, Privilege, storage, user as getUser, useResource } from 'uione';
+import { options, Privilege, storage, StringMap, user as getUser, useResource } from 'uione';
 import logoTitle from '../assets/images/logo-title.png';
 import logo from '../assets/images/logo.png';
 import topBannerLogo from '../assets/images/top-banner-logo.png';
@@ -16,6 +16,8 @@ interface InternalState {
   pageSize: number;
   se: any;
   isToggleMenu?: boolean;
+  isMenu?: boolean;
+  darkMode?: boolean;
   isToggleSearch?: boolean;
   keyword: string;
   showProfile: string;
@@ -23,7 +25,6 @@ interface InternalState {
   username?: string;
   userType?: string;
   pinnedModules: Privilege[];
-  isSidebar: boolean;
 }
 export function sub(n1?: number, n2?: number): number {
   if (!n1 && !n2) {
@@ -37,22 +38,83 @@ export function sub(n1?: number, n2?: number): number {
   }
   return 0;
 }
+
+let sysBody: HTMLElement | null | undefined;
+function isTopMenu(): boolean {
+  if (!sysBody) {
+    sysBody = document.getElementById('sysBody');
+  }
+  if (sysBody) {
+    if (sysBody.classList.contains('top-menu')) {
+      return true;
+    }
+  }
+  return false;
+}
+export const renderItem = (resource: StringMap): any => {
+  const top = isTopMenu();
+  if (top) {
+    return (
+      <>
+        <i className='material-icons'>view_list</i><span className='dropdown-item-profile'>{resource.sidebar}</span>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <i className='material-icons'>credit_card</i><span className='dropdown-item-profile'>{resource.menu}</span>
+      </>
+    )
+  }
+}
+function isDarkMode(): boolean {
+  if (!sysBody) {
+    sysBody = document.getElementById('sysBody');
+  }
+  if (sysBody) {
+    const parent = sysBody.parentElement;
+    if (parent) {
+      if (parent.classList.contains('dark')) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+export const renderMode = (resource: StringMap): any => {
+  const dark = isDarkMode();
+  if (dark) {
+    return (
+      <>
+        <i className='material-icons'>radio_button_checked</i><span className='dropdown-item-profile'>{resource.light_mode}</span>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <i className='material-icons'>timelapse</i><span className='dropdown-item-profile'>{resource.dark_mode}</span>
+      </>
+    )
+  }
+}
 const initialState: InternalState = {
   pageSizes: sizes,
   pageSize: 12,
   se: {} as any,
+  isMenu: false,
+  darkMode: false,
   keyword: '',
   showProfile: '',
   forms: [],
   username: '',
   userType: '',
-  pinnedModules: [],
-  isSidebar: true,
+  pinnedModules: []
 };
 export const LayoutComponent = () => {
   const resource = useResource();
   const navigate = useNavigate();
   const location = useLocation();
+  console.log('locatoin:' + location.pathname);
   const [isSearch, setIsSearch] = useState(location.pathname === '/search');
   const [searchParams, setSearchParams] = useSearchParams();
   const [state, setState] = useMergeState<InternalState>(initialState);
@@ -71,11 +133,10 @@ export const LayoutComponent = () => {
       }
     }
     setState({ forms });
-
-    const username = storage.username();
-    const storageRole = storage.getUserType();
-    if (username || storageRole) {
-      setState({ username, userType: storageRole });
+    const usr = storage.user();
+    if (usr) {
+      const username = usr.displayName && usr.displayName.length > 0 ? usr.displayName : (usr.username && usr.username.length > 0 ? usr.username : resource.my_profile);
+      setState({ username });
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -101,21 +162,42 @@ export const LayoutComponent = () => {
   };
 
   function toggleProfile() {
-    setState({ showProfile: state.showProfile === 'show' ? '' : 'show' });
+    if (!user) {
+      navigate('/signin');
+    } else {
+      setState({ showProfile: state.showProfile === 'show' ? '' : 'show' });
+    }
   }
 
   const changeMenu = () => {
-    if (state.isSidebar) {
-      document.getElementById('sysBody')?.classList.add('top-menu');
-    } else {
-      document.getElementById('sysBody')?.classList.remove('top-menu');
+    if (!sysBody) {
+      sysBody = document.getElementById('sysBody');
     }
-    setState({ isSidebar: !state.isSidebar })
+    if (sysBody) {
+      if (sysBody.classList.contains('top-menu')) {
+        sysBody.classList.remove('top-menu');
+        setState({ isMenu: true })
+      } else {
+        sysBody.classList.add('top-menu');
+        setState({ isMenu: false })
+      }
+    }
   }
-
-  const signin = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    if (!user) {
-      navigate('/signin');
+  const changeMode = () => {
+    if (!sysBody) {
+      sysBody = document.getElementById('sysBody');
+    }
+    if (sysBody) {
+      const parent = sysBody.parentElement;
+      if (parent) {
+        if (parent.classList.contains('dark')) {
+          parent.classList.remove('dark');
+          setState({ darkMode: false })
+        } else {
+          parent.classList.add('dark');
+          setState({ darkMode: true })
+        }
+      }
     }
   }
   const signout = (event: { preventDefault: () => void; }) => {
@@ -201,7 +283,7 @@ export const LayoutComponent = () => {
           <img src={logoTitle} className='banner-logo-title' alt='Logo of The Company' />
         </div>
       </div>
-      <div className='menu sidebar top-menu'>
+      <div className='menu sidebar'>
         <Nav className={`expanded-all ${state.forms.length === 0 ? 'empty-item' : ''}`}
           iconClass='material-icons'
           path={location.pathname}
@@ -235,8 +317,8 @@ export const LayoutComponent = () => {
               <section className='quick-nav'>
                 {/*<button type='button' className='notifications'><i className='material-icons'>notifications</i></button>
                 <button type='button' className='mail'><i className='material-icons'>mail</i></button>*/}
-                <Link to=''><i className='material-icons'>home</i></Link>
-                <div className='dropdown-menu-profile' onClick={signin}>
+                {location.pathname !== '/' && location.pathname !== '' && <Link to=''><i className='material-icons'>home</i></Link>}
+                <div className='dropdown-menu-profile'>
                   {(!user || !user.imageURL) && (
                     <i className='material-icons' onClick={toggleProfile}>
                       person
@@ -244,18 +326,24 @@ export const LayoutComponent = () => {
                   )}
                   {!user &&
                     <ul id='dropdown-basic' className={state.showProfile + ' dropdown-content-profile'}>
-                      <li><i className="material-icons">account_circle</i><Link className='dropdown-item-profile' to={'signin'} >{resource.signin}</Link></li>
+                      <li onClick={changeMode}>{renderMode(resource)}</li>
+                      <hr style={{ margin: 0 }} />
+                      <li onClick={changeMenu}>{renderItem(resource)}</li>
+                      <hr style={{ margin: 0 }} />
+                      <li><i className='material-icons'>account_circle</i><Link className='dropdown-item-profile' to={'signin'} >{resource.signin}</Link></li>
                     </ul>
                   }
                   {user &&
                     <ul id='dropdown-basic' className={state.showProfile + ' dropdown-content-profile'}>
-                      <li><i className="material-icons">account_circle</i><Link className='dropdown-item-profile' to={'my-profile'} >{resource.my_profile}</Link></li>
-                      <li><i className="material-icons">settings</i><Link className='dropdown-item-profile' to={'my-profile/settings'}>{resource.my_settings}</Link></li>
-                      {state.isSidebar && <li onClick={changeMenu}><span className="material-icons">view_sidebar</span>TopBar</li>}
-                      {!state.isSidebar && <li onClick={changeMenu}><i className="material-icons" ></i>Sidebar</li>}
+                      <li onClick={changeMode}>{renderMode(resource)}</li>
+                      <hr style={{ margin: 0 }} />
+                      <li onClick={changeMenu}>{renderItem(resource)}</li>
+                      <hr style={{ margin: 0 }} />
+                      <li><i className='material-icons'>account_circle</i><Link className='dropdown-item-profile' to={'my-profile'} >{state.username}</Link></li>
+                      <li><i className='material-icons'>settings</i><Link className='dropdown-item-profile' to={'my-profile/settings'}>{resource.my_settings}</Link></li>
                       <hr style={{ margin: 0 }} />
                       <li>
-                        <i className="material-icons">exit_to_app</i>
+                        <i className='material-icons'>exit_to_app</i>
                         <button className='dropdown-item-profile' onClick={signout}>
                           {resource.button_signout}
                         </button>

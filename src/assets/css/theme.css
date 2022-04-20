@@ -64,6 +64,7 @@ input[type=radio]:checked:before{
   background-image: linear-gradient(90deg, #008577, #00574b);
 }
 
+.dropdown-content-profile hr,
 .view-container hr {
   border-color: #ebebeb;
 }
@@ -114,7 +115,12 @@ form.list-result > div > table > tfoot > tr.active > th,
 .table > tbody > tr.active > th,
 .table > tfoot > tr.active > th,
 
-.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus,
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus,
 .pagination > .active > a:hover,
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
@@ -657,3 +663,16 @@ section > p > label,
   color: #cdba11 !important;
 }
 
+.cover>i:first-child {
+  background: #000;
+  color: #fff;
+}
+ul.list-view>li,
+ul.list-view.row>li.col>*:last-child,
+ul.list-view>li.section-container>section:first-child,
+div.card,
+.card>section,
+.video>section,
+ul.list-view.horizon>li.video {
+  border-color: #ebebeb;
+}
