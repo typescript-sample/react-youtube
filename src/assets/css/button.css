@@ -230,11 +230,16 @@ footer > .btn-next {
   }
 }
 */
+.btn-back {
+  width: 14px;
+  height: 40px;
+}
 .btn-back::before {
   position: absolute;
-  top: -6px;
-  font-size: 35px;
-  font-weight: 400;
+  top: -7px;
+  left: 1px;
+  font-size: 37px;
+  font-weight: 300;
   content: "\2039";
 }
 

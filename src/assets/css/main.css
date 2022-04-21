@@ -559,6 +559,9 @@ section > h4.title > a {
   .top-menu .page-container > .page-body .view-container > form > div {
     max-height: calc(100vh - 46px - 44px - 64px);
   }
+  .top-menu .page-container > .page-body .profile.view-container > form > div {
+    max-height: unset;
+  }
   .top-menu .page-container > .page-body .view-container > form {
     max-height: calc(100vh - 46px - 44px);
   }

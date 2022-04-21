@@ -196,7 +196,7 @@ form.list-result > div > table > tfoot > tr.active > th,
   border-color: #428bca;
   background-color: #4f5352;
 }
-
+.sidebar ul.list-child > li.active,
 .list-child .active, .open.active {
   background: #7f888d; /* #07843b */
 }
