@@ -5,11 +5,9 @@ import * as React from 'react';
 import { OnClick, pageSizes as sizes, PageSizeSelect, useMergeState } from 'react-hook-core';
 import { useNavigate } from 'react-router';
 import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
-import { collapseAll, expandAll, Nav } from 'reactx-nav';
+import { collapseAll, expandAll, Nav, sub } from 'reactx-nav';
 import { options, Privilege, storage, StringMap, user as getUser, useResource } from 'uione';
-import logoTitle from '../assets/images/logo-title.png';
 import logo from '../assets/images/logo.png';
-import topBannerLogo from '../assets/images/top-banner-logo.png';
 
 interface InternalState {
   pageSizes: number[];
@@ -26,18 +24,6 @@ interface InternalState {
   username?: string;
   userType?: string;
   pinnedModules: Privilege[];
-}
-export function sub(n1?: number, n2?: number): number {
-  if (!n1 && !n2) {
-    return 0;
-  } else if (n1 && n2) {
-    return n1 - n2;
-  } else if (n1) {
-    return n1;
-  } else if (n2) {
-    return -n2;
-  }
-  return 0;
 }
 
 let sysBody: HTMLElement | null | undefined;
@@ -307,8 +293,8 @@ export const LayoutComponent = () => {
     <div className={topClass}>
       <div className='top-banner'>
         <div className='logo-banner-wrapper'>
-          <img src={topBannerLogo} alt='Logo of The Company' />
-          <img src={logoTitle} className='banner-logo-title' alt='Logo of The Company' />
+          <img src='https://jacobspradlin.files.wordpress.com/2014/10/banner-people-connected.png' alt='Banner of The Company' />
+          <img src='https://jacobspradlin.files.wordpress.com/2014/10/banner-people-connected.png' className='banner-logo-title' alt='Logo of The Company' />
         </div>
       </div>
       <div className='menu sidebar'>
@@ -338,8 +324,8 @@ export const LayoutComponent = () => {
               <label className='search-input'>
                 <PageSizeSelect size={pageSize} sizes={pageSizes} />
                 <input type='text' id='q' name='q' maxLength={1000} placeholder={resource['keyword']} value={state.keyword || ''} onChange={handleInput} />
-                {isSearch && <button type='button' className={`btn-filter ${searchParams.get('filter')}`} onClick={handleFilter} />}
                 <button type='button' hidden={!state.keyword} className='btn-remove-text' onClick={clearKeyworkOnClick} />
+                {isSearch && <button type='button' className={`btn-filter ${searchParams.get('filter')}`} onClick={handleFilter} />}
                 <button type='submit' className='btn-search' onClick={searchOnClick} />
               </label>
               <section className='quick-nav'>

@@ -111,7 +111,7 @@ section.footer > button,
 
 .btn-more:hover,
 footer > button:hover {
-  box-shadow: 0 1px 3px 1px darkgrey;
+  box-shadow: 0 1px 3px 1px #a9a9a9;
 }
 .btn-more {
   width: 100%;

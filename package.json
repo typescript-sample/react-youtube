@@ -28,7 +28,7 @@
     "react-modal": "^3.14.4",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
-    "reactx-nav": "^0.1.0",
+    "reactx-nav": "^0.1.1",
     "reactx-pagination": "^0.0.0",
     "sass": "^1.49.11",
     "signup-client": "^0.1.1",

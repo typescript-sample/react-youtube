@@ -37,8 +37,7 @@
   content: "\00AB";
 }
 
-.sidebar-off-menu > .toggle::before,
-.toggle-menu::before {
+.sidebar-off-menu > .toggle::before {
   font-size: 25px;
   font-style: normal;
   font-weight: 800;
@@ -64,10 +63,6 @@
   transition: 0.25s;
   width: 46px;
   overflow-y: hidden;
-}
-
-.sidebar .toggle-menu {
-  display: none;
 }
 
 .page-container {
@@ -101,11 +96,11 @@
   padding-left: 0;
   background-color: inherit;
 }
-
+/*
 .sidebar>nav>ul>li>ul.list-child>li:hover {
-  transition: 0.3s;
+  transition: 0.21s;
 }
-
+*/
 .sidebar>nav>ul>li>div.menu-item:hover>span,
 .sidebar>nav>ul>li:hover>.menu-item>i>span,
 .sidebar>nav>ul>li:hover>a>span,
@@ -138,6 +133,7 @@
 .menu-on .sidebar .expand,
 .menu-on .sidebar .collapse {
   display: inline-block;
+  transition: transform 0.3s;
 }
 
 .menu-on .sidebar .empty-item .expand,
@@ -168,9 +164,9 @@
 .list-child {
   overflow: hidden;
   max-height: 0;
-  -webkit-transition: max-height 0.8s;
-  -moz-transition: max-height 0.8s;
-  transition: max-height 0.8s;
+  -webkit-transition: max-height 0.34s;
+  -moz-transition: max-height 0.34s;
+  transition: max-height 0.34s;
 }
 
 .list-child.expanded {
@@ -269,6 +265,9 @@
   width: 28px;
   font-size: 24px;
   text-align: center;
+  -webkit-transition: transform 0.34s;
+  -moz-transition: transform 0.34s;
+  transition: transform 0.34s;
 }
 
 .menu-item>i.entity-icon.down,
@@ -280,30 +279,19 @@
   height: 100%;
   position: absolute;
 }
-
+.menu-item>i.entity-icon:before {
+  content: "\203A";
+}
 .menu-on .menu-item>i.entity-icon.down,
 .menu-on .menu-item>i.entity-icon.up {
   right: -13px;
 }
 
-.menu-item>i.entity-icon.down:before {
-  content: "\203A";
-}
-
-.menu-item>i.entity-icon.up:before {
-  content: "\2039";
+.menu-item>i.entity-icon.up {
+  transform: rotate(0deg);
 }
 
 @media screen and (max-width: 600px) {
-
-  /*
-  .sidebar .toggle-menu {
-    display: block;
-  }
-  .sidebar .sidebar-off-menu {
-    display: none;
-  }
-  */
   .sidebar {
     width: 0;
   }
@@ -357,12 +345,6 @@
   .top-menu .menu.sidebar::-webkit-scrollbar-track {
     background: transparent;
     border-radius: 3px;
-  }
-
-  .top-menu .menu.sidebar .list-child {
-    -webkit-transition: max-height 0.12s;
-    -moz-transition: max-height 0.12s;
-    transition: max-height 0.12s;
   }
 
   .top-menu .page-container {

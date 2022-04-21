@@ -27,10 +27,8 @@
   border-bottom: 1px solid !important;
   border-left: none;
   border-right: none;
-  outline: none;
   background: transparent;
   border-color: #b3b3b3 !important;
-
   -webkit-box-shadow: none !important;
 	-moz-box-shadow: none !important;
   box-shadow: none !important;
@@ -91,6 +89,7 @@ label.search-input.focused > input,
 label.search-input > input {
   flex: 1 1 auto;
   width: 1% !important;
+  outline: none;
 }
 label.search-input > button.btn-search {
   width: 30px;

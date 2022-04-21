@@ -142,7 +142,10 @@
   color: #000;
   background-color: #4db6ac;
 }
-
+.dark .btn-more:hover,
+.dark footer > button:hover {
+  box-shadow:  #565656;
+}
 .dark section.footer > button#btnReject,
 .dark footer > button#btnReject {
   background-color: #d74738;
@@ -194,7 +197,7 @@
 .dark form.list-result > .table-responsive > table > tbody > tr:nth-of-type(odd):hover,
 .dark .table-hover > tbody > tr:hover,
 .dark .table-striped > tbody > tr:nth-of-type(odd):hover {
-  background-color: #eee;
+  background-color: #111;
 }
 
 .dark .detail .table-responsive > table > thead > tr > th,
@@ -203,7 +206,7 @@
 .dark form.list-result > .table-responsive > table > tbody > tr > td,
 .dark .table > thead > tr > th,
 .dark .table > tbody > tr > td {
-  border-bottom-color: #ddd;
+  border-bottom-color: #222;
 }
 
 .dark .detail .table-responsive > table,
@@ -243,14 +246,19 @@
 .dark .view-container,
 .dark .full-container,
 .dark .page-header,
+.dark .alert-wrapper .alert,
 .dark .dropdown-menu-profile {
   background-color: #000;
 }
-
 .dark .page-header {
   border-color: #111;
 }
-
+.dark .alert-wrapper {
+  background-color: rgba(230, 230, 230, 0.1);
+}
+.dark .alert footer {
+  border-color: #242424;
+}
 .dark body,
 .dark .detail .table-responsive > table > tbody > tr > td > a,
 .dark form.list-result > .table-responsive > table > tbody > tr > td > a,
@@ -274,7 +282,7 @@
 .dark .profile.view-container > form > .row > .col > div.card > section > p,
 .dark ul.list-view > li > section:first-child > div > h3.inactive,
 .dark ul.list-view > li > section:first-child > div > h3.inactive > a {
-  color: #666666;
+  color: #999999;
 }
 
 .dark .view-container > form > div > h3,
@@ -361,6 +369,8 @@
 .dark .btn-accept,
 .dark .btn-cancel,
 .dark .btn-group,
+.dark .alert h4,
+.dark .alert p,
 .dark label.switch-container,
 .dark label.checkbox-container,
 .dark label.checkbox-group,
@@ -371,6 +381,10 @@
 .dark .video-container > h4 > a,
 .dark .video-container > h4 > i {
   color: #b2b2b2;
+}
+.dark label.search-input select,
+.dark label.search-input input {
+  color: #b2b2b2 !important;
 }
 /*
 .dark form.list-result > .table-responsive > table > thead > tr,
@@ -651,13 +665,21 @@
 }
 
 .dark .border-bottom-highlight {
-  border-bottom: 3px solid #cdba11 !important;
+  border-bottom: 3px solid #324511 !important; /* #9e8f0e */
 }
 
 .dark .highlight {
-  color: #cdba11 !important;
+  color: #9e8f0e !important;
 }
 
+.dark .view-container > form > div > label.search-input > *,
+.dark .view-container > div > label.search-input > *,
+.dark .view-body > label.search-input > *,
+.dark .row > .col > label.search-input > *,
+.dark .row > label.search-input > *,
+.dark .search-input > * {
+  border-color: #4c4c4c !important;
+}
 .dark .cover>i:first-child {
   background: #fff;
   color: #000;

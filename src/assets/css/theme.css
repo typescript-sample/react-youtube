@@ -152,7 +152,10 @@ section.footer > button {
   color: #fff;
   background-color: #4db6ac;
 }
-
+.btn-more:hover,
+footer > button:hover {
+  box-shadow:  #a9a9a9;
+}
 section.footer > button#btnReject,
 footer > button#btnReject {
   background-color: #d74738;
@@ -253,14 +256,19 @@ body,
 .view-container,
 .full-container,
 .page-header,
+.alert-wrapper .alert,
 .dropdown-menu-profile {
   background-color: #fff;
 }
-
 .page-header {
   border-color: #eee;
 }
-
+.alert-wrapper {
+  background-color: rgba(25, 25, 25, 0.1);
+}
+.alert footer {
+  border-color: #dbdbdb;
+}
 body,
 .detail .table-responsive > table > tbody > tr > td > a,
 form.list-result > .table-responsive > table > tbody > tr > td > a,
@@ -371,6 +379,8 @@ section > a,
 .btn-accept,
 .btn-cancel,
 .btn-group,
+.alert h4,
+.alert p,
 label.switch-container,
 label.checkbox-container,
 label.checkbox-group,
@@ -381,6 +391,10 @@ label.radio-group,
 .video-container > h4 > a,
 .video-container > h4 > i {
   color: #4d4d4d;
+}
+label.search-input select,
+label.search-input input {
+  color: #4d4d4d !important;
 }
 /*
 form.list-result > .table-responsive > table > thead > tr,
@@ -668,6 +682,14 @@ section > p > label,
   color: #cdba11 !important;
 }
 
+.view-container > form > div > label.search-input > *,
+.view-container > div > label.search-input > *,
+.view-body > label.search-input > *,
+.row > .col > label.search-input > *,
+.row > label.search-input > *,
+.search-input > * {
+  border-color: #b3b3b3 !important;
+}
 .cover>i:first-child {
   background: #000;
   color: #fff;

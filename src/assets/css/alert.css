@@ -42,9 +42,9 @@
 .toast-message {
   bottom: 44px;
   text-align: center;
-  left: 300px;
-  right: 300px;
-  padding: 8px 24px 8px 24px;
+  left: 200px;
+  right: 200px;
+  padding: 8px 24px;
   position: fixed;
   z-index: 1000;
   border: 0px solid;
@@ -134,7 +134,7 @@
   margin-top: 6px;
   padding: 0;
   display: inline-block;
-  color: rgb(77, 77, 77);
+  color: #4d4d4d;
   font-size: 16px;
   text-align: left;
   font-weight: 400;
