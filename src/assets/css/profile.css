@@ -34,7 +34,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  .dark .page-body .profile.view-container > form > header,
+  .dark .page-body > .profile.view-container > form > header,
   .page-body > .profile.view-container > form > header {
     background-image: none;
   }

@@ -33,7 +33,6 @@
 	-moz-box-shadow: none !important;
   box-shadow: none !important;
 }
-
 .row > label.col.search-input input:not([type="checkbox"]):not([type="radio"]):first-child,
 .view-container > form > div > label.search-input > *:first-child,
 .view-container > div > label.search-input > *:first-child,
@@ -158,9 +157,12 @@ label.search-input > button.btn-search {
 .toggle-search::before {
   top: 1px;
 }
+.btn-remove-text {
+  width: 17px;
+}
 .search-input > .btn-remove-text::before {
   margin-top: 2px;
-  margin-right: 2px;
+  margin-left: 2px;
   font-size: 16px;
   content: "\2716";
 }

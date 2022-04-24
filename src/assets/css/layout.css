@@ -119,7 +119,7 @@
   .search .page-header .search-input {
     display: flex !important;
     margin-left: 32px !important;
-    width: calc(100% - 34px) !important;
+    width: calc(100% - 36px) !important;
   }
   .search .view-header > .btn-back {display: none;}
 

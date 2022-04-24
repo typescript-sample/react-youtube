@@ -314,7 +314,7 @@
 .dark .mobile .view-body > h4,
 .dark .mobile section > h4,
 .dark .mobile .section-header {
-  background-color: #f2f2f2;
+  background-color: #0d0d0d;
 }
 
 @media screen and (max-width: 600px) {
@@ -323,7 +323,7 @@
   .dark .view-body > h4,
   .dark section > h4,
   .dark .section-header {
-    background-color: #f2f2f2;
+    background-color: #0d0d0d;
   }
 }
 
@@ -412,12 +412,14 @@
 .dark .btn-select,
 .dark .btn-add,
 .dark .btn-new,
-.dark a.btn-new:hover,
+.dark a.btn-new,
 .dark .btn-table,
 .dark .btn-list-view,
 .dark .btn-search,
 .dark .btn-lookup,
 .dark .chip:focus,
+.dark header > .btn-group,
+.dark header > .btn-group > button,
 .dark .page-header > form > div > section > button,
 .dark .round-border.active {
   color: #4db6ac;

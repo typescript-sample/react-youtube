@@ -4,7 +4,7 @@ import { UsersForm } from './users-form';
 export default function Admin() {
   return (
     <Routes>
-      <Route path='users' element={UsersForm} />
+      <Route path='users' element={<UsersForm />} />
     </Routes>
   );
 }

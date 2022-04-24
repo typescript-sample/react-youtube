@@ -7,7 +7,10 @@
   border-radius: 4px;
   background: #747978;
 }
-
+* {
+  scrollbar-color: #747978;
+  scrollbar-face-color: #747978;
+}
 ::-webkit-scrollbar-track {
   background: transparent;
   border-radius: 4px;
@@ -24,8 +27,12 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-    outline: 1px solid slategrey;
+    background-color: #a9a9a9;
+    outline: 1px solid #708090;
+  }
+  * {
+    scrollbar-color: #a9a9a9;
+    scrollbar-face-color: #a9a9a9;
   }
 }
 
