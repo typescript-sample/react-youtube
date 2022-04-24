@@ -42,9 +42,6 @@
   transform: rotate(180deg);
   height: 100%;
 }
-.page-header button.toggle-menu {
-  padding-top: 0;
-}
 
 .close-search {
   padding-left:6px;
@@ -102,7 +99,12 @@
     border: none;
     background-color: transparent;
   }
-  .page-header .toggle-menu {width: 40px; height: 30px;}
+  .page-header .toggle-menu {
+    width: 28px;
+    height: 30px;
+    margin-left: 2px;
+    padding-top: 0;
+  }
   .page-header .search-input {display: none !important;}
 
   .search .page-header .logo,
@@ -115,6 +117,7 @@
     display: inline-block;
     border: none;
     height: 33px;
+    padding-top: 0;
   }
   .search .page-header .search-input {
     display: flex !important;

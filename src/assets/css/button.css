@@ -353,14 +353,14 @@ h4> .btn-add {
 }
 
 .btn-new::before {
-  font-size: 37px;
+  font-size: 36px;
   content: "+";
   position: absolute;
-  top: -5px;
+  top: -6px;
   left: 1px;
 }
 .view-container > header > .btn-group > .btn-list-view {
-  padding-top: 11px;
+  padding-top: 0;
 }
 .btn-list-view::before {
   font-size: 23px;

@@ -125,6 +125,7 @@ label.search-input > button.btn-search {
 .search-input > .btn-filter::before {
   font-size: 17px;
   font-weight: 100;
+  padding-top: 1px;
   content: "\279E";
 }
 .search-input > .btn-filter.on::before {

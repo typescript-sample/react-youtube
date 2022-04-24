@@ -150,7 +150,7 @@
   width: 94vw;
   transform: translate(-50%, -50%);
   overflow: hidden;
-  height: 92%;
+  height: fit-content;
   overflow: auto;
 }
 

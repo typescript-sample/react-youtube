@@ -8,7 +8,7 @@
   border: none;
   background-color: inherit;
   color: inherit;
-  margin-left: -1px;
+  margin-left: 4px;
   margin-right: 13px;
 }
 
@@ -36,14 +36,18 @@
   font-weight: 800;
   content: "\00AB";
 }
-
+.toggle-menu::before,
 .sidebar-off-menu > .toggle::before {
   font-size: 25px;
   font-style: normal;
   font-weight: 800;
   content: "\2261";
 }
-
+.toggle-menu::before {
+  position: absolute;
+  top: -1px;
+  left: 6px;
+}
 .top-banner {
   display: none;
 }
