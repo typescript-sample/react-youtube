@@ -69,6 +69,8 @@ div.card > button.btn-pick,
 .view-container > header > .btn-group > .btn-new,
 .view-container > header > .btn-group > .btn-table,
 .view-container > header > .btn-group > .btn-list-view,
+.view-container > header > .btn-group > .btn-grid,
+.view-container > header > .btn-group > .btn-map,
 .view-container > header > .btn-new,
 .view-container > form > footer .btn-cancel,
 .view-container > footer .btn-cancel,
@@ -366,9 +368,24 @@ h4> .btn-add {
   font-size: 23px;
   content: "\2630";
 }
+.view-container > header > .btn-group > .btn-grid {
+  position: relative;
+  width: 22px;
+}
+.btn-grid::before {
+  font-size: 22px;
+  content: "\229E";
+  position: absolute;
+  top: 5px;
+  left: 0px;
+}
 .btn-table::before {
   font-size: 27px;
   content: "\25A4";
+}
+.btn-map::before {
+  font-size: 25px;
+  content: "\25F3";
 }
 .list-content > header > .btn-new,
 .view-container > header > .btn-new,
