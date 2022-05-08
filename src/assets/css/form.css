@@ -68,8 +68,7 @@ form .row > label.flying input:not([value]){
   padding-bottom: 0;
 }
 
-form .row > label.flying.focused > input[value=""],
-form .row > label.flying.focused > input:not([value]) {
+form .row > label.flying > input:focus:not([data-value]) {
   height: 24px; 
   margin-top: 10px;
   -webkit-animation: flyingFrames 0.3s, 0.3s;
@@ -77,13 +76,11 @@ form .row > label.flying.focused > input:not([value]) {
 }
 
 /**************************Select flying************************/
-form .row > label select[selected-value=""]::placeholder,
-form .row > label select:not([selected-value])::placeholder{
+form .row > label select:not([data-value])::placeholder{
   visibility: hidden;
 }
 
-form .row > label.flying select[selected-value=""],
-form .row > label.flying select:not([selected-value]){
+form .row > label.flying select[data-value=""] {
   -webkit-animation: unFlyingFrames 0.3s, 0.3s;
   animation: unFlyingFrames 0.3s;
   height: 0;
@@ -91,9 +88,7 @@ form .row > label.flying select:not([selected-value]){
   padding-top: 0;
   padding-bottom: 0;
 }
-
-form .row > label.flying.focused > select[selected-value=""],
-form .row > label.flying.focused > select:not([selected-value]) {
+form .row > label.flying select:focus([data-value=""]) {
   height: 24px; 
   margin-top: 10px;
   -webkit-animation: flyingFrames 0.3s, 0.3s;
@@ -276,17 +271,13 @@ select:not([multiple]) {
   background-repeat: no-repeat !important;
 }
 
-.view-container > form > label select[selected-value=""]::placeholder,
-.view-container > form > label select:not([selected-value])::placeholder,
-.view-container > form > div > label select[selected-value=""]::placeholder,
-.view-container > form > div > label select:not([selected-value])::placeholder {
+.view-container > form > label select:not([data-value])::placeholder,
+.view-container > form > div > label select:not([data-value])::placeholder {
   visibility: hidden;
 }
 
-.view-container > form > label.flying select[selected-value=""],
-.view-container > form > label.flying select:not([selected-value]),
-.view-container > form > div > label.flying select[selected-value=""],
-.view-container > form > div > label.flying select:not([selected-value]) {
+.view-container > form > label.flying select:not([data-value]),
+.view-container > form > div > label.flying select:not([data-value]) {
   -webkit-animation: unFlyingFrames 0.3s, 0.3s;
   animation: unFlyingFrames 0.3s;
   height: 0;
@@ -295,19 +286,17 @@ select:not([multiple]) {
   padding-bottom: 0;
 }
 
-.view-container > form > label.flying.focused > select[selected-value=""],
-.view-container > form > label.flying.focused > select:not([selected-value]),
-.view-container > form > div > label.flying.focused > select[selected-value=""],
-.view-container > form > div > label.flying.focused > select:not([selected-value]) {
+.view-container > form > label.flying > select:focus:not([data-value]),
+.view-container > form > div > label.flying > select:focus:not([data-value]) {
   height: 24px; 
   margin-top: 10px;
   -webkit-animation: flyingFrames 0.3s, 0.3s;
   animation: flyingFrames 0.3s;
 }
-.view-container > form > label.focused > input,
-.view-container > form > label.focused > select,
-.view-container > form > div > label.focused > input,
-.view-container > form > div > label.focused > select {
+.view-container > form > label > input:focus,
+.view-container > form > label > select:focus,
+.view-container > form > div > label > input:focus,
+.view-container > form > div > label > select:focus {
   font-size: 15px;
   height: 24px; 
   margin-top: 10px;
@@ -316,17 +305,17 @@ select:not([multiple]) {
 }
 
 .view-container > form > label.flying > input[value=""],
-.view-container > form > label.flying > select[value=""],     
+.view-container > form > label.flying > select:not([data-value]),     
 .view-container > form > div > label.flying > input[value=""],
-.view-container > form > div > label.flying > select[value=""] {
+.view-container > form > div > label.flying > select:not([data-value]) {
   height: 0;
   margin-top: 0;
   padding-top: 0;
 }
-.view-container > form > label.flying.focused > input[value=""],
-.view-container > form > label.flying.focused > select[value=""],
-.view-container > form > div > label.flying.focused > input[value=""],
-.view-container > form > div > label.flying.focused > select[value=""] {
+.view-container > form > label.flying > input:focus[value=""],
+.view-container > form > label.flying.focused > select:not([data-value]),
+.view-container > form > div > label.flying > input:focus[value=""],
+.view-container > form > div > label.flying.focused > select:not([data-value]) {
   height: 24px;
   margin-top: 10px;
   padding-top: 2px;

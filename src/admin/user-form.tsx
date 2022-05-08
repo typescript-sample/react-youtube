@@ -26,8 +26,13 @@ const initialize = (id: string|null, load: (id: string|null) => void, set: Dispa
     set({ titleList, positionList }, () => load(id));
   }).catch(handleError);
 };
-const updateTitle = (title: string, user: User, set: DispatchWithCallback<Partial<InternalState>>) => {
-  user.title = title;
+const updateTitle = (ele: HTMLSelectElement, user: User, set: DispatchWithCallback<Partial<InternalState>>) => {
+  if (ele.value === '') {
+    ele.removeAttribute('data-value');
+  } else {
+    ele.setAttribute('data-value', ele.value);
+  }
+  user.title = ele.value;
   user.gender = (user.title === 'Mr' ? Gender.Male : Gender.Female);
   set({ user });
 };
@@ -84,7 +89,8 @@ export const UserForm = () => {
               id='title'
               name='title'
               value={user.title || ''}
-              onChange={e => updateTitle(e.target.value, state.user, setState)}>
+              data-value
+              onChange={e => updateTitle(e.target, state.user, setState)}>
               <option value=''>{resource.please_select}</option>
               )
               {state.titleList.map((item, index) => (
@@ -98,6 +104,7 @@ export const UserForm = () => {
               id='position'
               name='position'
               value={user.position || ''}
+              data-value
               onChange={updateState}>
               <option value=''>{resource.please_select}</option>
               {
