@@ -2,7 +2,7 @@ import { Item } from 'onecore';
 import * as React from 'react';
 import { createModel, DispatchWithCallback, EditComponentParam, useEdit } from 'react-hook-core';
 import { formatPhone } from 'ui-plus';
-import { emailOnBlur, Gender, handleError, inputEdit, phoneOnBlur, Status } from 'uione';
+import { emailOnBlur, Gender, handleError, inputEdit, phoneOnBlur, requiredOnBlur, Status } from 'uione';
 import { getMasterData, getUserService, User } from './service';
 
 interface InternalState {
@@ -74,10 +74,11 @@ export const UserForm = () => {
               name='displayName'
               value={user.displayName || ''}
               onChange={updateState}
+              onBlur={requiredOnBlur}
               maxLength={40} required={true}
               placeholder={resource.display_name} />
           </label>
-          <label className='col s12 m6'>
+          <label className='col s12 m6 flying'>
             {resource.person_title}
             <select
               id='title'
@@ -91,7 +92,7 @@ export const UserForm = () => {
               )}
             </select>
           </label>
-          <label className='col s12 m6'>
+          <label className='col s12 m6 flying'>
             {resource.position}
             <select
               id='position'
@@ -104,7 +105,7 @@ export const UserForm = () => {
               }
             </select>
           </label>
-          <label className='col s12 m6'>
+          <label className='col s12 m6 flying'>
             {resource.phone}
             <input
               type='tel'
@@ -116,7 +117,7 @@ export const UserForm = () => {
               maxLength={17}
               placeholder={resource.phone} />
           </label>
-          <label className='col s12 m6'>
+          <label className='col s12 m6 flying'>
             {resource.email}
             <input
               type='text'

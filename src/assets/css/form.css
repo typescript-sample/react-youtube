@@ -132,7 +132,7 @@ label.error-align-right > span.span-error {
 }
 
 label.flying > span.span-error {
-  padding-top: 26px;
+  margin-top: 32px;
 }
 
 label.focused > span.span-error,
@@ -194,6 +194,7 @@ label.focused > span.span-error,
   /* Remove ios style for input */
   -webkit-appearance: none;
   -moz-appearance: none;
+  -ms-appearance: none;
   appearance: none;
   /**/
   display: block;
@@ -303,7 +304,6 @@ select:not([multiple]) {
   -webkit-animation: flyingFrames 0.3s, 0.3s;
   animation: flyingFrames 0.3s;
 }
-
 .view-container > form > label.focused > input,
 .view-container > form > label.focused > select,
 .view-container > form > div > label.focused > input,
@@ -315,6 +315,24 @@ select:not([multiple]) {
   animation: flyingFrames 0s;
 }
 
+.view-container > form > label.flying > input[value=""],
+.view-container > form > label.flying > select[value=""],     
+.view-container > form > div > label.flying > input[value=""],
+.view-container > form > div > label.flying > select[value=""] {
+  height: 0;
+  margin-top: 0;
+  padding-top: 0;
+}
+.view-container > form > label.flying.focused > input[value=""],
+.view-container > form > label.flying.focused > select[value=""],
+.view-container > form > div > label.flying.focused > input[value=""],
+.view-container > form > div > label.flying.focused > select[value=""] {
+  height: 24px;
+  margin-top: 10px;
+  padding-top: 2px;
+  -webkit-animation: flyingFrames 0.3s, 0.3s;
+  animation: flyingFrames 0.3s, 0.3s;
+}
 input:not([type="checkbox"]):not([type="radio"])::placeholder,
 input:not([type="checkbox"]):not([type="radio"])::-moz-placeholder,
 input:not([type="checkbox"]):not([type="radio"]):-ms-input-placeholder,
@@ -465,7 +483,7 @@ section > p > label {
 form label.flying,
 form > div > label.flying {
   font-size: 14px;
-  height: 64px;
+  height: 63px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

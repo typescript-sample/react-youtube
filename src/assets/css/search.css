@@ -80,7 +80,8 @@ h4 > label.search-input > i:first-child.btn-search,
 .view-container > form > div > label.search-input > select,
 .view-container > div > label.search-input > select,
 .row > .col > label.search-input > select,
-.row > label.search-input > select {
+.row > label.search-input > select,
+label.search-input > select {
   width: 51px;
 }
 
