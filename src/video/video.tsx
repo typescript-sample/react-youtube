@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Comments } from 'reactx-comments';
 import { useResource } from 'uione';
 import { Item, Video } from 'video-service';
-import Comments from './components/Comments';
 import VideoInfoBox from './components/VideoInfoBox';
 import { context } from './service';
 

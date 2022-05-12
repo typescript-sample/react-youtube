@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Comments } from 'reactx-comments';
 import { storage } from 'uione';
 import { buildShownItems, Playlist, PlaylistVideo } from 'video-service';
-import Comments from './components/Comments';
 import { context } from './service';
 
 const max = 12;
