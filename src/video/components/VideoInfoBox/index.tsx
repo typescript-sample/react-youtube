@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Channel, Video } from 'video-service';
-import './index.scss';
+import './index.css';
 
 const channelFields = ['channelTitle', 'thumbnail'];
 export interface Props {

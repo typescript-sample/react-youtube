@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { Duration, ItemType, SortType } from 'video-service';
 import { Filter } from '../../search';
-import './Filter.scss';
+import './Filter.css';
 
 const types = [{ 'video': 'Video' }, { 'channel': 'Channel' }, { 'playlist': 'Play List' }];
 const durations = [{ 'long': 'Over 20 Minutes' }, { 'medium': '4-20 Minutes' }, { 'short': 'Below 4 Minutes' }];

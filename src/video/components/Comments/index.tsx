@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Comment, CommentOrder, CommentThead, ListResult } from 'video-service';
 import CommentItem from './CommentItem';
-import './index.scss';
+import './index.css';
 
 interface CommentTools {
   nextPageToken?: string;
@@ -21,7 +21,7 @@ const Comments = (props: CommentsProps) => {
   React.useEffect(() => {
     (async () => {
       if (props.videoId && props.getCommentThreads) {
-        const res = await props.getCommentThreads(props.videoId);
+        const res = await props.getCommentThreads(props.videoId,'relevance');
         setTools((prev) => ({ ...prev, nextPageToken: res.nextPageToken }));
         setCommentThreads(res.list);
       }
@@ -49,7 +49,7 @@ const Comments = (props: CommentsProps) => {
 
   return (
     !props.getCommentThreads || !props.videoId ? null :
-      <div className='commentThreads-container'>
+      <div className='comment-threads-container'>
         {
           commentThreads && (
             <div>

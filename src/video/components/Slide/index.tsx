@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ListResult, PlaylistVideo } from 'video-service';
 import PlayButton from '../PlayButton';
-import './index.scss';
+import './index.css';
 
 export interface Props {
   id: string;
