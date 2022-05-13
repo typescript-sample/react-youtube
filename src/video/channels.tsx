@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Channel } from 'video-service';
-import HorizontalPlaylists from './components/HorizontalPlaylists';
+import { HorizontalPlaylists } from 'react-videos';
 import { context } from './service';
 
 export interface Props {
@@ -36,7 +36,7 @@ const ChannelsPage = () => {
           channels && channels.map(c => (
             <form key={c.id} className='list-result'>
               <h3 style={{ paddingLeft: '20px' }}><Link to={c.id}>{c.title}</Link></h3>
-              <HorizontalPlaylists channelId={c.id} getChannelPlaylists={videoService.getChannelPlaylists} getPlaylistVideos={videoService.getPlaylistVideos} />
+              <HorizontalPlaylists channelId={c.id} getChannelPlaylists={videoService.getChannelPlaylists} getPlaylistVideos={videoService.getPlaylistVideos} prefix='/channels/'/>
             </form>
           ))
         }

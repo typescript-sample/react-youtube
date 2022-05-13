@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Playlist, PlaylistVideo } from 'video-service';
-import Slide from '../components/Slide';
+import { Slide } from 'react-videos';
 import { context } from '../service';
 
 const videoFields = ['id', 'title', 'publishedAt', 'highThumbnail', 'definition', 'duration'];

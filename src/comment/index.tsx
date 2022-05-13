@@ -73,7 +73,7 @@ export const Comments = (props: CommentsProps) => {
             <div>
               <div className='comments-bar'>
                 <h2 className='comments-total'>Comments</h2>
-                <select className='comments-sort' onChange={handleSort} defaultValue={tools.order}>
+                <select className='comments-sort btn button' onChange={handleSort} defaultValue={tools.order}>
                   <option value='relevance'>Top Comments</option>
                   <option value='time'>Newest First</option>
                 </select>

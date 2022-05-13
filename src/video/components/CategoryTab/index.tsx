@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { VideoCategory } from 'video-service';
-import './index.scss';
+import './index.css';
 import { TabCategory } from './TabCategory';
 
 export interface Props {
   data: VideoCategory[];
   setSelectedTab: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
-export default function CategoryTab(props: Props) {
+export function CategoryTab(props: Props) {
   const ref = React.useRef<any>(null);
   const { data, setSelectedTab } = props;
   const [previousBtnHide, setPreviousBtnHide] = React.useState(true);

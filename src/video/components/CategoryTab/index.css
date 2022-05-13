@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+.categories-tab .container {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  background-color: #202020;
+}
+.categories-tab .container .btn {
+  cursor: pointer;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  min-width: 32px;
+}
+.categories-tab .container .btn-hide {
+  display: none;
+}
+.categories-tab .container .tabs {
+  flex-grow: 1;
+  color: #fff;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow-x: scroll;
+  scrollbar-width: none;
+ /* Firefox */
+  -ms-overflow-style: none;
+ /* Internet Explorer 10+ */
+}
+.categories-tab .container .tabs::-webkit-scrollbar {
+  display: none;
+ /* Safari and Chrome */
+  width: 0;
+ /* WebKit */
+  height: 0;
+ /* WebKit */
+}
+.categories-tab .container .tabs input[type='radio'] {
+  display: none;
+}
+.categories-tab .container .tabs input[type='radio']:checked + label {
+  background-color: #fff;
+  color: #000;
+}
+.categories-tab .container .tabs .tab-label {
+  display: inline-block;
+  background-color: #363636;
+  padding: 4px 11px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 12px 12px 12px 0px;
+  border-radius: 32px;
+}

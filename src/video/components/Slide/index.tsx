@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { ListResult, PlaylistVideo } from 'video-service';
-import PlayButton from '../PlayButton';
+import { PlayButton } from '../PlayButton';
 import './index.css';
 
 export interface Props {
   id: string;
   thumbnail?: string;
   thumbnailSize: string;
+  max?: number;
   getVideos: (playlistId: string, max?: number, nextPageToken?: string, fields?: string[]) => Promise<ListResult<PlaylistVideo>>;
 }
-const Slide = (props: Props) => {
+export const Slide = (props: Props) => {
   const { id, thumbnail, thumbnailSize } = props;
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [play, setPlay] = React.useState(false);
@@ -18,11 +19,13 @@ const Slide = (props: Props) => {
   const [fetching, setFetching] = React.useState(false);
 
   React.useEffect(() => {
-    (async () => {
+    (() => {
       if (id && fetching) {
-        const res = await props.getVideos(id, 3);
-        setVideos(res.list);
-        setLength(res.list.length);
+        const max = props.max && props.max > 0 ? props.max : 3;
+        props.getVideos(id, max).then(res => {
+          setVideos(res.list);
+          setLength(res.list.length);
+        });
       }
     })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,4 +95,3 @@ const Slide = (props: Props) => {
     </div>
   );
 };
-export default Slide;

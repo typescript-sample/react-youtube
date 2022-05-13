@@ -113,5 +113,4 @@ export function CommentItem(props: CommentProps): any {
         </div>
       </div>
     );
-    
-};
+}

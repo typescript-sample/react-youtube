@@ -1,28 +1,31 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Channel, Video } from 'video-service';
+import { Video } from 'video-service';
 import './index.css';
 
-const channelFields = ['channelTitle', 'thumbnail'];
+// const channelFields = ['channelTitle', 'thumbnail'];
 export interface Props {
   video: Video;
-  getChannel: (id: string, fields?: string[]) => Promise<Channel | null | undefined>;
+  channelThumbnail?: string;
+  // getChannel: (id: string, fields?: string[]) => Promise<Channel | null | undefined>;
 }
-export default function VideoInfoBox(props: Props) {
+export function VideoInfoBox(props: Props) {
   const [collapsed, setCollapsed] = React.useState(true);
+  /*
   const [channel, setChannel] = React.useState<Channel>();
   React.useEffect(() => {
-    (async () => {
+    (() => {
       if (props.video.channelId) {
-        const res = await props.getChannel(props.video.channelId, channelFields);
-        if (res) {
-          setChannel(res);
-        }
+        props.getChannel(props.video.channelId, channelFields).then(res => {
+          if (res) {
+            setChannel(res);
+          }
+        });
       }
     })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+*/
   const handleClick = () => {
     setCollapsed(!collapsed);
   };
@@ -36,7 +39,7 @@ export default function VideoInfoBox(props: Props) {
       <div className='video-info-box'>
         <div className='top'>
           <img
-            src={channel && channel.thumbnail}
+            src={props.channelThumbnail}
             alt='Avatar'
             width={48}
             height={48}

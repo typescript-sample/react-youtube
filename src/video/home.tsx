@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { getBrowserLanguage, useResource } from 'uione';
 import { ListResult, Video, VideoCategory } from 'video-service';
-import CategoryTab from './components/CategoryTab';
+import { CategoryTab } from 'react-videos';
 import { context } from './service';
 import './video.css';
 

@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useResource } from 'uione';
 import { Item, Video } from 'video-service';
-import { Comments } from '../comment';
-import VideoInfoBox from './components/VideoInfoBox';
+import { Comments } from 'reactx-comments';
+import { VideoInfoBox } from 'react-videos';
 import { context } from './service';
 
 const perPage = [12, 12, 12, 12];
@@ -19,21 +19,32 @@ const VideoPage = () => {
   const [listRelated, setListRelated] = React.useState<Item[]>([]);
   const [video, setVideo] = React.useState<Video>();
   const [page, setPage] = React.useState(1);
+  const [channelThumbnail, setchannelThumbnail] = React.useState<string>();
   const [sliceData, setSliceData] = React.useState<Item[]>([]);
 
   React.useEffect(() => {
-    (async () => {
+    (() => {
       if (id) {
-        const res = await videoService.getVideo(id);
-        if (res) {
-          setVideo(res);
-          if (videoService.getRelatedVideos) {
-            const resRelatedVideo = await videoService.getRelatedVideos(id, max, undefined, videoFields);
-            setListRelated(resRelatedVideo.list);
-            setSliceData(resRelatedVideo.list.slice(0, perPage[0]));
-            setPage(page + 1);
+        videoService.getVideo(id).then(res => {
+          if (res) {
+            setVideo(res);
+            if (videoService.getRelatedVideos) {
+              videoService.getRelatedVideos(id, max, undefined, videoFields).then(resRelatedVideo => {
+                setListRelated(resRelatedVideo.list);
+                setSliceData(resRelatedVideo.list.slice(0, perPage[0]));
+                setPage(page + 1);
+              });
+            }
+            if (res.channelId && res.channelId.length > 0) {
+              videoService.getChannel(res.channelId).then(channel => {
+                debugger;
+                if (channel) {
+                  setchannelThumbnail(channel.thumbnail ? channel.thumbnail : channel.mediumThumbnail);
+                }
+              })
+            }
           }
-        }
+        });
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,7 +82,7 @@ const VideoPage = () => {
                 />
               </div>
               {
-                video && <VideoInfoBox video={video} getChannel={videoService.getChannel} />
+                video && <VideoInfoBox video={video} channelThumbnail={channelThumbnail} prefix='/channels/'/>
               }
             </div>
           </form>

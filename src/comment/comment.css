@@ -12,8 +12,14 @@
   padding-top: 4px;
 }
 .comment-threads-container .comments-bar .comments-sort {
-  padding: 4px;
-  width: 200px;
+  height: 34px;
+  min-width: 200px;
+  border: 1px solid;
+  border-radius: 20px;
+  padding-left: 14px;
+  color: #777777;
+  border-color: #777777;
+  font-size: 14px;
 }
 .comment-threads-container .comments-total {
   margin-bottom: 12px;
@@ -31,8 +37,10 @@
   border-radius: 50%;
 }
 .comment-threads-container .view {
-  color: #007bff !important;
+  color: #007bff;
   font-size: 12px;
   font-weight: 400;
   cursor: pointer;
+  border: none;
+  background-color: transparent;
 }
