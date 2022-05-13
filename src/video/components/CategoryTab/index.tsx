@@ -8,30 +8,25 @@ export interface Props {
   setSelectedTab: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 export default function CategoryTab(props: Props) {
-  const ref = React.useRef(null);
+  const ref = React.useRef<any>(null);
   const { data, setSelectedTab } = props;
   const [previousBtnHide, setPreviousBtnHide] = React.useState(true);
   const [nextBtnHide, setNextBtnHide] = React.useState(false);
 
   const scroll = (scrollOffset: number) => {
     if (ref.current) {
-      const cur: any = ref.current;
-      if (cur) {
-        if (cur.scrollLeft) {
-          cur.scrollLeft += scrollOffset;
-        }
-        const { scrollLeft, scrollWidth, clientWidth } = cur;
-        const scrollMaxWidth = scrollWidth - clientWidth;
-        if (scrollLeft < scrollMaxWidth) {
-          setPreviousBtnHide(false);
-          setNextBtnHide(false);
-        }
-        if (scrollLeft === scrollMaxWidth) {
-          setNextBtnHide(true);
-        }
-        if (!scrollLeft) {
-          setPreviousBtnHide(true);
-        }
+      ref.current.scrollLeft += scrollOffset;
+      const { scrollLeft, scrollWidth, clientWidth } = ref.current;
+      const scrollMaxWidth = scrollWidth - clientWidth;
+      if (scrollLeft < scrollMaxWidth) {
+        setPreviousBtnHide(false);
+        setNextBtnHide(false);
+      }
+      if (scrollLeft >= scrollMaxWidth) {
+        setNextBtnHide(true);
+      }
+      if (!scrollLeft) {
+        setPreviousBtnHide(true);
       }
     }
   };
@@ -49,12 +44,12 @@ export default function CategoryTab(props: Props) {
           {data.map((item: VideoCategory) => {
             return (
               item.assignable ?
-              <TabCategory
-                key={item.id}
-                id={item.id}
-                name={item.title}
-                setSelectedTab={setSelectedTab}
-              /> : null
+                <TabCategory
+                  key={item.id}
+                  id={item.id}
+                  name={item.title}
+                  setSelectedTab={setSelectedTab}
+                /> : null
             );
           })}
         </div>
