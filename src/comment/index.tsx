@@ -24,9 +24,11 @@ export const Comments = (props: CommentsProps) => {
   });
   React.useEffect(() => {
     (() => {
+
       if (props.videoId && props.getCommentThreads) {
-        props.getCommentThreads(props.videoId, props.order ? props.order : 'relevance').then(res => {
-          setTools((prev) => ({ ...prev, nextPageToken: res.nextPageToken }));
+        const oder = props.order ? props.order : tools.order
+        props.getCommentThreads(props.videoId, oder).then(res => {
+          setTools((prev) => ({ ...prev, nextPageToken: res.nextPageToken, order: oder }));
           setCommentThreads(res.list);
         });
       }
@@ -62,41 +64,41 @@ export const Comments = (props: CommentsProps) => {
   //         React.createElement("option", { value: 'time' }, "Newest First"))),
   //     commentThreads.map(function (comment) { return (React.createElement(CommentItem, { key: comment.id, commentId: comment.id, totalReplyCount: comment.totalReplyCount, authorProfileImageUrl: comment.authorProfileImageUrl, authorDisplayName: comment.authorDisplayName, likeCount: comment.likeCount, textDisplay: comment.textDisplay, getComments: props.getComments })); }),
   //     tools.nextPageToken && React.createElement("button", { type: 'button', id: 'btnMore', name: 'btnMore', className: 'btn-more', onClick: loadMore }, "Load More")))));
-  
-    return (
-      !props.getCommentThreads || !props.videoId ? null :
-        <div className='comment-threads-container'>
-          {
-            commentThreads && (
-              <div>
-                <div className='comments-bar'>
-                  <h2 className='comments-total'>Comments</h2>
-                  <select className='comments-sort' onChange={handleSort} defaultValue='relevance'>
-                    <option value='relevance'>Top Comments</option>
-                    <option value='time'>Newest First</option>
-                  </select>
-                </div>
-                {
-                  commentThreads.map(comment => (
-                    <CommentItem
-                      key={comment.id}
-                      commentId={comment.id}
-                      totalReplyCount={comment.totalReplyCount}
-                      authorProfileImageUrl={comment.authorProfileImageUrl}
-                      authorDisplayName={comment.authorDisplayName}
-                      likeCount={comment.likeCount}
-                      textDisplay={comment.textDisplay}
-                      getComments={props.getComments}
-                    />
-                  ))
-                }
-                {
-                  tools.nextPageToken && <button type='button' id='btnMore' name='btnMore' className='btn-more' onClick={loadMore}>Load More</button>
-                }
+
+  return (
+    !props.getCommentThreads || !props.videoId ? null :
+      <div className='comment-threads-container'>
+        {
+          commentThreads && (
+            <div>
+              <div className='comments-bar'>
+                <h2 className='comments-total'>Comments</h2>
+                <select className='comments-sort' onChange={handleSort} defaultValue={tools.order}>
+                  <option value='relevance'>Top Comments</option>
+                  <option value='time'>Newest First</option>
+                </select>
               </div>
-            )
-          }
-        </div>
-    );
-  
+              {
+                commentThreads.map(comment => (
+                  <CommentItem
+                    key={comment.id}
+                    commentId={comment.id}
+                    totalReplyCount={comment.totalReplyCount}
+                    authorProfileImageUrl={comment.authorProfileImageUrl}
+                    authorDisplayName={comment.authorDisplayName}
+                    likeCount={comment.likeCount}
+                    textDisplay={comment.textDisplay}
+                    getComments={props.getComments}
+                  />
+                ))
+              }
+              {
+                tools.nextPageToken && <button type='button' id='btnMore' name='btnMore' className='btn-more' onClick={loadMore}>Load More</button>
+              }
+            </div>
+          )
+        }
+      </div>
+  );
+
 };

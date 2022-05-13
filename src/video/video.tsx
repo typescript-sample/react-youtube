@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useResource } from 'uione';
 import { Item, Video } from 'video-service';
 import { Comments } from '../comment';
-// import { Comments } from '../src';
 import VideoInfoBox from './components/VideoInfoBox';
 import { context } from './service';
 
@@ -12,6 +11,7 @@ const max = perPage.reduce((a, b) => a + b, 0);
 const videoFields = ['id', 'title', 'publishedAt', 'mediumThumbnail', 'channelId', 'channelTitle', 'categoryId'];
 
 const VideoPage = () => {
+  const param = useParams()
   const resource = useResource();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -36,8 +36,8 @@ const VideoPage = () => {
         }
       }
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [param]);
 
   const back = () => {
     navigate(-1);
@@ -75,7 +75,7 @@ const VideoPage = () => {
               }
             </div>
           </form>
-          <Comments videoId={id} getCommentThreads={videoService.getCommentThreads} getComments={videoService.getComments} />
+          <Comments videoId={id} getCommentThreads={videoService.getCommentThreads} getComments={videoService.getComments} order="relevance" />
         </div>
         {videoService.getRelatedVideos && sliceData && sliceData.length > 0 && <div className='col s12 m12 l3 xl3 video-content'>
           <form className='list-result'>
@@ -85,7 +85,7 @@ const VideoPage = () => {
                   <li key={i} className='card'>
                     <section>
                       <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail ? item.highThumbnail : ''}')` }} />
-                      <h4>{item.title}</h4>
+                      <Link to={`/${item.id}`}>{item.title}</Link>
                     </section>
                   </li>
                 );
