@@ -614,7 +614,7 @@
     color: #000;
   }
 }
-
+.dark .modal-portal-content header > .btn-group > button,
 .dark .modal-portal-content .view-container > form > header > .btn-close,
 .dark .modal-portal-content .view-container > header > .btn-close,
 .dark .mobile .detail-content > form > header > .btn-back,

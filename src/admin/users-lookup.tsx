@@ -12,7 +12,6 @@ interface Props {
   users: User[];
   onModelClose?: (e: React.MouseEvent | React.KeyboardEvent) => void;
   onModelSave: (e: User[]) => void;
-  props?: any;
 }
 
 interface UserSearch extends SearchComponentState<User, UserFilter> {
@@ -148,6 +147,10 @@ export const UsersLookup = (props: Props) => {
       <div className='view-container'>
         <header>
           <h2>{resource.users_lookup}</h2>
+          <div className='btn-group'>
+          {component.view !== 'table' && <button type='button' id='btnTable' name='btnTable' className='btn-table' data-view='table' onClick={changeView} />}
+          {component.view === 'table' && <button type='button' id='btnListView' name='btnListView' className='btn-list-view' data-view='listview' onClick={changeView} />}
+          </div>
           <button
             type='button'
             id='btnClose'
@@ -200,32 +203,6 @@ export const UsersLookup = (props: Props) => {
                 page={component.pageIndex}
                 onChange={pageChanged}
               />
-              <div
-                className='col s6 m3 btn-group'
-                style={{ justifyContent: 'flex-end', display: 'flex' }}
-              >
-                {' '}
-                {component.view !== 'table' && (
-                  <button
-                    type='button'
-                    id='btnTable'
-                    name='btnTable'
-                    className='btn-table'
-                    data-view='table'
-                    onClick={changeView}
-                  />
-                )}
-                {component.view === 'table' && (
-                  <button
-                    type='button'
-                    id='btnListView'
-                    name='btnListView'
-                    className='btn-list-view'
-                    data-view='listview'
-                    onClick={changeView}
-                  />
-                )}
-              </div>
             </section>
           </form>
           <form className='list-result'>

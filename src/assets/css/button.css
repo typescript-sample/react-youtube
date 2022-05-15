@@ -233,9 +233,9 @@ footer > .btn-next {
 }
 
 .btn-close {
-  width: 18px;
-  height: 18px;
-  right: 16px;
+  width: 22px;
+  height: 24px;
+  right: 12px;
 }
 
 .btn-close::before {
@@ -396,6 +396,9 @@ h4> .btn-add {
   right: 13px;
   padding-top: 0px;
   height: 100%;
+}
+.modal-portal-content .view-container > header > .btn-group {
+  right: 39px;
 }
 .view-container > header > .btn-group {
   display: flex;

@@ -619,7 +619,7 @@ section > p > label,
     color: #fff;
   }
 }
-
+.modal-portal-content header > .btn-group > button,
 .modal-portal-content .view-container > form > header > .btn-close,
 .modal-portal-content .view-container > header > .btn-close,
 .mobile .detail-content > form > header > .btn-back,
