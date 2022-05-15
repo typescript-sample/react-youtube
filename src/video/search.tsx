@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { useResource } from 'uione';
 import { Duration, Item, ItemFilter, ItemType, SortType } from 'video-service';
-import FilterBar from './filter';
+import { FilterBar } from 'react-videos';
 import { context } from './service';
 
 const max = 50;
@@ -155,7 +155,7 @@ const SearchPage = () => {
   return (
     <div className='full'>
       <div className='tool-bar'>
-        <FilterBar handleFilterType={handleFilterType} handleFilterDuration={handleFilterDuration} handleFilterOrder={handleFilterOrder} filter={filter} />
+        <FilterBar searchParams={searchParams} handleFilterType={handleFilterType} handleFilterDuration={handleFilterDuration} handleFilterOrder={handleFilterOrder} filter={filter} />
       </div>
       <ul className='row list-view'>
         {videos && videos.map((item, i) => {
