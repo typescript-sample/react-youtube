@@ -13,11 +13,10 @@ const data: InternalState = {
 export const MySettingsForm = () => {
   const service = useGetMyProfileService();
   const resource = useResource();
-  // const service = useGetMyProfileService();
   const { state, setState, updateState } = useUpdate<InternalState>(data, 'settings');
 
   useEffect(() => {
-    const userId = 'XU3rkqafp';
+    const userId = '77c35c38c3554ea6906730dbcfeca0f2';
     service.getMySettings(userId).then(settings => {
       if (settings) {
         setState({ settings });
@@ -29,7 +28,7 @@ export const MySettingsForm = () => {
   const save = (e: OnClick) => {
     e.preventDefault();
     confirm(resource.msg_confirm_save, resource.confirm, () => {
-      const userId = 'XU3rkqafp';
+      const userId = '77c35c38c3554ea6906730dbcfeca0f2';
       service.saveMySettings(userId, state.settings).then((res: number) => {
         const msg = res > 0 ? resource.success_save_my_settings : resource.fail_save_my_settings;
         message(msg);

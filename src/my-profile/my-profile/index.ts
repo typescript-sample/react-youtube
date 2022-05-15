@@ -55,7 +55,8 @@ export class MyProfileClient implements MyProfileService {
     });
   }
   saveMyProfile(user: User): Promise<number> {
-    return this.http.patch<number>(this.url, user).catch(err => {
+    const url = this.url + '/' + user.userId;
+    return this.http.patch<number>(url, user).catch(err => {
       const data = (err && err.response) ? err.response : err;
       if (data && (data.status === 404 || data.status === 410)) {
         return 0;
@@ -63,7 +64,6 @@ export class MyProfileClient implements MyProfileService {
       throw err;
     });
   }
-
 }
 export interface Config {
   myprofile_url: string;
