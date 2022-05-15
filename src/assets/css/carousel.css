@@ -15,8 +15,8 @@
   touch-action: manipulation;
 }
 
-#btn-prev,
-#btn-next {
+.btn-prev,
+.btn-next {
   font-size: 30px;
   background-color: #fff;
   position: absolute;
@@ -34,12 +34,23 @@
   cursor: pointer;
 }
 
-#btn-prev {
+.btn-prev {
   left: -1%;
 }
 
-#btn-next {
+.btn-next {
   right: -1%;
+}
+
+.btn-prev,
+.btn-next {
+    top: 48%;
+    opacity: 0;
+}
+
+.user-carousel-container:hover .btn-prev,.user-carousel-container:hover .btn-next{
+    opacity: 1;
+    transition: all 0.5s ease-in-out 0s;
 }
 
 .slider-content-wrapper{
