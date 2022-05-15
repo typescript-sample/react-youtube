@@ -100,7 +100,7 @@ export const UserForm = () => {
           </label>
           <label className='col s12 m6 flying'>
             {resource.position}
-            <select
+            <select style={{ width: '99%' }}
               id='position'
               name='position'
               value={user.position || ''}
