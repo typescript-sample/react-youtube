@@ -27,19 +27,29 @@ interface InternalState {
 }
 
 let sysBody: HTMLElement | null | undefined;
-function isTopMenu(): boolean {
+function getBody(): HTMLElement | null | undefined {
   if (!sysBody) {
     sysBody = document.getElementById('sysBody');
   }
-  if (sysBody) {
-    if (sysBody.classList.contains('top-menu')) {
+  return sysBody;
+}
+function hasClass(className: string, ele: HTMLElement | null | undefined): boolean {
+  if (ele && ele.classList.contains(className)) {
+    return true;
+  }
+  return false;
+}
+function parentHasClass(className: string, ele: HTMLElement | null | undefined): boolean {
+  if (ele) {
+    const parent = ele.parentElement;
+    if (parent && parent.classList.contains(className)) {
       return true;
     }
   }
   return false;
 }
 export const renderItem = (resource: StringMap): any => {
-  const top = isTopMenu();
+  const top = hasClass('top-menu', getBody());
   if (top) {
     return (
       <><i className='material-icons'>view_list</i><span>{resource.sidebar}</span></>
@@ -51,7 +61,7 @@ export const renderItem = (resource: StringMap): any => {
   }
 };
 export const renderClassicMenu = (resource: StringMap): any => {
-  const top = isClassicMenu();
+  const top = hasClass('classic', getBody());
   if (top) {
     return (
       <><i className='material-icons'>assessment</i><span>{resource.modern_menu}</span></>
@@ -62,33 +72,8 @@ export const renderClassicMenu = (resource: StringMap): any => {
     );
   }
 };
-function isClassicMenu(): boolean {
-  if (!sysBody) {
-    sysBody = document.getElementById('sysBody');
-  }
-  if (sysBody) {
-    if (sysBody.classList.contains('classic')) {
-      return true;
-    }
-  }
-  return false;
-}
-function isDarkMode(): boolean {
-  if (!sysBody) {
-    sysBody = document.getElementById('sysBody');
-  }
-  if (sysBody) {
-    const parent = sysBody.parentElement;
-    if (parent) {
-      if (parent.classList.contains('dark')) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
 export const renderMode = (resource: StringMap): any => {
-  const dark = isDarkMode();
+  const dark = parentHasClass('dark', getBody());
   if (dark) {
     return (
       <><i className='material-icons'>radio_button_checked</i><span>{resource.light_mode}</span></>
