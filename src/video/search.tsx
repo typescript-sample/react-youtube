@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { FilterBar } from 'react-videos';
 import { useResource } from 'uione';
 import { Duration, Item, ItemFilter, ItemType, SortType } from 'video-service';
-import { FilterBar } from 'react-videos';
 import { context } from './service';
 
 const max = 50;

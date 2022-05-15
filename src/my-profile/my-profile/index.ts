@@ -54,8 +54,8 @@ export class MyProfileClient implements MyProfileService {
       throw err;
     });
   }
-  saveMyProfile(data: User): Promise<number> {
-    return this.http.patch<number>(this.url, data).catch(err => {
+  saveMyProfile(user: User): Promise<number> {
+    return this.http.patch<number>(this.url, user).catch(err => {
       const data = (err && err.response) ? err.response : err;
       if (data && (data.status === 404 || data.status === 410)) {
         return 0;
@@ -74,7 +74,6 @@ class ApplicationContext {
     return storage.config();
   }
   getMyProfileService(): MyProfileService {
-    console.log('service')
     if (!this.userService) {
       const c = this.getConfig();
       this.userService = new MyProfileClient(httpRequest, c.myprofile_url);
@@ -86,6 +85,8 @@ class ApplicationContext {
 
 export const context = new ApplicationContext();
 export function useGetMyProfileService(): MyProfileService {
-  const [service] = useState(() => { return context.getMyProfileService() })
+  const [service] = useState(() => {
+    return context.getMyProfileService();
+  });
   return service;
 }

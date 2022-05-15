@@ -73,9 +73,6 @@ export function init() {
   isInit = true;
   storage.setConfig(config);
   resources.csv = new DefaultCsvService(csv);
-  resources.config = {
-    list: 'list'
-  };
   if (storage.home == null || storage.home === undefined) {
     storage.home = '/admin/users';
   }

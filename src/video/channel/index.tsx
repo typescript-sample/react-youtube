@@ -7,7 +7,6 @@ import ChannelPlaylists from './channel-playlists';
 import ChannelSubscriptions from './channel-subscription';
 import ChannelVideos from './channel-videos';
 import Home from './home';
-
 import './index.scss';
 
 const channelFields = ['id', 'title', 'mediumThumbnail'];

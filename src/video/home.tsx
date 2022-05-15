@@ -1,11 +1,12 @@
 import { locale } from 'locale-service';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { CategoryTab } from 'react-videos';
 import { getBrowserLanguage, useResource } from 'uione';
 import { ListResult, Video, VideoCategory } from 'video-service';
-import { CategoryTab } from 'react-videos';
 import { context } from './service';
-import './video.css';
+
+import './home.css';
 
 const max = 48;
 const videoFields = ['id', 'title', 'publishedAt', 'highThumbnail', 'channelId', 'channelTitle', 'categoryId', 'duration', 'definition'];

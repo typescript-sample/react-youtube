@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Channel } from 'video-service';
 import { HorizontalPlaylists } from 'react-videos';
+import { Channel } from 'video-service';
 import { context } from './service';
 
 export interface Props {
@@ -20,18 +20,6 @@ const ChannelsPage = () => {
   return (
     <div className='view-container'>
       <div>
-        {/* <form id='channelsForm' name='channelsForm'>
-          <section className='row search-group'>
-            <label className='col s12 search-input'>
-              <i className='btn-search' />
-              <input type='text'
-                id='keyword'
-                name='keyword'
-                maxLength={40}
-                placeholder={resource.role_assignment_search_user} />
-            </label>
-          </section>
-        </form> */}
         {
           channels && channels.map(c => (
             <form key={c.id} className='list-result'>

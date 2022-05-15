@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { VideoInfoBox } from 'react-videos';
+import { Comments } from 'reactx-comments';
 import { useResource } from 'uione';
 import { Item, Video } from 'video-service';
-import { Comments } from 'reactx-comments';
-import { VideoInfoBox } from 'react-videos';
 import { context } from './service';
 
 const perPage = [12, 12, 12, 12];
@@ -11,7 +11,7 @@ const max = perPage.reduce((a, b) => a + b, 0);
 const videoFields = ['id', 'title', 'publishedAt', 'mediumThumbnail', 'channelId', 'channelTitle', 'categoryId'];
 
 const VideoPage = () => {
-  const param = useParams()
+  const param = useParams();
   const resource = useResource();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -37,11 +37,10 @@ const VideoPage = () => {
             }
             if (res.channelId && res.channelId.length > 0) {
               videoService.getChannel(res.channelId).then(channel => {
-                debugger;
                 if (channel) {
                   setchannelThumbnail(channel.thumbnail ? channel.thumbnail : channel.mediumThumbnail);
                 }
-              })
+              });
             }
           }
         });
@@ -86,7 +85,7 @@ const VideoPage = () => {
               }
             </div>
           </form>
-          <Comments videoId={id} getCommentThreads={videoService.getCommentThreads} getComments={videoService.getComments} order="relevance" />
+          <Comments videoId={id} getCommentThreads={videoService.getCommentThreads} getComments={videoService.getComments} order='relevance' />
         </div>
         {videoService.getRelatedVideos && sliceData && sliceData.length > 0 && <div className='col s12 m12 l3 xl3 video-content'>
           <form className='list-result'>
