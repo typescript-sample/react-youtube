@@ -12,7 +12,6 @@ import logo from '../assets/images/logo.png';
 interface InternalState {
   pageSizes: number[];
   pageSize: number;
-  se: any;
   isToggleSearch?: boolean;
   isToggleMenu?: boolean;
   isMenu?: boolean;
@@ -87,7 +86,6 @@ export const renderMode = (resource: StringMap): any => {
 const initialState: InternalState = {
   pageSizes: sizes,
   pageSize: 12,
-  se: {} as any,
   isMenu: false,
   darkMode: false,
   keyword: '',
