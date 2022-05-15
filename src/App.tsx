@@ -49,7 +49,6 @@ import './assets/css/multi-select.css';
 import './assets/css/date-picker.css';
 import './assets/css/form.css';
 import './assets/css/diff.css';
-import './assets/css/group.css';
 import './assets/css/article.css';
 import './assets/css/list-view.css';
 import './assets/css/table.css';

@@ -360,6 +360,7 @@
 .dark .view-container > div > h4,
 .dark .view-body > h4,
 .dark section > h4,
+.dark section > h4 > .btn-group > button,
 .dark section > h4.title > a,
 .dark section > a,
 .dark .section-header,
@@ -377,6 +378,7 @@
 .dark label.radio-group,
 .dark .checkbox-group > label,
 .dark .radio-group > label,
+.dark .group label div,
 .dark .video-container > h4,
 .dark .video-container > h4 > a,
 .dark .video-container > h4 > i {
@@ -680,7 +682,7 @@
 .dark .row > .col > label.search-input > *,
 .dark .row > label.search-input > *,
 .dark .search-input > * {
-  border-color: #4c4c4c !important;
+  border-color: #b2b2b2 !important;
 }
 .dark .cover>i:first-child {
   background: #fff;

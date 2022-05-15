@@ -50,11 +50,11 @@ export const UsersForm = () => {
       <div>
         <form id='usersForm' name='usersForm' noValidate={true} ref={refForm as any}>
           <section className='row search-group'>
-            <Search className='col s12 m4 search-input' size={component.pageSize} sizes={component.pageSizes} pageSizeChanged={pageSizeChanged}
+            <Search className='col s12 m6 search-input' size={component.pageSize} sizes={component.pageSizes} pageSizeChanged={pageSizeChanged}
               onChange={updateState} placeholder={resource.keyword}
               toggle={toggleFilter} value={filter.q || ''}
               search={search} clear={clearQ} />
-            <Pagination className='col s12 m8' total={component.total} size={component.pageSize} max={component.pageMaxSize} page={component.pageIndex} onChange={pageChanged} />
+            <Pagination className='col s12 m6' total={component.total} size={component.pageSize} max={component.pageMaxSize} page={component.pageIndex} onChange={pageChanged} />
           </section>
           <section className='row search-group inline' hidden={component.hideFilter}>
             <label className='col s12 m4 l4'>
