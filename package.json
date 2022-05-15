@@ -42,7 +42,7 @@
     "uione": "^0.0.18",
     "validation-core": "^0.0.3",
     "video-service": "0.0.4",
-    "web-clients": "^0.1.21",
+    "web-clients": "^0.1.24",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
