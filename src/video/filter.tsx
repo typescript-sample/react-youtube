@@ -1,13 +1,18 @@
 import { useSearchParams } from 'react-router-dom';
 import { Duration, ItemType, SortType } from 'video-service';
-import { Filter } from '../../search';
-import './Filter.css';
+import './filter.css';
 
 const types = [{ 'video': 'Video' }, { 'channel': 'Channel' }, { 'playlist': 'Play List' }];
 const durations = [{ 'long': 'Over 20 Minutes' }, { 'medium': '4-20 Minutes' }, { 'short': 'Below 4 Minutes' }];
 const orders = [{ 'relevance': 'Relevance' }, { 'date': 'Date' }, { 'rating': 'Rank' }];
 
-
+export interface Filter {
+  type: ItemType;
+  duration: Duration;
+  order?: SortType;
+  nextPageToken?: string;
+  q?: string;
+}
 interface Props {
   filter: Filter;
   handleFilterType: (value: ItemType) => Promise<void>;

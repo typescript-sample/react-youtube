@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { useResource } from 'uione';
 import { Duration, Item, ItemFilter, ItemType, SortType } from 'video-service';
-import FilterBar from './components/Filter/Filter';
+import FilterBar from './filter';
 import { context } from './service';
 
 const max = 50;
