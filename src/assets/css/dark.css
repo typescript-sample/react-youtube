@@ -49,10 +49,10 @@
 .dark .sidebar > nav > ul > li > ul > li > ul {
   background-color: #00574b;
 }
-@media screen and (max-width: 768px) and (min-width: 601px) {
-  .dark .sidebar > nav > ul > li > ul.sub-list > li:hover > a > span {
-    background: #00574b;
-  }
+.dark .sidebar ul.sub-list > li.active,
+.dark .sub-list .active,
+.dark .open.active {
+  background: #02c2af; /* #07843b */
 }
 
 .dark .view-container.solid {
@@ -185,10 +185,6 @@
 .dark .table > tfoot > tr.active > th {
   border-color: #428bca;
   background-color: #4f5352;
-}
-
-.dark .sub-list .active, .open.active {
-  background: #7f888d; /* #07843b */
 }
 
 .dark .detail .table-responsive > table > tbody > tr:hover,

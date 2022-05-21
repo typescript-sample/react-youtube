@@ -2,7 +2,7 @@ import { Item } from 'onecore';
 import * as React from 'react';
 import { createModel, DispatchWithCallback, EditComponentParam, useEdit } from 'react-hook-core';
 import { formatPhone } from 'ui-plus';
-import { emailOnBlur, Gender, handleError, inputEdit, phoneOnBlur, requiredOnBlur, Status } from 'uione';
+import { emailOnBlur, Gender, handleError, handleSelect, inputEdit, phoneOnBlur, requiredOnBlur, Status } from 'uione';
 import { getMasterData, getUserService, User } from './service';
 
 interface InternalState {
@@ -27,11 +27,7 @@ const initialize = (id: string|null, load: (id: string|null) => void, set: Dispa
   }).catch(handleError);
 };
 const updateTitle = (ele: HTMLSelectElement, user: User, set: DispatchWithCallback<Partial<InternalState>>) => {
-  if (ele.value === '') {
-    ele.removeAttribute('data-value');
-  } else {
-    ele.setAttribute('data-value', ele.value);
-  }
+  handleSelect(ele);
   user.title = ele.value;
   user.gender = (user.title === 'Mr' ? Gender.Male : Gender.Female);
   set({ user });

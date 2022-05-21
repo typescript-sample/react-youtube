@@ -23,3 +23,6 @@ body {
 * {
   font-family: "Roboto";
 }
+.sidebar-off-menu > .toggle {
+  margin-left: 3px;
+}

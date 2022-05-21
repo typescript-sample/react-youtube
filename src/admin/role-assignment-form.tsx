@@ -12,6 +12,7 @@ import { UsersLookup } from './users-lookup';
 interface InternalState {
   role: Role;
   users: User[];
+  allUsers: User[];
   q: string;
   isOpenModel: boolean;
   isCheckboxShown: boolean;
@@ -21,6 +22,7 @@ interface InternalState {
 const initialState: InternalState = {
   role: {} as any,
   users: [],
+  allUsers: [],
   q: '',
   isOpenModel: false,
   isCheckboxShown: false,
@@ -40,7 +42,7 @@ const initialize = (id: string, set: DispatchWithCallback<Partial<InternalState>
   ]).then(values => {
     const [users, role] = values;
     if (role) {
-      set({ ...state, users, role });
+      set({ ...state, allUsers: users, users, role });
     }
   }).catch(err => error(err, storage.resource().value, storage.alert));
 };
@@ -62,9 +64,10 @@ export const RoleAssignmentForm = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (users) {
+    const { allUsers } = state;
+    if (allUsers) {
       const v = e.target.value;
-      const result = users.filter(u => (u.username && u.username.includes(v)) || (u.displayName && u.displayName.includes(v)) || (u.email && u.email.includes(v)));
+      const result = allUsers.filter(u => (u.username && u.username.includes(v)) || (u.displayName && u.displayName.includes(v)) || (u.email && u.email.includes(v)));
       const obj = { [e.target.name]: e.target.value, users: result } as any;
       setState({ ...state, ...obj });
     }
@@ -114,7 +117,6 @@ export const RoleAssignmentForm = () => {
   };
 
   const onDelete = () => {
-
     confirm(resource.msg_confirm_delete, resource.confirm, () => {
       const arr: User[] = [];
       users.map(value => {
@@ -147,7 +149,7 @@ export const RoleAssignmentForm = () => {
     }
     navigate(-1);
   };
-  const clearKeyworkOnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const clearQ = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setState({ ...state, q: ''});
   };
@@ -164,7 +166,7 @@ export const RoleAssignmentForm = () => {
               {resource.role_id}
               <input type='text'
                 id='roleId' name='roleId'
-                value={role.roleId}
+                value={role.roleId || ''}
                 maxLength={255}
                 placeholder={resource.roleId}
                 disabled={true} />
@@ -173,7 +175,7 @@ export const RoleAssignmentForm = () => {
               {resource.role_name}
               <input type='text'
                 id='roleName' name='roleName'
-                value={role.roleName}
+                value={role.roleName || ''}
                 maxLength={255}
                 placeholder={resource.role_name}
                 disabled={true} />
@@ -207,7 +209,7 @@ export const RoleAssignmentForm = () => {
                 value={q}
                 maxLength={40}
                 placeholder={resource.role_assignment_search_user} />
-              <button type='button' hidden={!q} className='btn-remove-text' onClick={clearKeyworkOnClick} />
+              <button type='button' hidden={!q} className='btn-remove-text' onClick={clearQ} />
 
             </label>
             <ul className='row list-view'>
@@ -225,7 +227,6 @@ export const RoleAssignmentForm = () => {
                         <h3>{user.displayName}</h3>
                         <p>{user.email}</p>
                       </div>
-                      <button className='btn-detail' />
                     </section>
                   </li>
                 );

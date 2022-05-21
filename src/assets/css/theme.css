@@ -54,10 +54,14 @@ input[type=radio]:checked:before{
   border-color: #00574b;
   color: #fff;
 }
-
 .sidebar > nav > ul > li > ul,
 .sidebar > nav > ul > li > ul > li > ul {
   background-color: #00574b;
+}
+.sidebar ul.sub-list > li.active,
+.sub-list .active,
+.open.active {
+  background: #01a090; /* #07843b */
 }
 
 .view-container.solid {
@@ -190,10 +194,6 @@ form.list-result > div > table > tfoot > tr.active > th,
 .table > tfoot > tr.active > th {
   border-color: #428bca;
   background-color: #4f5352;
-}
-.sidebar ul.sub-list > li.active,
-.sub-list .active, .open.active {
-  background: #7f888d; /* #07843b */
 }
 
 .detail .table-responsive > table > tbody > tr:hover,
