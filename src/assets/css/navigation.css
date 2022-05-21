@@ -96,19 +96,19 @@
   margin-right: unset;
 }
 
-.sidebar ul.list-child>li {
+.sidebar ul.sub-list>li {
   padding-left: 0;
   background-color: inherit;
 }
 /*
-.sidebar>nav>ul>li>ul.list-child>li:hover {
+.sidebar>nav>ul>li>ul.sub-list>li:hover {
   transition: 0.21s;
 }
 */
 .sidebar>nav>ul>li>div.menu-item:hover>span,
 .sidebar>nav>ul>li:hover>.menu-item>i>span,
 .sidebar>nav>ul>li:hover>a>span,
-.sidebar>nav>ul>li>ul.list-child>li:hover>a>span {
+.sidebar>nav>ul>li>ul.sub-list>li:hover>a>span {
   position: fixed;
   padding: 10px;
   left: 46px;
@@ -121,7 +121,7 @@
 .menu-on .sidebar>nav>ul>li>div.menu-item:hover>span,
 .menu-on .sidebar>nav>ul>li:hover>.menu-item>i>span,
 .menu-on .sidebar>nav>ul>li:hover>a>span,
-.menu-on .sidebar>nav>ul>li>ul.list-child>li:hover>a>span {
+.menu-on .sidebar>nav>ul>li>ul.sub-list>li:hover>a>span {
   position: unset;
   padding: unset;
   left: unset;
@@ -165,7 +165,7 @@
   content: "\f106"
 }
 
-.list-child {
+.sub-list {
   overflow: hidden;
   max-height: 0;
   -webkit-transition: max-height 0.34s;
@@ -173,7 +173,7 @@
   transition: max-height 0.34s;
 }
 
-.list-child.expanded {
+.sub-list.expanded {
   max-height: 500px;
   display: block;
 }
@@ -247,7 +247,7 @@
   padding-left: 20px;
 }
 */
-.menu-on .sidebar>nav>ul>li>ul.list-child>li {
+.menu-on .sidebar>nav>ul>li>ul.sub-list>li {
   padding-left: 8px;
 }
 
@@ -380,7 +380,7 @@ nav.collapsed-all .sidebar-off-menu>.collapse {
     overflow-y: hidden;
   }
 
-  .top-menu .sidebar>nav>ul>li>ul.list-child>li>.menu-item>i {
+  .top-menu .sidebar>nav>ul>li>ul.sub-list>li>.menu-item>i {
     margin-left: -4px;
     margin-right: 3px;
   }
@@ -412,7 +412,7 @@ nav.collapsed-all .sidebar-off-menu>.collapse {
   .top-menu .sidebar>nav>ul>li>div.menu-item:hover>span,
   .top-menu .sidebar>nav>ul>li:hover>.menu-item>i>span,
   .top-menu .sidebar>nav>ul>li:hover>a>span,
-  .top-menu .sidebar>nav>ul>li>ul.list-child>li:hover>a>span {
+  .top-menu .sidebar>nav>ul>li>ul.sub-list>li:hover>a>span {
     position: unset;
     padding: unset;
     left: unset;
@@ -430,7 +430,7 @@ nav.collapsed-all .sidebar-off-menu>.collapse {
     margin-right: 4px;
   }
 
-  .top-menu .list-child.expanded {
+  .top-menu .sub-list.expanded {
     max-height: 0;
   }
 
@@ -469,43 +469,43 @@ nav.collapsed-all .sidebar-off-menu>.collapse {
   }
 
   /*
-  .top-menu .menu.sidebar > nav > ul > li > ul.list-child.expanded {
+  .top-menu .menu.sidebar > nav > ul > li > ul.sub-list.expanded {
     display: none;
   }
 */
-  .top-menu .menu.sidebar>nav>ul>li>ul.list-child>li:hover>ul.list-child .top-menu .menu.sidebar>nav>ul>li:hover>ul.list-child.expanded,
+  .top-menu .menu.sidebar>nav>ul>li>ul.sub-list>li:hover>ul.sub-list .top-menu .menu.sidebar>nav>ul>li:hover>ul.sub-list.expanded,
   .top-menu .menu.sidebar>nav>ul>li>ul>li:hover>ul,
   .top-menu .menu.sidebar>nav>ul>li:hover>ul {
     display: inline;
   }
 
-  .top-menu .menu.sidebar>nav>ul>li:hover .list-child {
+  .top-menu .menu.sidebar>nav>ul>li:hover .sub-list {
     max-height: 500px;
   }
 
   /* Level 2 menu */
-  .top-menu .menu.sidebar>nav>ul>li>ul.list-child>li>a .icon-down,
-  .top-menu .menu.sidebar>nav>ul>li>ul.list-child>li>a .icon-up {
+  .top-menu .menu.sidebar>nav>ul>li>ul.sub-list>li>a .icon-down,
+  .top-menu .menu.sidebar>nav>ul>li>ul.sub-list>li>a .icon-up {
     right: -11px;
   }
 
-  .top-menu .menu.sidebar>nav>ul>li>ul.list-child>li:hover>ul.list-child {
+  .top-menu .menu.sidebar>nav>ul>li>ul.sub-list>li:hover>ul.sub-list {
     display: inline;
     position: fixed;
     margin-left: 192px;
     margin-top: -37px;
   }
 
-  .top-menu .menu.sidebar>nav>ul>li>ul.list-child>li>ul.list-child {
+  .top-menu .menu.sidebar>nav>ul>li>ul.sub-list>li>ul.sub-list {
     display: none;
   }
 
-  .top-menu .menu.sidebar>nav>ul>li>ul.list-child>li>ul.list-child>li {
+  .top-menu .menu.sidebar>nav>ul>li>ul.sub-list>li>ul.sub-list>li {
     border-left: 1px outset lightgreen;
     border-bottom: 1px solid lightgreen;
   }
 
-  .top-menu .menu.sidebar>nav>ul>li>ul.list-child>li>ul.list-child>li>a {
+  .top-menu .menu.sidebar>nav>ul>li>ul.sub-list>li>ul.sub-list>li>a {
     color: white;
   }
 
