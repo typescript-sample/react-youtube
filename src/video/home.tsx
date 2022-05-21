@@ -79,7 +79,7 @@ const HomePage = () => {
                 <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
                   {item.definition && item.definition > 4 && <i>HD</i>}
                 </div>
-                {item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>Short Video</p>}
+                {item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>{resource.short_video}</p>}
                 <Link to={`/${item.id}`}>{item.title}</Link>
                 <p><Link to={`/channels/${item.channelId}`}>{item.channelTitle}</Link><i className='date'>{item.publishedAt.toDateString()}</i></p>
               </section>

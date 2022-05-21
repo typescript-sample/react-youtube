@@ -81,7 +81,7 @@ const VideoPage = () => {
                 />
               </div>
               {
-                video && <VideoInfoBox video={video} channelThumbnail={channelThumbnail} prefix='/channels/'/>
+                video && <VideoInfoBox video={video} channelThumbnail={channelThumbnail} prefix='/channels/' resource={resource}/>
               }
             </div>
           </form>

@@ -5,6 +5,8 @@ import {en as authenticationEN} from './authentication/en';
 import {vi as authenticationVI} from './authentication/vi';
 import {en as myprofileEN} from './my-profile/en';
 import {vi as myprofileVI} from './my-profile/vi';
+import {en as videoEN} from './video/en';
+import {vi as videoVI} from './video/vi';
 
 import {en as commonEN} from './en';
 import {vi as commonVI} from './vi';
@@ -13,13 +15,15 @@ const en: StringMap = {
   ...commonEN,
   ...authenticationEN,
   ...adminEN,
-  ...myprofileEN
+  ...myprofileEN,
+  ...videoEN,
 };
 const vi: StringMap = {
   ...commonVI,
   ...authenticationVI,
   ...adminVI,
-  ...myprofileVI
+  ...myprofileVI,
+  ...videoVI,
 };
 
 export const resources: Resources = {

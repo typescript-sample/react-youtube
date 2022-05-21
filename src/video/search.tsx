@@ -155,7 +155,7 @@ const SearchPage = () => {
   return (
     <div className='full'>
       <div className='tool-bar'>
-        <FilterBar searchParams={searchParams} handleFilterType={handleFilterType} handleFilterDuration={handleFilterDuration} handleFilterOrder={handleFilterOrder} filter={filter} />
+        <FilterBar searchParams={searchParams} handleFilterType={handleFilterType} handleFilterDuration={handleFilterDuration} handleFilterOrder={handleFilterOrder} filter={filter} resource={resource} />
       </div>
       <ul className='row list-view'>
         {videos && videos.map((item, i) => {

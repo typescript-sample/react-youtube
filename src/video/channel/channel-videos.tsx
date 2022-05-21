@@ -77,7 +77,7 @@ const ChannelVideos = (props: Props) => {
                   <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
                     {item.definition && item.definition > 4 && <i>HD</i>}
                   </div>
-                  {item.duration && item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>Short Video</p>}
+                  {item.duration && item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>{resource.short_video}</p>}
                   <Link to={`/${item.id}`}>{item.title}</Link>
                   <p className='date'>{item.publishedAt.toDateString()}</p>
                 </section>

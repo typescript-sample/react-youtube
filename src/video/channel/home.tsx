@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Slide } from 'react-videos';
+import { useResource } from 'uione';
 import { Playlist, PlaylistVideo } from 'video-service';
 import { context } from '../service';
 
@@ -9,6 +10,7 @@ const playlistFields = ['id', 'title', 'publishedAt', 'mediumThumbnail', 'count'
 
 const Home = () => {
   const { id } = useParams();
+  const resource = useResource();
   const videoService = context.getVideoService();
   const [videos, setVideos] = React.useState<PlaylistVideo[]>([]);
   const [playlists, setPlaylists] = React.useState<Playlist[]>([]);
@@ -34,7 +36,7 @@ const Home = () => {
               <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
                 {item.definition && item.definition > 4 && <i>HD</i>}
               </div>
-              {item.duration && item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>Short Video</p>}
+              {item.duration && item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>{resource.short_video}</p>}
               <Link to={`/${item.id}`}>{item.title}</Link>
               <p className='date'>{item.publishedAt.toDateString()}</p>
             </li>
