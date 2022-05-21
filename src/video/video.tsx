@@ -85,7 +85,7 @@ const VideoPage = () => {
               }
             </div>
           </form>
-          <Comments videoId={id} getCommentThreads={videoService.getCommentThreads} getComments={videoService.getComments} order='relevance' />
+          <Comments videoId={id} getCommentThreads={videoService.getCommentThreads} getComments={videoService.getComments} order='relevance' resource={resource}/>
         </div>
         {videoService.getRelatedVideos && sliceData && sliceData.length > 0 && <div className='col s12 m12 l3 xl3 video-content'>
           <form className='list-result'>

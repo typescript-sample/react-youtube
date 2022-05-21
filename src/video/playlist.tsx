@@ -131,7 +131,7 @@ export default function PlaylistPage() {
               <p>{video.description}</p>
             </div>
           </form>
-          <Comments videoId={video.id} getCommentThreads={videoService.getCommentThreads} getComments={videoService.getComments} />
+          <Comments videoId={video.id} getCommentThreads={videoService.getCommentThreads} getComments={videoService.getComments} order='relevance' resource={resource}/>
         </div>}
       </div>
     </div>

@@ -6,7 +6,13 @@ export const en = {
   playlists: 'Playlists',
   channels: 'Channels',
   subscriptions: 'Subscriptions',
-  short_video: 'Short Video 2',
-  show_more: 'SHOW MORE 2',
-  show_less: 'SHOW LESS 2'
+  type_videos: 'Video',
+  type_playlist: 'Playlist',
+  type_channel: 'Channel',
+  short_video: 'Short Video',
+  show_more: 'SHOW MORE',
+  show_less: 'SHOW LESS',
+  video_long: 'Over 20 Minutes',
+  video_medium: '4-20 Minutes',
+  video_short: 'Below 4 Minutes',
 };

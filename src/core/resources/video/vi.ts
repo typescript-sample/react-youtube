@@ -6,7 +6,13 @@ export const vi = {
   playlists: 'Playlists',
   channels: 'Channels',
   subscriptions: 'Subscriptions',
+  type_videos: 'Video',
+  type_playlist: 'Playlist',
+  type_channel: 'Channel',
   short_video: 'Short Video',
   show_more: 'SHOW MORE',
-  show_less: 'SHOW LESS'
+  show_less: 'SHOW LESS',
+  video_long: 'Over 20 Minutes',
+  video_medium: '4-20 Minutes',
+  video_short: 'Below 4 Minutes',
 };
