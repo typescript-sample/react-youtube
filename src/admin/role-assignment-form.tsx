@@ -12,7 +12,7 @@ import { UsersLookup } from './users-lookup';
 interface InternalState {
   role: Role;
   users: User[];
-  allUsers: User[];
+  shownUsers: User[];
   q: string;
   isOpenModel: boolean;
   isCheckboxShown: boolean;
@@ -22,7 +22,7 @@ interface InternalState {
 const initialState: InternalState = {
   role: {} as any,
   users: [],
-  allUsers: [],
+  shownUsers: [],
   q: '',
   isOpenModel: false,
   isCheckboxShown: false,
@@ -42,7 +42,7 @@ const initialize = (id: string, set: DispatchWithCallback<Partial<InternalState>
   ]).then(values => {
     const [users, role] = values;
     if (role) {
-      set({ ...state, allUsers: users, users, role });
+      set({ ...state, users, shownUsers: users, role });
     }
   }).catch(err => error(err, storage.resource().value, storage.alert));
 };
@@ -55,6 +55,7 @@ export const RoleAssignmentForm = () => {
   const [state, setState] = useState(initialState);
   const { role, isOpenModel, q } = state;
   let { users, selectedUsers, isCheckboxShown } = state;
+  const { shownUsers } = state;
 
   useEffect(() => {
     const id = buildId<string>(params);
@@ -64,11 +65,10 @@ export const RoleAssignmentForm = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { allUsers } = state;
-    if (allUsers) {
+    if (users) {
       const v = e.target.value;
-      const result = allUsers.filter(u => (u.username && u.username.includes(v)) || (u.displayName && u.displayName.includes(v)) || (u.email && u.email.includes(v)));
-      const obj = { [e.target.name]: e.target.value, users: result } as any;
+      const result = users.filter(u => (u.username && u.username.includes(v)) || (u.displayName && u.displayName.includes(v)) || (u.email && u.email.includes(v)));
+      const obj = { [e.target.name]: e.target.value, shownUsers: result } as any;
       setState({ ...state, ...obj });
     }
   };
@@ -85,7 +85,7 @@ export const RoleAssignmentForm = () => {
 
   const onModelSave = (arr: User[]) => {
     arr.map((value) => users.push(value));
-    setState({ ...state, role, users, isOpenModel: false });
+    setState({ ...state, q: '', role, users, shownUsers: users, isOpenModel: false });
   };
 
   const onModelClose = () => {
@@ -208,12 +208,11 @@ export const RoleAssignmentForm = () => {
                 onChange={onSearch}
                 value={q}
                 maxLength={40}
-                placeholder={resource.role_assignment_search_user} />
+                placeholder={resource.role_assignment_search_user} autoComplete='off'/>
               <button type='button' hidden={!q} className='btn-remove-text' onClick={clearQ} />
-
             </label>
             <ul className='row list-view'>
-              {users && users?.map((user, i) => {
+              {shownUsers && shownUsers?.map((user, i) => {
                 const result = selectedUsers.find(v => v.userId === user.userId);
                 return (
                   <li key={i} className='col s12 m6 l4 xl3'

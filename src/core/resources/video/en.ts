@@ -6,7 +6,7 @@ export const en = {
   playlists: 'Playlists',
   channels: 'Channels',
   subscriptions: 'Subscriptions',
-  type_videos: 'Video',
+  type_video: 'Video',
   type_playlist: 'Playlist',
   type_channel: 'Channel',
   short_video: 'Short Video',

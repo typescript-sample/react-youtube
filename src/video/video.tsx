@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { VideoInfoBox } from 'react-videos';
 import { Comments } from 'reactx-comments';
-import { useResource } from 'uione';
+import { getResource, useResource } from 'uione';
 import { Item, Video } from 'video-service';
 import { context } from './service';
 
@@ -13,6 +13,7 @@ const videoFields = ['id', 'title', 'publishedAt', 'mediumThumbnail', 'channelId
 const VideoPage = () => {
   const param = useParams();
   const resource = useResource();
+  const resourceService = getResource();
   const navigate = useNavigate();
   const { id } = useParams();
   const videoService = context.getVideoService();
@@ -85,7 +86,7 @@ const VideoPage = () => {
               }
             </div>
           </form>
-          <Comments videoId={id} getCommentThreads={videoService.getCommentThreads} getComments={videoService.getComments} order='relevance' resource={resource}/>
+          <Comments videoId={id} getCommentThreads={videoService.getCommentThreads} getComments={videoService.getComments} order='relevance' resource={resource} format={resourceService.format}/>
         </div>
         {videoService.getRelatedVideos && sliceData && sliceData.length > 0 && <div className='col s12 m12 l3 xl3 video-content'>
           <form className='list-result'>

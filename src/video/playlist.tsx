@@ -12,6 +12,7 @@ export default function PlaylistPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [resource] = useState(storage.resource().resource());
+  const resourceService = storage.resource();
   const videoService = context.getVideoService();
   const [keyword, setKeyword] = useState('');
   const [videos, setVideos] = useState<PlaylistVideo[]>([]);
@@ -131,7 +132,7 @@ export default function PlaylistPage() {
               <p>{video.description}</p>
             </div>
           </form>
-          <Comments videoId={video.id} getCommentThreads={videoService.getCommentThreads} getComments={videoService.getComments} order='relevance' resource={resource}/>
+          <Comments videoId={video.id} getCommentThreads={videoService.getCommentThreads} getComments={videoService.getComments} order='relevance' resource={resource} format={resourceService.format}/>
         </div>}
       </div>
     </div>
