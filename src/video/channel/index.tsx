@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { useResource } from 'uione';
-import { Channel } from 'video-service';
+import { Channel } from 'video-clients';
 import { context } from '../service';
 import ChannelPlaylists from './channel-playlists';
 import ChannelSubscriptions from './channel-subscription';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useResource } from 'uione';
-import { buildShownItems, ListResult, PlaylistVideo } from 'video-service';
+import { buildShownItems, ListResult, PlaylistVideo } from 'video-clients';
 
 const max = 12;
 const videoFields = ['id', 'title', 'publishedAt', 'highThumbnail', 'definition', 'duration'];

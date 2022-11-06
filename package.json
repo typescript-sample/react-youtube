@@ -41,7 +41,8 @@
     "ui-toast": "^0.0.5",
     "uione": "^0.0.21",
     "validation-core": "^0.0.3",
-    "video-service": "0.0.4",
+    "video-clients": "0.0.6",
+    "video-service": "0.0.5",
     "web-clients": "^0.1.24",
     "web-vitals": "^2.1.4"
   },

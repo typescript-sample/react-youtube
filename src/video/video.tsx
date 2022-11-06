@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { VideoInfoBox } from 'react-videos';
 import { Comments } from 'reactx-comments';
 import { getResource, useResource } from 'uione';
-import { Item, Video } from 'video-service';
+import { Item, Video } from 'video-clients';
 import { context } from './service';
 
 const perPage = [12, 12, 12, 12];

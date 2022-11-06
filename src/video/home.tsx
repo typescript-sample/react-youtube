@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { CategoryTab } from 'react-videos';
 import { getBrowserLanguage, useResource } from 'uione';
-import { ListResult, Video, VideoCategory } from 'video-service';
+import { ListResult, Video, VideoCategory } from 'video-clients';
 import { context } from './service';
 
 import './home.css';
@@ -39,12 +39,18 @@ const HomePage = () => {
       const region = getRegion();
       let res: ListResult<Video>;
       if (selectedCategory) {
-        res = await videoService.getPopularVideosByCategory(selectedCategory, max, undefined, videoFields);
+        if (videoService.getPopularVideosByCategory) {
+          res = await videoService.getPopularVideosByCategory(selectedCategory, max, undefined, videoFields);
+          setNextPageToken(res.nextPageToken);
+          setVideos(res.list);
+        }
       } else {
-        res = await videoService.getPopularVideosByRegion(region, max, undefined, videoFields);
+        if (videoService.getPopularVideosByRegion) {
+          res = await videoService.getPopularVideosByRegion(region, max, undefined, videoFields);
+          setNextPageToken(res.nextPageToken);
+          setVideos(res.list);
+        }
       }
-      setNextPageToken(res.nextPageToken);
-      setVideos(res.list);
     })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
@@ -53,13 +59,20 @@ const HomePage = () => {
     const region = getRegion();
     let res: ListResult<Video>;
     if (selectedCategory) {
-      res = await videoService.getPopularVideosByCategory(selectedCategory, max, nextPageToken, videoFields);
+      if (videoService.getPopularVideosByCategory) {
+        res = await videoService.getPopularVideosByCategory(selectedCategory, max, nextPageToken, videoFields);
+        setNextPageToken(res.nextPageToken);
+        const newList = [...videos].concat(res.list);
+        setVideos(newList);
+      }
     } else {
-      res = await videoService.getPopularVideosByRegion(region, max, nextPageToken, videoFields);
+      if (videoService.getPopularVideosByRegion) {
+        res = await videoService.getPopularVideosByRegion(region, max, nextPageToken, videoFields);
+        setNextPageToken(res.nextPageToken);
+        const newList = [...videos].concat(res.list);
+        setVideos(newList);
+      }
     }
-    setNextPageToken(res.nextPageToken);
-    const newList = [...videos].concat(res.list);
-    setVideos(newList);
   };
   const formatToMinutes = (s: number) => {
     return (s - (s %= 60)) / 60 + ':' + s;

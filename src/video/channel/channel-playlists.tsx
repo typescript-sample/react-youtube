@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useResource } from 'uione';
-import { buildShownItems, ListResult, Playlist } from 'video-service';
+import { buildShownItems, ListResult, Playlist } from 'video-clients';
 
 const max = 12;
 const playlistFields = ['id', 'title', 'publishedAt', 'mediumThumbnail', 'count', 'highThumbnail'];
