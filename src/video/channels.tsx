@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { HorizontalPlaylists } from 'react-videos';
-import { Channel } from 'video-clients';
+import { Channel } from '../clients';
 import { context } from './service';
 
 export interface Props {

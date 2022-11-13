@@ -9,6 +9,7 @@ import { toast } from 'ui-toast';
 import { storage } from 'uione';
 import { resources as vresources } from 'validation-core';
 import { DefaultCsvService, resources } from 'web-clients';
+import { resources as videoResources} from './clients';
 import { config } from './config';
 import { resources as locales } from './core/resources';
 
@@ -70,6 +71,7 @@ export function init() {
   isInit = true;
   storage.setConfig(config);
   resources.csv = new DefaultCsvService(csv);
+  videoResources.csv = new DefaultCsvService(csv);
   if (storage.home == null || storage.home === undefined) {
     storage.home = '/admin/users';
   }
