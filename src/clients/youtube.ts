@@ -1,4 +1,4 @@
-import {CategorySnippet, Channel, ChannelDetail, ChannelSnippet, ListDetail, ListItem, ListResult, Playlist, PlaylistSnippet, PlaylistVideo, PlaylistVideoSnippet, StringMap, SubscriptionSnippet, SyncListResult, Video, VideoCategory, VideoItemDetail, VideoSnippet, YoutubeListResult, YoutubeVideoDetail} from './models';
+import {CategorySnippet, Channel, ChannelDetail, ChannelSnippet, ListDetail, ListItem, Playlist, PlaylistSnippet, PlaylistVideo, PlaylistVideoSnippet, SubscriptionSnippet, SyncListResult, Video, VideoCategory, VideoItemDetail, VideoSnippet, YoutubeListResult, YoutubeVideoDetail} from './models';
 
 export function calculateDuration(d: string): number {
   if (!d) {
@@ -45,6 +45,9 @@ export function calculateDuration(d: string): number {
   return 0;
 }
 export function fromYoutubeCategories(res: YoutubeListResult<ListItem<string, CategorySnippet, any>>): VideoCategory[] {
+  if (!res || !res.items || res.items.length === 0) {
+    return [];
+  }
   return res.items.filter(i => i.snippet).map(item => {
     const snippet = item.snippet;
     const i: VideoCategory = {
@@ -87,7 +90,6 @@ export function fromYoutubeChannels(res: YoutubeListResult<ListItem<string, Chan
     return i;
   });
 }
-
 export function fromYoutubePlaylists(res: YoutubeListResult<ListItem<string, PlaylistSnippet, ListDetail>>): SyncListResult<Playlist> {
   if (!res || !res.items || res.items.length === 0) {
     return { list: [], total: 0, limit: 0 };
@@ -147,7 +149,7 @@ export function fromYoutubePlaylist(res: YoutubeListResult<ListItem<string, Play
   });
   return { list, total: res.pageInfo.totalResults, limit: res.pageInfo.resultsPerPage, nextPageToken: res.nextPageToken };
 }
-export function fromYoutubeVideos(res: YoutubeListResult<ListItem<string, VideoSnippet, YoutubeVideoDetail>>): ListResult<Video> {
+export function fromYoutubeVideos(res: YoutubeListResult<ListItem<string, VideoSnippet, YoutubeVideoDetail>>): SyncListResult<Video> {
   const list = res.items.map(item => {
     const snippet = item.snippet;
     const content = item.contentDetails;
@@ -233,23 +235,4 @@ export function fromYoutubeSubscriptions(res: YoutubeListResult<ListItem<string,
     }
     return i;
   });
-}
-// date, rating, relevance, title, videoCount (for channels), viewCount (for live broadcast) => title, date => publishedAt, relevance => rank, count => videoCount
-export const youtubeSortMap: StringMap = {
-  publishedAt: 'date',
-  rank: 'rating',
-  count: 'videoCount'
-};
-export function getYoutubeSort(s?: string): string|undefined {
-  if (!s || s.length === 0) {
-    return undefined;
-  }
-  const s2 = youtubeSortMap[s];
-  if (s2) {
-    return s2;
-  }
-  if (s === 'date' || s === 'rating' || s === 'title' || s === 'videoCount' || s === 'viewCount') { // s === 'relevance'
-    return s;
-  }
-  return undefined;
 }

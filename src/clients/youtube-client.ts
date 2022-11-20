@@ -1,8 +1,8 @@
 import { Comment, CommentThead } from './comment';
 import { Cache, formatBigThumbnail, formatThumbnail, fromYoutubeSearch, getComments, getCommentThreads, removeCache } from './common-client';
-import { CategorySnippet, Channel, ChannelDetail, ChannelFilter, ChannelSnippet, HttpRequest, Item, ItemFilter, ListDetail, ListItem, ListResult, Playlist, PlaylistFilter, PlaylistSnippet, PlaylistVideo, PlaylistVideoSnippet, SearchId, SearchSnippet, Video, VideoCategory, VideoItemDetail, VideoSnippet, YoutubeListResult, YoutubeVideoDetail } from './models';
+import { CategorySnippet, Channel, ChannelDetail, ChannelFilter, ChannelSnippet, HttpRequest, Item, ItemFilter, ListDetail, ListItem, ListResult, Playlist, PlaylistFilter, PlaylistSnippet, PlaylistVideo, PlaylistVideoSnippet, SearchId, SearchSnippet, StringMap, Video, VideoCategory, VideoItemDetail, VideoSnippet, YoutubeListResult, YoutubeVideoDetail } from './models';
 import { CommentOrder, VideoService } from './service';
-import { fromYoutubeCategories, fromYoutubeChannels, fromYoutubePlaylist, fromYoutubePlaylists, fromYoutubeVideos, getYoutubeSort } from './youtube';
+import { fromYoutubeCategories, fromYoutubeChannels, fromYoutubePlaylist, fromYoutubePlaylists, fromYoutubeVideos } from './youtube';
 
 export class YoutubeClient implements VideoService {
   private channelCache: Cache<Channel>;
@@ -219,4 +219,23 @@ export class YoutubeClient implements VideoService {
     return this.httpRequest.get<YoutubeListResult<ListItem<SearchId, SearchSnippet, any>>>(url).then(res => fromYoutubeSearch(res));
     */
   }
+}
+// date, rating, relevance, title, videoCount (for channels), viewCount (for live broadcast) => title, date => publishedAt, relevance => rank, count => videoCount
+export const youtubeSortMap: StringMap = {
+  publishedAt: 'date',
+  rank: 'rating',
+  count: 'videoCount'
+};
+export function getYoutubeSort(s?: string): string|undefined {
+  if (!s || s.length === 0) {
+    return undefined;
+  }
+  const s2 = youtubeSortMap[s];
+  if (s2) {
+    return s2;
+  }
+  if (s === 'date' || s === 'rating' || s === 'title' || s === 'videoCount' || s === 'viewCount') { // s === 'relevance'
+    return s;
+  }
+  return undefined;
 }
