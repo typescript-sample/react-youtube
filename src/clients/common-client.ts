@@ -107,11 +107,24 @@ export function decompressItems<T>(items: T[]): T[] {
 interface PublishedAt {
   publishedAt?: Date;
 }
-export function formatPublishedAt<T extends PublishedAt>(li: T[]): T[] {
+export function formatTypes<T extends PublishedAt>(li: T[]): T[] {
   if (li && li.length > 0) {
-    for (const i of li) {
+    for (let j = 0; j < li.length; j++) {
+      const i: any = li[j];
       if (i.publishedAt) {
         i.publishedAt = new Date(i.publishedAt);
+      }
+      const d = i.definition;
+      if (d && typeof d === 'string' && !isNaN(d as any)) {
+        i.definition = parseFloat(d);
+      }
+      const u = i.duration;
+      if (u && typeof u === 'string' && !isNaN(u as any)) {
+        i.duration = parseFloat(u);
+      }
+      const c = i.count;
+      if (c && typeof c === 'string' && !isNaN(c as any)) {
+        i.count = parseFloat(c);
       }
     }
   }
