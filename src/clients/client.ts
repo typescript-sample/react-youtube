@@ -1,6 +1,6 @@
 import { Comment, CommentThead } from './comment';
 import { Cache, decompress, decompressItems, formatTypes, formatThumbnail, getComments, getCommentThreads, removeCache } from './common-client';
-import { Channel, ChannelFilter, HttpRequest, Item, ItemFilter, ListItem, ListResult, Playlist, PlaylistFilter, PlaylistVideo, SearchId, SearchSnippet, Video, VideoCategory, YoutubeListResult } from './models';
+import { Channel, ChannelFilter, HttpRequest, Item, ItemFilter, ListItem, ListResult, Playlist, PlaylistFilter, PlaylistVideo, SearchId, SearchSnippet, Thumbnail, Video, VideoCategory, YoutubeListResult } from './models';
 import { CommentOrder, VideoService } from './service';
 import { fromYoutubeSearch } from './youtube';
 
@@ -132,26 +132,7 @@ export class VideoClient implements VideoService {
     const pageToken = (nextPageToken ? `&nextPageToken=${nextPageToken}` : '');
     const field = fields ? `&fields=${fields}` : '';
     const url = `${this.url}/playlists?channelId=${channelId}&limit=${maxResults}${pageToken}${field}`;
-    return this.httpRequest.get<any>(url).then(res2 => {
-      if (typeof res2 === 'string' && fields && fields.length > 0) {
-        return fromCsv<Playlist>(fields, res2).then(res => {
-          formatTypes<Playlist>(res.list);
-          const r: ListResult<Playlist> = {
-            list: decompressItems(res.list),
-            nextPageToken: res.nextPageToken,
-          };
-          return r;    
-        });
-      } else {
-        const res: ListResult<Playlist> = res2 as any;
-        formatTypes<Playlist>(res.list);
-        const r: ListResult<Playlist> = {
-          list: decompressItems(res.list),
-          nextPageToken: res.nextPageToken,
-        };
-        return r;
-      }
-    });
+    return this.httpRequest.get<ListResult<Playlist>>(url).then(res => toPlaylists(res, fields));
   }
   getPlaylists(ids: string[], fields?: string[]): Promise<Playlist[]> {
     const field = fields ? `&fields=${fields}` : '';
@@ -188,52 +169,14 @@ export class VideoClient implements VideoService {
     const pageToken = (nextPageToken ? `&nextPageToken=${nextPageToken}` : '');
     const field = fields ? `&fields=${fields}` : '';
     const url = `${this.url}/videos?playlistId=${playlistId}&limit=${maxResults}${pageToken}${field}`;
-    return this.httpRequest.get<any>(url).then(res2 => {
-      if (typeof res2 === 'string' && fields && fields.length > 0) {
-        return fromCsv<PlaylistVideo>(fields, res2).then(res => {
-          formatTypes<PlaylistVideo>(res.list);
-          const r: ListResult<PlaylistVideo> = {
-            list: decompress(res.list),
-            nextPageToken: res.nextPageToken,
-          };
-          return r;    
-        });
-      } else {
-        const res: ListResult<PlaylistVideo> = res2 as any;
-        formatTypes<PlaylistVideo>(res.list);
-        const r: ListResult<PlaylistVideo> = {
-          list: decompress(res.list),
-          nextPageToken: res.nextPageToken,
-        };
-        return r;
-      }
-    });
+    return this.httpRequest.get<string|ListResult<PlaylistVideo>>(url).then(res => toList<PlaylistVideo>(res, fields));
   }
   getChannelVideos(channelId: string, max?: number, nextPageToken?: string, fields?: string[]): Promise<ListResult<PlaylistVideo>> {
     const maxResults = (max && max > 0 ? max : 50);
     const pageToken = (nextPageToken ? `&nextPageToken=${nextPageToken}` : '');
     const field = fields ? `&fields=${fields}` : '';
     const url = `${this.url}/videos?channelId=${channelId}&limit=${maxResults}${pageToken}${field}`;
-    return this.httpRequest.get<any>(url).then(res2 => {
-      if (typeof res2 === 'string' && fields && fields.length > 0) {
-        return fromCsv<PlaylistVideo>(fields, res2).then(res => {
-          formatTypes<PlaylistVideo>(res.list);
-          const r: ListResult<PlaylistVideo> = {
-            list: decompress(res.list),
-            nextPageToken: res.nextPageToken,
-          };
-          return r;    
-        });
-      } else {
-        const res: ListResult<PlaylistVideo> = res2 as any;
-        formatTypes<PlaylistVideo>(res.list);
-        const r: ListResult<PlaylistVideo> = {
-          list: decompress(res.list),
-          nextPageToken: res.nextPageToken,
-        };
-        return r;
-      }
-    });
+    return this.httpRequest.get<string|ListResult<PlaylistVideo>>(url).then(res => toList<PlaylistVideo>(res, fields));
   }
   getPopularVideos(regionCode?: string, videoCategoryId?: string, max?: number, nextPageToken?: string, fields?: string[]): Promise<ListResult<Video>> {
     if ((!regionCode || regionCode.length === 0) && (!videoCategoryId || videoCategoryId.length === 0)) {
@@ -245,14 +188,7 @@ export class VideoClient implements VideoService {
     const pageToken = (nextPageToken ? `&nextPageToken=${nextPageToken}` : '');
     const field = fields ? `&fields=${fields}` : '';
     const url = `${this.url}/videos/popular?limit=${maxResults}${pageToken}${regionParam}${categoryParam}${field}`;
-    return this.httpRequest.get<ListResult<Video>>(url).then(res => {
-      formatTypes<Video>(res.list);
-      const r: ListResult<Video> = {
-        list: decompress(res.list),
-        nextPageToken: res.nextPageToken,
-      };
-      return r;
-    });
+    return this.httpRequest.get<string|ListResult<Video>>(url).then(res => toList<Video>(res, fields));
   }
   getPopularVideosByRegion(regionCode?: string, max?: number, nextPageToken?: string, fields?: string[]): Promise<ListResult<Video>> {
     return this.getPopularVideos(regionCode, undefined, max, nextPageToken, fields);
@@ -277,26 +213,7 @@ export class VideoClient implements VideoService {
     const pageToken = (nextPageToken ? `&nextPageToken=${nextPageToken}` : '');
     const field = fields ? `&fields=${fields}` : '';
     const url = `${this.url}/videos/${videoId}/related?limit=${maxResults}${pageToken}${field}`;
-    return this.httpRequest.get<ListResult<Item>>(url).then(res2 => {
-      if (typeof res2 === 'string' && fields && fields.length > 0) {
-        return fromCsv<Item>(fields, res2).then(res => {
-          formatTypes<Item>(res.list);
-          const r: ListResult<Item> = {
-            list: decompress(res.list),
-            nextPageToken: res.nextPageToken,
-          };
-          return r;    
-        });
-      } else {
-        const res: ListResult<Item> = res2 as any;
-        formatTypes<Item>(res.list);
-        const r: ListResult<Item> = {
-          list: decompress(res.list),
-          nextPageToken: res.nextPageToken,
-        };
-        return r;
-      }
-    });
+    return this.httpRequest.get<ListResult<Item>>(url).then(res => toList<Item>(res, fields));
   }
   getVideo(id: string, fields?: string[], noSnippet?: boolean): Promise<Video|null|undefined> {
     const field = fields ? `?fields=${fields}` : '';
@@ -336,14 +253,7 @@ export class VideoClient implements VideoService {
     const maxResults = (max && max > 0 ? max : 50); // maximum is 50
     const field = fields ? `&fields=${fields}` : '';
     const url = `${this.url}/videos/search?q=${sm.q}${searchDuration}${regionParam}${searchOrder}${pageToken}${field}&limit=${maxResults}`;
-    return this.httpRequest.get<ListResult<Item>>(url).then(res => {
-      formatTypes<Item>(res.list);
-      const r: ListResult<Item> = {
-        list: decompress(res.list),
-        nextPageToken: res.nextPageToken,
-      };
-      return r;
-    });
+    return this.httpRequest.get<ListResult<Item>>(url).then(res => toList<Item>(res, fields));
   }
   searchPlaylists(sm: PlaylistFilter, max?: number, nextPageToken?: string|number, fields?: string[]): Promise<ListResult<Playlist>> {
     const searchOrder = (sm.sort === 'date' || sm.sort === 'rating' || sm.sort === 'title' || sm.sort === 'count' || sm.sort === 'viewCount' ) ? `&sort=${sm.sort}` : '';
@@ -351,14 +261,7 @@ export class VideoClient implements VideoService {
     const maxResults = (max && max > 0 ? max : 50); // maximum is 50
     const field = fields ? `&fields=${fields}` : '';
     const url = `${this.url}/playlists/search?q=${sm.q}${searchOrder}${pageToken}${field}&limit=${maxResults}`;
-    return this.httpRequest.get<ListResult<Playlist>>(url).then(res => {
-      formatTypes<Playlist>(res.list);
-      const r: ListResult<Playlist> = {
-        list: decompressItems(res.list),
-        nextPageToken: res.nextPageToken,
-      };
-      return r;
-    });
+    return this.httpRequest.get<ListResult<Playlist>>(url).then(res => toPlaylists(res, fields));
   }
   searchChannels(sm: ChannelFilter, max?: number, nextPageToken?: string|number, fields?: string[]): Promise<ListResult<Channel>> {
     const searchOrder = (sm.sort === 'date' || sm.sort === 'rating' || sm.sort === 'title' || sm.sort === 'count' || sm.sort === 'viewCount' ) ? `&sort=${sm.sort}` : '';
@@ -374,5 +277,51 @@ export class VideoClient implements VideoService {
       };
       return r;
     });
+  }
+}
+interface PublishedAt {
+  publishedAt?: Date;
+}
+interface Id {
+  id?: string;
+}
+export function toPlaylists(res2: string|ListResult<Playlist>, fields?: string[]): Promise<ListResult<Playlist>> {
+  if (typeof res2 === 'string' && fields && fields.length > 0) {
+    return fromCsv<Playlist>(fields, res2).then(res => {
+      formatTypes<Playlist>(res.list);
+      const r: ListResult<Playlist> = {
+        list: decompressItems(res.list),
+        nextPageToken: res.nextPageToken,
+      };
+      return r;    
+    });
+  } else {
+    const res: ListResult<Playlist> = res2 as any;
+    formatTypes<Playlist>(res.list);
+    const r: ListResult<Playlist> = {
+      list: decompressItems(res.list),
+      nextPageToken: res.nextPageToken,
+    };
+    return Promise.resolve(r);
+  }
+}
+export function toList<T extends Id & Thumbnail & PublishedAt>(res2: string|ListResult<T>, fields?: string[]): Promise<ListResult<T>> {
+  if (typeof res2 === 'string' && fields && fields.length > 0) {
+    return fromCsv<T>(fields, res2).then(res => {
+      formatTypes<T>(res.list);
+      const r: ListResult<T> = {
+        list: decompress(res.list),
+        nextPageToken: res.nextPageToken,
+      };
+      return r;
+    });
+  } else {
+    const res: ListResult<T> = res2 as any;
+    formatTypes<T>(res.list);
+    const r: ListResult<T> = {
+      list: decompress(res.list),
+      nextPageToken: res.nextPageToken,
+    };
+    return Promise.resolve(r);
   }
 }
