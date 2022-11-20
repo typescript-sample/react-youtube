@@ -1,8 +1,7 @@
 import { Comment, CommentThead } from './comment';
-import { Cache, decompress, decompressItems, formatTypes, formatThumbnail, getComments, getCommentThreads, removeCache } from './common-client';
+import { Cache, decompress, decompressItems, formatTypes, formatThumbnail, fromYoutubeSearch, getComments, getCommentThreads, removeCache } from './common-client';
 import { Channel, ChannelFilter, HttpRequest, Item, ItemFilter, ListItem, ListResult, Playlist, PlaylistFilter, PlaylistVideo, SearchId, SearchSnippet, Thumbnail, Video, VideoCategory, YoutubeListResult } from './models';
 import { CommentOrder, VideoService } from './service';
-import { fromYoutubeSearch } from './youtube';
 
 export interface CsvService {
   fromString(value: string): Promise<string[][]>;
@@ -269,13 +268,25 @@ export class VideoClient implements VideoService {
     const maxResults = (max && max > 0 ? max : 50); // maximum is 50
     const field = fields ? `&fields=${fields}` : '';
     const url = `${this.url}/channels/search?q=${sm.q}${searchOrder}${pageToken}${field}&limit=${maxResults}`;
-    return this.httpRequest.get<ListResult<Channel>>(url).then(res => {
-      formatTypes<Channel>(res.list);
-      const r: ListResult<Channel> = {
-        list: res.list,
-        nextPageToken: res.nextPageToken,
-      };
-      return r;
+    return this.httpRequest.get<string|ListResult<Channel>>(url).then(res2 => {
+      if (typeof res2 === 'string' && fields && fields.length > 0) {
+        return fromCsv<Channel>(fields, res2).then(res => {
+          formatTypes<Channel>(res.list);
+          const r: ListResult<Channel> = {
+            list: res.list,
+            nextPageToken: res.nextPageToken,
+          };
+          return r;    
+        });
+      } else {
+        const res: ListResult<Channel> = res2 as any;
+        formatTypes<Channel>(res.list);
+        const r: ListResult<Channel> = {
+          list: res.list,
+          nextPageToken: res.nextPageToken,
+        };
+        return r;
+      }
     });
   }
 }

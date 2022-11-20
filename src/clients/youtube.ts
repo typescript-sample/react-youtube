@@ -1,4 +1,4 @@
-import {CategorySnippet, Channel, ChannelDetail, ChannelSnippet, HttpRequest, Item, ListDetail, ListItem, ListResult, Playlist, PlaylistSnippet, PlaylistVideo, PlaylistVideoSnippet, SearchId, SearchSnippet, StringMap, SyncListResult, Video, VideoCategory, VideoItemDetail, VideoSnippet, YoutubeListResult, YoutubeVideoDetail} from './models';
+import {CategorySnippet, Channel, ChannelDetail, ChannelSnippet, ListDetail, ListItem, ListResult, Playlist, PlaylistSnippet, PlaylistVideo, PlaylistVideoSnippet, StringMap, SubscriptionSnippet, SyncListResult, Video, VideoCategory, VideoItemDetail, VideoSnippet, YoutubeListResult, YoutubeVideoDetail} from './models';
 
 export function calculateDuration(d: string): number {
   if (!d) {
@@ -226,53 +226,30 @@ export function fromYoutubeVideos(res: YoutubeListResult<ListItem<string, VideoS
   });
   return { list, total: res.pageInfo.totalResults, limit: res.pageInfo.resultsPerPage, nextPageToken: res.nextPageToken };
 }
-export function fromYoutubeSearch(res: YoutubeListResult<ListItem<SearchId, SearchSnippet, any>>): ListResult<Item> {
-  const list = res.items.filter(i => i.snippet).map(item => {
+export function fromYoutubeSubscriptions(res: YoutubeListResult<ListItem<string, SubscriptionSnippet, ChannelDetail>>): Channel[] {
+  if (!res || !res.items || res.items.length === 0) {
+    return [];
+  }
+  return res.items.filter(i => i.snippet).map(item => {
     const snippet = item.snippet;
     const thumbnail = snippet.thumbnails;
-    const i: Item = {
-      id: '',
-      title: snippet.title ? snippet.title : '',
-      description: snippet.description ? snippet.description : '',
+    const i: Channel = {
+      id: snippet.resourceId.channelId,
+      title: snippet.title,
+      description: snippet.description,
       publishedAt: new Date(snippet.publishedAt),
-      channelId: snippet.channelId ? snippet.channelId : '',
-      channelTitle: snippet.channelTitle ? snippet.channelTitle : '',
-      liveBroadcastContent: snippet.liveBroadcastContent,
-      publishTime: new Date(snippet.publishTime),
     };
     if (thumbnail) {
       i.thumbnail = thumbnail.default ? thumbnail.default.url : undefined;
       i.mediumThumbnail = thumbnail.medium ? thumbnail.medium.url : undefined;
       i.highThumbnail = thumbnail.high ? thumbnail.high.url : undefined;
     }
-    const id = item.id;
-    if (id) {
-      if (id.videoId) {
-        i.id = id.videoId;
-        i.kind = 'video';
-      } else if (id.channelId) {
-        i.id = id.channelId;
-        i.kind = 'channel';
-      } else if (id.playlistId) {
-        i.id = id.playlistId;
-        i.kind = 'playlist';
-      }
+    if (item.contentDetails && item.contentDetails.relatedPlaylists) {
+      const r = item.contentDetails.relatedPlaylists;
+      i.likes = r.likes;
+      i.favorites = r.favorites;
+      i.uploads = r.uploads;
     }
     return i;
-  });
-  return { list, total: res.pageInfo.totalResults, limit: res.pageInfo.resultsPerPage, nextPageToken: res.nextPageToken };
-}
-export function getSubcriptions(request: HttpRequest, key: string, channelId?: string, mine?: boolean, max?: number, nextPageToken?: string | number): Promise<ListResult<Channel>> {
-  const maxResults = (max && max > 0 ? max : 4);
-  const pageToken = (nextPageToken ? `&pageToken=${nextPageToken}` : '');
-  const mineStr = (mine ? `&mine=${mine}` : '');
-  const channel = (channelId && channelId.length > 0) ? `&channelId=${channelId}` : '';
-  const url = `https://youtube.googleapis.com/youtube/v3/subscriptions?key=${key}${mineStr}${channel}&maxResults=${maxResults}${pageToken}&part=snippet`;
-  return request.get<YoutubeListResult<ListItem<string, ChannelSnippet, ChannelDetail>>>(url).then(res => {
-    const r: ListResult<Channel> = {
-      list:  fromYoutubeChannels(res),
-      nextPageToken: res.nextPageToken,
-    };
-    return r;
   });
 }

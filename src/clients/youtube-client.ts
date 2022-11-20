@@ -1,8 +1,8 @@
 import { Comment, CommentThead } from './comment';
-import { Cache, formatBigThumbnail, formatThumbnail, getComments, getCommentThreads, removeCache } from './common-client';
+import { Cache, formatBigThumbnail, formatThumbnail, fromYoutubeSearch, getComments, getCommentThreads, removeCache } from './common-client';
 import { CategorySnippet, Channel, ChannelDetail, ChannelFilter, ChannelSnippet, HttpRequest, Item, ItemFilter, ListDetail, ListItem, ListResult, Playlist, PlaylistFilter, PlaylistSnippet, PlaylistVideo, PlaylistVideoSnippet, SearchId, SearchSnippet, Video, VideoCategory, VideoItemDetail, VideoSnippet, YoutubeListResult, YoutubeVideoDetail } from './models';
 import { CommentOrder, VideoService } from './service';
-import { fromYoutubeCategories, fromYoutubeChannels, fromYoutubePlaylist, fromYoutubePlaylists, fromYoutubeSearch, fromYoutubeVideos, getYoutubeSort } from './youtube';
+import { fromYoutubeCategories, fromYoutubeChannels, fromYoutubePlaylist, fromYoutubePlaylists, fromYoutubeVideos, getYoutubeSort } from './youtube';
 
 export class YoutubeClient implements VideoService {
   private channelCache: Cache<Channel>;
