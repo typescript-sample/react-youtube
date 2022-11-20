@@ -1,5 +1,5 @@
 import { Comment, CommentSnippet, CommentThead, TopLevelCommentSnippet } from './comment';
-import { BigThumbnail, HttpRequest, Item, ListItem, ListResult, Thumbnail, YoutubeListResult, SearchId, SearchSnippet } from './models';
+import { BigThumbnail, HttpRequest, Item, ListItem, ListResult, SearchId, SearchSnippet, Thumbnail, YoutubeListResult } from './models';
 import { CommentOrder } from './service';
 
 export interface CacheItem<T> {
@@ -109,6 +109,7 @@ interface PublishedAt {
 }
 export function formatTypes<T extends PublishedAt>(li: T[]): T[] {
   if (li && li.length > 0) {
+    // tslint:disable-next-line:prefer-for-of
     for (let j = 0; j < li.length; j++) {
       const i: any = li[j];
       if (i.publishedAt) {

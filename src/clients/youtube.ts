@@ -44,25 +44,6 @@ export function calculateDuration(d: string): number {
   }
   return 0;
 }
-// date, rating, relevance, title, videoCount (for channels), viewCount (for live broadcast) => title, date => publishedAt, relevance => rank, count => videoCount
-export const youtubeSortMap: StringMap = {
-  publishedAt: 'date',
-  rank: 'rating',
-  count: 'videoCount'
-};
-export function getYoutubeSort(s?: string): string|undefined {
-  if (!s || s.length === 0) {
-    return undefined;
-  }
-  const s2 = youtubeSortMap[s];
-  if (s2) {
-    return s2;
-  }
-  if (s === 'date' || s === 'rating' || s === 'title' || s === 'videoCount' || s === 'viewCount') { // s === 'relevance'
-    return s;
-  }
-  return undefined;
-}
 export function fromYoutubeCategories(res: YoutubeListResult<ListItem<string, CategorySnippet, any>>): VideoCategory[] {
   return res.items.filter(i => i.snippet).map(item => {
     const snippet = item.snippet;
@@ -252,4 +233,23 @@ export function fromYoutubeSubscriptions(res: YoutubeListResult<ListItem<string,
     }
     return i;
   });
+}
+// date, rating, relevance, title, videoCount (for channels), viewCount (for live broadcast) => title, date => publishedAt, relevance => rank, count => videoCount
+export const youtubeSortMap: StringMap = {
+  publishedAt: 'date',
+  rank: 'rating',
+  count: 'videoCount'
+};
+export function getYoutubeSort(s?: string): string|undefined {
+  if (!s || s.length === 0) {
+    return undefined;
+  }
+  const s2 = youtubeSortMap[s];
+  if (s2) {
+    return s2;
+  }
+  if (s === 'date' || s === 'rating' || s === 'title' || s === 'videoCount' || s === 'viewCount') { // s === 'relevance'
+    return s;
+  }
+  return undefined;
 }

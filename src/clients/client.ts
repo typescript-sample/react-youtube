@@ -1,5 +1,5 @@
 import { Comment, CommentThead } from './comment';
-import { Cache, decompress, decompressItems, formatTypes, formatThumbnail, fromYoutubeSearch, getComments, getCommentThreads, removeCache } from './common-client';
+import { Cache, decompress, decompressItems, formatThumbnail, formatTypes, fromYoutubeSearch, getComments, getCommentThreads, removeCache } from './common-client';
 import { Channel, ChannelFilter, HttpRequest, Item, ItemFilter, ListItem, ListResult, Playlist, PlaylistFilter, PlaylistVideo, SearchId, SearchSnippet, Thumbnail, Video, VideoCategory, YoutubeListResult } from './models';
 import { CommentOrder, VideoService } from './service';
 
@@ -276,7 +276,7 @@ export class VideoClient implements VideoService {
             list: res.list,
             nextPageToken: res.nextPageToken,
           };
-          return r;    
+          return r;
         });
       } else {
         const res: ListResult<Channel> = res2 as any;
@@ -304,7 +304,7 @@ export function toPlaylists(res2: string|ListResult<Playlist>, fields?: string[]
         list: decompressItems(res.list),
         nextPageToken: res.nextPageToken,
       };
-      return r;    
+      return r;
     });
   } else {
     const res: ListResult<Playlist> = res2 as any;
