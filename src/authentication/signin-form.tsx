@@ -109,7 +109,7 @@ export const SigninForm = () => {
         if (s === status.success) {
           succeed(result);
         } else {
-          alertInfo(resource.msg_account_reactivated, resource.info, () => {
+          alertInfo(resource.msg_account_reactivated, () => {
             succeed(result);
           });
         }

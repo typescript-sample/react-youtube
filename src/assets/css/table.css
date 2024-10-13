@@ -20,7 +20,7 @@ form.list-result > .table-responsive > table thead th {
   border-bottom: 2px solid #dee2e6;
 }
 
-.detail .table-responsive > table tbody + tbody
+.detail .table-responsive > table tbody + tbody,
 form.list-result > .table-responsive > table tbody + tbody {
   border-top: 2px solid #dee2e6;
 }
@@ -139,7 +139,7 @@ form.list-result > .table-responsive > table > tfoot > tr > td,
 form.list-result > .table-responsive > table > tfoot > tr > th,
 form.list-result > .table-responsive > table > thead > tr > td,
 form.list-result > .table-responsive > table > thead > tr > th {
-  border: 1px solid
+  border: 1px solid;
 }
 
 form.list-result > .table-responsive > table > thead > tr > th > button {
@@ -152,7 +152,7 @@ form.list-result > .table-responsive > table > thead > tr > th > button {
 
 /* move from main.css */
 th.action {
-  width: 80px;
+  width: 96px;
 }
 
 form.list-result > .table-responsive > table > tbody > tr > td > button {

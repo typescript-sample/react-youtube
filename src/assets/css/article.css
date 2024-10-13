@@ -28,7 +28,7 @@ article > header > p,
   margin: 0;
   width: 100%;
   line-height: 1.5;
-  padding-top: 2px; 
+  padding-top: 2px;
   font-size: 15px;
   font-weight: 400;
 }
@@ -111,7 +111,6 @@ article > address,
 .view-body > article:last-child {
   padding-bottom: 16px;
 }
-
 
 .view-container > div > section > ol,
 article > ol,

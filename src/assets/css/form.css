@@ -11,21 +11,33 @@ input:-moz-autofill:active {
 }
 
 .view-container form label > select::-ms-expand {
-  background:  url("../images/chevron-down.png") right no-repeat;
+  background: url("../images/chevron-down.png") right no-repeat;
   background-size: 16px;
   content: "";
-  width:50px;
+  width: 50px;
   height: 50px;
 }
 
 @keyframes flyingFrames {
-  from { height: 0px; margin-top: 0px;}
-  to { height: 24px; margin-top: 10px;}
+  from {
+    height: 0px;
+    margin-top: 0px;
+  }
+  to {
+    height: 24px;
+    margin-top: 10px;
+  }
 }
 
 @keyframes unFlyingFrames {
-  from { height: 24px; margin-top: 10px;}
-  to { height: 0px; margin-top: 0px;}
+  from {
+    height: 24px;
+    margin-top: 10px;
+  }
+  to {
+    height: 0px;
+    margin-top: 0px;
+  }
 }
 
 .row .col {
@@ -48,18 +60,18 @@ input:-moz-autofill:active {
 /**************************Input flying************************/
 
 form .row > label.suffix-container input[value=""]::placeholder,
-form .row > label.suffix-container input:not([value])::placeholder{
+form .row > label.suffix-container input:not([value])::placeholder {
   visibility: visible;
   font-weight: 400;
 }
 
 form .row > label input[value=""]::placeholder,
-form .row > label input:not([value])::placeholder{
+form .row > label input:not([value])::placeholder {
   visibility: visible;
 }
 
 form .row > label.flying input[value=""],
-form .row > label.flying input:not([value]){
+form .row > label.flying input:not([value]) {
   -webkit-animation: unFlyingFrames 0.3s, 0.3s;
   animation: unFlyingFrames 0.3s;
   height: 0;
@@ -69,14 +81,14 @@ form .row > label.flying input:not([value]){
 }
 
 form .row > label.flying > input:focus:not([data-value]) {
-  height: 24px; 
+  height: 24px;
   margin-top: 10px;
   -webkit-animation: flyingFrames 0.3s, 0.3s;
   animation: flyingFrames 0.3s;
 }
 
 /**************************Select flying************************/
-form .row > label select:not([data-value])::placeholder{
+form .row > label select:not([data-value])::placeholder {
   visibility: hidden;
 }
 
@@ -89,7 +101,7 @@ form .row > label.flying select[data-value=""] {
   padding-bottom: 0;
 }
 form .row > label.flying select:focus([data-value=""]) {
-  height: 24px; 
+  height: 24px;
   margin-top: 10px;
   -webkit-animation: flyingFrames 0.3s, 0.3s;
   animation: flyingFrames 0.3s;
@@ -128,6 +140,7 @@ label.error-align-right > span.span-error {
 
 label.flying > span.span-error {
   margin-top: 32px;
+  top: 33px;
 }
 
 label.focused > span.span-error,
@@ -265,7 +278,7 @@ label.focused > span.span-error,
 }
 
 select:not([multiple]) {
-  background-image: url('../images/chevron-down.png') !important;
+  background-image: url("../images/chevron-down.png") !important;
   background-position: calc(100% - 6px) !important;
   background-size: 10px !important;
   background-repeat: no-repeat !important;
@@ -288,7 +301,7 @@ select:not([multiple]) {
 
 .view-container > form > label.flying > select:focus:not([data-value]),
 .view-container > form > div > label.flying > select:focus:not([data-value]) {
-  height: 24px; 
+  height: 24px;
   margin-top: 10px;
   -webkit-animation: flyingFrames 0.3s, 0.3s;
   animation: flyingFrames 0.3s;
@@ -298,14 +311,14 @@ select:not([multiple]) {
 .view-container > form > div > label > input:focus,
 .view-container > form > div > label > select:focus {
   font-size: 15px;
-  height: 24px; 
+  height: 24px;
   margin-top: 10px;
   -webkit-animation: flyingFrames 0s, 0s;
   animation: flyingFrames 0s;
 }
 
 .view-container > form > label.flying > input[value=""],
-.view-container > form > label.flying > select:not([data-value]),     
+.view-container > form > label.flying > select:not([data-value]),
 .view-container > form > div > label.flying > input[value=""],
 .view-container > form > div > label.flying > select:not([data-value]) {
   height: 0;
@@ -382,7 +395,7 @@ h4.checkbox-container {
   font-weight: 500;
 }
 
-section > h4.checkbox-container > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]):first-child {
+section > h4.checkbox-container > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]):first-child {
   margin-left: 0;
   margin-right: 10px;
 }
@@ -424,7 +437,7 @@ label > span.suffix-value {
   padding-right: 34px;
 }
 
-.row.radio-group > label.col
+.row.radio-group > label.col,
 .row > .col.radio-group > label.s6,
 .row > .col.radio-group > label.s6:last-child,
 .row.radio-group > label.col.s6:last-child {
@@ -463,6 +476,7 @@ section > .row.radio-group {
 section.row {
   margin-left: 0;
   margin-right: 0;
+  height: 100%;
 }
 
 section > p > label {
@@ -494,7 +508,7 @@ form > div > label.flying {
 label.required:before {
   position: absolute;
   left: 7px;
-  content: '*';
+  content: "*";
 }
 
 .form-group > label.required:before {
@@ -591,7 +605,6 @@ label.required:before {
   padding-right: 5px;
 }
 
-
 .text-right {
   text-align: right !important;
 }
@@ -607,4 +620,8 @@ label.required:before {
 
 label > .DayPickerInput {
   display: block;
+}
+
+.form-textarea {
+  width: 100%;
 }

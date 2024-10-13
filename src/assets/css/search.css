@@ -1,3 +1,8 @@
+.search-input > *:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .view-container > form > div > label.search-input,
 .view-container > div > label.search-input,
 .view-body > label.search-input,
@@ -30,7 +35,7 @@
   background: transparent;
   border-color: #b3b3b3 !important;
   -webkit-box-shadow: none !important;
-	-moz-box-shadow: none !important;
+  -moz-box-shadow: none !important;
   box-shadow: none !important;
 }
 .row > label.col.search-input input:not([type="checkbox"]):not([type="radio"]):first-child,
@@ -260,12 +265,14 @@ form.list-result > nav {
 
 i.sort-up:after {
   margin-left: 4px;
-  content: '\25B2';
+  content: "\25B2";
   font-size: 12px;
+  font-style: normal;
 }
 
 i.sort-down:after {
   margin-left: 4px;
-  content: '\25BC';
+  content: "\25BC";
   font-size: 12px;
+  font-style: normal;
 }

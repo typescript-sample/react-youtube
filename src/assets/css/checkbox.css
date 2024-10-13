@@ -1,27 +1,31 @@
-input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]) {
+input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]) {
   cursor: pointer;
   left: 16px;
   width: 16px;
   height: 16px;
   border-radius: 2px;
   margin-right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
-label.checkbox-container > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]),
-label.checkbox-group > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]),
-.checkbox-group > label > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]) {
+label.checkbox-container > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]),
+label.checkbox-group > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]),
+.checkbox-group > label > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]) {
   position: absolute;
   left: 16px;
   top: 18px;
 }
 
-label.switch-container > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]) {
+label.switch-container > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]) {
   position: absolute;
   top: 16px;
   left: 22px;
 }
 
-h4 > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]) {
+h4 > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]) {
   margin-top: -3px;
 }
 
@@ -29,16 +33,16 @@ h4 > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not
   padding-top: 2px;
 }
 
-.row.inline > label > section.checkbox-group > label > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]) {
+.row.inline > label > section.checkbox-group > label > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]) {
   top: 4px;
 }
 
-.card-img-container > label.checkbox-container > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]) {
+.card-img-container > label.checkbox-container > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]) {
   top: 30px;
 }
 
-input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]):before {
-  content: '';
+input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]):before {
+  content: "";
   width: 16px;
   height: 16px;
   border: 1px solid #4d4d4d;
@@ -47,8 +51,8 @@ input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*
   border-radius: 2px;
 }
 
-input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]):after {
-  content: '✓';
+input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]):after {
+  content: "✓";
   color: #fff;
   background: #4db6ac;
   position: absolute;
@@ -66,53 +70,52 @@ input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*
   border-radius: 2px;
 }
 
-input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]):checked:before {
+input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]):checked:before {
   border: none;
 }
 
-input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]):checked:after {
+input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]):checked:after {
   opacity: 1;
 }
-input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]):focus {
+input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]):focus {
   outline: 1;
 }
 
-.switch-container > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]),
-input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]).switch {
+.switch-container > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]),
+input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]).switch {
   position: relative;
 }
-.switch-container > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]):before,
-input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]).switch:before {
+.switch-container > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]):before,
+input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]).switch:before {
   position: absolute;
   width: 34px;
   height: 20px;
   left: -7px;
   padding-top: 4px;
-  content: '\25CF';
+  content: "\25CF";
   line-height: 6px;
   font-size: 33px;
   border: 1px solid #4d4d4d;
   border-radius: 40px;
   text-align: left;
   color: #b3b3b3;
-  background:#fff;
+  background: #fff;
 }
-.switch-container > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]):after,
-input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]).switch:after {
+.switch-container > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]):after,
+input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]).switch:after {
   position: absolute;
   width: 34px;
   height: 20px;
   left: -7px;
   padding-top: 4px;
-  content: '\25CF';
+  content: "\25CF";
   line-height: 6px;
   font-size: 33px;
-  align-items: normal ;
+  align-items: normal;
   border: 1px solid #808080;
   border-radius: 40px;
   text-align: right;
   justify-content: flex-end;
   color: #fff;
-  background:#4db6ac;
+  background: #4db6ac;
 }
-

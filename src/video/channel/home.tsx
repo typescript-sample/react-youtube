@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Slide } from 'react-videos';
 import { useResource } from 'uione';
-import { Playlist, PlaylistVideo } from 'video-clients';
+import { Playlist, PlaylistVideo } from '../../clients';
 import { context } from '../service';
 
 const videoFields = ['id', 'title', 'publishedAt', 'highThumbnail', 'definition', 'duration'];

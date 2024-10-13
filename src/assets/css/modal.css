@@ -114,12 +114,12 @@
   border-top: 1px solid #e9ecef;
 }
 
-.modal-portal-footer> :not(:first-child) {
-  margin-left: .25rem;
+.modal-portal-footer > :not(:first-child) {
+  margin-left: 0.25rem;
 }
 
-.modal-portal-footer> :not(:last-child) {
-  margin-right: .25rem;
+.modal-portal-footer > :not(:last-child) {
+  margin-right: 0.25rem;
 }
 
 .modal-portal-scrollbar-measure {
@@ -160,6 +160,11 @@
 
 .modal-portal-content.small-width-height {
   width: 40%;
+  height: auto;
+}
+
+.modal-portal-content.medium-width-height {
+  width: 60%;
   height: auto;
 }
 

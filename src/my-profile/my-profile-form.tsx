@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { clone, OnClick, useUpdate } from 'react-hook-core';
 import ReactModal from 'react-modal';
-import { alert, message, useResource } from 'uione';
+import { message, useResource } from 'uione';
 import imageOnline from '../assets/images/online.svg';
 import GeneralInfo from './general-info';
 import { Achievement, Skill, useGetMyProfileService, User } from './my-profile';
+import { alertError } from 'ui-alert';
 
 interface Edit {
   edit: {
@@ -189,7 +190,7 @@ export const MyProfileForm = () => {
         setState({ edit: { ...state.edit, skill: '' } });
         setUser({ ...user });
       } else {
-        alert(resource.error_duplicated_skill, resource.error);
+        alertError(resource.error_duplicated_skill);
       }
     }
   };
@@ -221,7 +222,7 @@ export const MyProfileForm = () => {
           message(resource.success_save_my_profile);
           close();
         } else {
-          alert(resource.fail_save_my_profile, resource.error);
+          alertError(resource.fail_save_my_profile);
         }
       });
     }
@@ -232,7 +233,7 @@ export const MyProfileForm = () => {
       setUser(rs.user);
       message(resource.success_save_my_profile);
     } else {
-      alert(resource.fail_save_my_profile, resource.error);
+      alertError(resource.fail_save_my_profile);
     }
   };
 
@@ -278,7 +279,7 @@ export const MyProfileForm = () => {
         setState({ edit: { ...state.edit, lookingFor: '' } });
         setUser({ ...user });
       } else {
-        alert(resource.error_duplicated_looking_for, resource.error);
+        alertError(resource.error_duplicated_looking_for);
       }
     }
   };
@@ -305,7 +306,7 @@ export const MyProfileForm = () => {
         setUser({ ...user });
         setState({ edit: { ...state.edit, interest: '' } });
       } else {
-        alert(resource.error_duplicated_interest, resource.error);
+        alertError(resource.error_duplicated_interest);
       }
     }
   };

@@ -109,7 +109,7 @@ export function map<T>(obj: T, m?: StringMap): any {
     return obj;
   }
   const obj2: any = {};
-  const keys = Object.keys(obj);
+  const keys = Object.keys(obj as any);
   for (const key of keys) {
     let k0 = m[key];
     if (!k0) {
@@ -132,7 +132,7 @@ export function mapArray<T>(results: T[], m?: StringMap): T[] {
   for (let i = 0; i < length; i++) {
     const obj = results[i];
     const obj2: any = {};
-    const keys = Object.keys(obj);
+    const keys = Object.keys(obj as any);
     for (const key of keys) {
       let k0 = m[key];
       if (!k0) {

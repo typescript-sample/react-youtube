@@ -32,8 +32,6 @@ export const UsersPage = () => {
   };
   const p = { getFilter };
   const { state, resource, component, updateState, search, sort, clearQ, toggleFilter, changeView, pageChanged, pageSizeChanged } = useSearch<User, UserFilter, UserSearch>(refForm, initialState, getUserService(), inputSearch(), p);
-  component.viewable = true;
-  component.editable = true;
   const edit = (e: OnClick, id: string) => {
     e.preventDefault();
     navigate(`${id}`);

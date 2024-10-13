@@ -10,7 +10,8 @@
   text-align: right;
 }
 
-.center, .center-align {
+.center,
+.center-align {
   text-align: center;
 }
 
@@ -23,8 +24,9 @@
   float: right !important;
 }
 
-.no-select, input[type=range],
-input[type=range] + .thumb {
+.no-select,
+input[type="range"],
+input[type="range"] + .thumb {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -60,6 +62,11 @@ input[type=range] + .thumb {
   margin-left: -16px;
 }
 
+.row .row-rate {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
 /*
 .row {
   
@@ -81,7 +88,8 @@ input[type=range] + .thumb {
   min-height: 1px;
 }
 */
-.row .col[class*="push-"], .row .col[class*="pull-"] {
+.row .col[class*="push-"],
+.row .col[class*="pull-"] {
   position: relative;
 }
 
@@ -1049,8 +1057,8 @@ input[type=range] + .thumb {
   margin: 0 0 8px 0;
   min-height: 45px;
   outline: none;
-  -webkit-transition: all .3s;
-  transition: all .3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 .chips:hover {
@@ -1096,11 +1104,13 @@ input[type=range] + .thumb {
 
 .star {
   position: relative;
-  margin-left: 10px;
+  right: 10px;
 }
+
 .star::before {
   position: absolute;
   top: -4px;
+  left: 15px;
   content: "\2606";
   font-size: 16px;
   font-style: normal;
@@ -1121,8 +1131,8 @@ h3 > .star::before {
   font-size: 20px;
 }
 p.description > .star {
-  margin-left: 0;
-  margin-right: 16px;
+  top: -4px;
+  left: 0;
 }
 
 .text-ellipsis {

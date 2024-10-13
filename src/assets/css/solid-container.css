@@ -6,7 +6,6 @@
   text-align: center;
 }
 
-
 .view-container.full > form > header,
 .view-container.full > header,
 .view-container.solid > form > header,
@@ -42,7 +41,6 @@
   padding-left: 16px;
   padding-right: 16px;
 }
-
 
 .view-container.central-full > form {
   margin: auto;

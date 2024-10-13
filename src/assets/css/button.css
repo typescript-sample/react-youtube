@@ -35,7 +35,11 @@ footer > .btn-cancel {
   border: 0;
   background-color: transparent;
 }
-
+.view-container > form > footer > button.btn-secondary,
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid;
+}
 .btn-detail {
   min-height: 24px;
   min-width: 12px;
@@ -136,7 +140,7 @@ footer > button:hover {
   align-content: center;
   font-family: Lucida Sans Unicode;
   font-size: 35px;
-  content: '\21BB';
+  content: "\21BB";
 }
 footer > button.btn-accept:hover,
 footer > button.btn-next:hover,
@@ -155,7 +159,7 @@ footer > button.btn-cancel:hover {
 }
 footer > .btn-next::after {
   font-family: Material Icons;
-  content: '\e5c8';
+  content: "\e5c8";
   height: 40px;
   width: 40px;
   border-radius: 50%;
@@ -170,7 +174,7 @@ footer > .btn-next::after {
 
 footer > .btn-accept::after {
   font-family: Material Icons;
-  content: '\e5ca';
+  content: "\e5ca";
   height: 40px;
   width: 40px;
   border-radius: 50%;
@@ -184,7 +188,7 @@ footer > .btn-accept::after {
 }
 
 footer > .btn-cancel::before {
-  content: '\2715';
+  content: "\2715";
   height: 40px;
   width: 40px;
   border-radius: 50%;
@@ -250,6 +254,8 @@ footer > .btn-next {
 .btn-view,
 .btn-edit,
 .btn-approve,
+.btn-copy,
+.btn-history,
 .btn-check,
 .btn-remove {
   margin: 0;
@@ -292,14 +298,15 @@ h4 > .btn-edit {
 }
 
 .btn-edit::before {
-  content: ' \270E';
-  font-size: 18px;
+  content: " \270E";
+  display: inline-block;
   font-weight: 100;
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   -o-transform: rotate(-90deg);
   -webkit-transform: rotate(-90deg);
   transform: rotate(-90deg);
+  transform: scale(1.6, 1.6);
 }
 
 .btn-remove,
@@ -310,12 +317,10 @@ h4 > .btn-edit {
 }
 
 .btn-remove::before {
-  position: absolute;
-  top: -4px;
-  left: 0;
-  font-size: 18px;
-  font-weight: 100;
   content: "\229D";
+  display: inline-block;
+  font-weight: 100;
+  transform: scale(1.5, 1.5);
 }
 
 ul.list-view > li .btn-group > .btn-remove::before,
@@ -328,7 +333,7 @@ td > .btn-remove::before {
   margin-top: 18px;
 }
 
-h4> .btn-add {
+h4 > .btn-add {
   margin-left: 10px;
 }
 
@@ -405,12 +410,12 @@ h4> .btn-add {
 }
 .btn-approve {
   border: 1px solid;
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
 }
 .btn-approve::before {
-  font-size: 17px;
+  /* font-size: 17px; */
   font-weight: 100;
   content: "\2714";
 }
@@ -442,7 +447,12 @@ h4> .btn-add {
   content: "\E0CD";
 }
 
-.btn-camera, .btn-divide, .btn-transfer, .btn-history {
+.btn-camera,
+.btn-divide,
+.btn-transfer,
+.btn-copy,
+.btn-remove,
+.btn-history {
   border: none;
   background-color: transparent;
 }
@@ -459,15 +469,33 @@ h4> .btn-add {
   font-weight: 100;
   content: "\2637";
 }
-
+.btn-history {
+  height: 18px;
+  width: 18px;
+}
 .btn-history::before {
-  font-size: 17px;
-  font-weight: 100;
   content: "\2630";
+  display: inline-block;
+  font-weight: 100;
+  /* font-size: 17px; */
 }
 
 .btn-transfer::before {
   font-size: 17px;
   font-weight: 100;
   content: "\26DF";
+}
+
+.btn-copy {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-copy::before {
+  content: "\25EB";
+  display: inline-block;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  font-weight: 100;
+  transform: scale(1.5, 1.5);
 }

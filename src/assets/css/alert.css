@@ -1,6 +1,6 @@
 .alert-info {
   color: white;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   border-color: #c3e6cb;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .toast-message {
-  bottom: 44px;
+  bottom: 125px;
   text-align: center;
   left: 250px;
   right: 250px;
@@ -118,6 +118,27 @@
   content: "\2715";
 }
 
+.success-icon .alert-icon::before {
+  font-size: 20px;
+  font-weight: 100;
+  content: "\2713";
+  color: #4db6ac;
+}
+
+.confirm-icon .alert-icon::before {
+  font-size: 20px;
+  font-weight: 100;
+  content: "\003F";
+}
+
+.warning-icon .alert-icon {
+  color: #f9c205;
+}
+
+.confirm-icon .alert-icon {
+  color: #007bff;
+}
+
 .alert .devide {
   height: 1px;
   padding-left: 16px;
@@ -165,7 +186,6 @@ alert b {
 }
 
 @media all and (max-width: 540px) {
-
   .alert {
     background-color: white;
     width: 100%;

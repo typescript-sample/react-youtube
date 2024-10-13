@@ -27,13 +27,13 @@ export const MySettingsForm = () => {
 
   const save = (e: OnClick) => {
     e.preventDefault();
-    confirm(resource.msg_confirm_save, resource.confirm, () => {
+    confirm(resource.msg_confirm_save, () => {
       const userId = '77c35c38c3554ea6906730dbcfeca0f2';
       service.saveMySettings(userId, state.settings).then((res: number) => {
         const msg = res > 0 ? resource.success_save_my_settings : resource.fail_save_my_settings;
         message(msg);
       }).catch(handleError);
-    }, resource.no, resource.yes);
+    });
   };
 
   return (
