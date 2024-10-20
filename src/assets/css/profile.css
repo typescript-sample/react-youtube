@@ -74,7 +74,7 @@
   font-style: normal;
   color: #fff;
 }
-.profile.view-container > form > header .contact-group > button:not(:first-child)  {
+.profile.view-container > form > header .contact-group > button:not(:first-child) {
   margin-left: 20px;
 }
 
@@ -251,7 +251,6 @@ header.nav > .profile-followers {
   }
 }
 
-
 .profile.view-container > form > header > div.card,
 .profile.view-container > form > .row > .col > div.card {
   margin: 20px 0;
@@ -273,7 +272,6 @@ header.nav > .profile-followers {
   border-radius: 15px;
   background-color: #fff;
 }
-
 
 .page-body > .profile.view-container > form > div {
   padding-top: 0;
@@ -347,7 +345,14 @@ header.nav > .profile-followers {
   padding-left: 22px;
 }
 
-.profile.view-container > form > .row > .col > div.card > section > label.checkbox-container > input[type=checkbox]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*=lightbox-]) {
+.profile.view-container
+  > form
+  > .row
+  > .col
+  > div.card
+  > section
+  > label.checkbox-container
+  > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]) {
   left: 0;
 }
 .profile.view-container .btn-group {
@@ -413,5 +418,5 @@ header.nav > .profile-followers {
 }
 
 .show-upload-cover {
-  display: inline-block
+  display: inline-block;
 }
