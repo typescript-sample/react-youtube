@@ -1,16 +1,16 @@
 @media only screen and (min-width: 993px) {
   .view-container .video-content {
-    max-height: calc(100vh - 108px);
+    max-height: calc(100vh - 124px);
     overflow-x: auto;
   }
 }
 .video-home {
-  max-height: calc(100vh - 44px - 56px);
+  max-height: calc(100vh - 52px - 56px);
   overflow-x: auto;
 }
 @media screen and (min-width: 769px) {
   .top-menu .video-home {
-    max-height: calc(100vh - 44px - 56px - 46px);
+    max-height: calc(100vh - 52px - 56px - 46px);
   }
   .classic.top-menu .video-home {
     max-height: auto;

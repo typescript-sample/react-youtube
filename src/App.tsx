@@ -59,6 +59,7 @@ import "./assets/css/date-picker.css"
 import "./assets/css/diff.css"
 import "./assets/css/badge.css"
 import "./assets/css/profile.css"
+import "./assets/css/override.css"
 
 // axios.defaults.withCredentials = true
 

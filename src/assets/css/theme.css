@@ -90,20 +90,6 @@ input[type="radio"]:checked:before {
 .pagination > .active, 
 .pagination-page.active,*/
 
-form.list-result > div > table tbody tr.active:nth-child(odd) td,
-form.list-result > div > table tbody tr.active:nth-child(odd) th,
-form.list-result > div > table > thead > tr > td.active,
-form.list-result > div > table > tbody > tr > td.active,
-form.list-result > div > table > tfoot > tr > td.active,
-form.list-result > div > table > thead > tr > th.active,
-form.list-result > div > table > tbody > tr > th.active,
-form.list-result > div > table > tfoot > tr > th.active,
-form.list-result > div > table > thead > tr.active > td,
-form.list-result > div > table > tbody > tr.active > td,
-form.list-result > div > table > tfoot > tr.active > td,
-form.list-result > div > table > thead > tr.active > th,
-form.list-result > div > table > tbody > tr.active > th,
-form.list-result > div > table > tfoot > tr.active > th,
 .table-striped tbody tr.active:nth-child(odd) td,
 .table-striped tbody tr.active:nth-child(odd) th,
 .table > thead > tr > td.active,
@@ -161,22 +147,6 @@ footer > button#btnReject {
   color: #fff;
 }
 
-form.list-result > div > table tbody tr.active:hover td,
-form.list-result > div > table tbody tr.active:hover th,
-form.list-result > div > table tbody tr.active:nth-child(odd) td,
-form.list-result > div > table tbody tr.active:nth-child(odd) th,
-form.list-result > div > table > thead > tr > td.active,
-form.list-result > div > table > tbody > tr > td.active,
-form.list-result > div > table > tfoot > tr > td.active,
-form.list-result > div > table > thead > tr > th.active,
-form.list-result > div > table > tbody > tr > th.active,
-form.list-result > div > table > tfoot > tr > th.active,
-form.list-result > div > table > thead > tr.active > td,
-form.list-result > div > table > tbody > tr.active > td,
-form.list-result > div > table > tfoot > tr.active > td,
-form.list-result > div > table > thead > tr.active > th,
-form.list-result > div > table > tbody > tr.active > th,
-form.list-result > div > table > tfoot > tr.active > th,
 .table-hover tbody tr.active:hover td,
 .table-hover tbody tr.active:hover th,
 .table-striped tbody tr.active:nth-child(odd) td,
@@ -197,38 +167,25 @@ form.list-result > div > table > tfoot > tr.active > th,
   background-color: #4f5352;
 }
 
-.detail .table-responsive > table > tbody > tr:hover,
-.detail .table-responsive > table > tbody > tr:nth-of-type(odd):hover,
-form.list-result > .table-responsive > table > tbody > tr:hover,
-form.list-result > .table-responsive > table > tbody > tr:nth-of-type(odd):hover,
+.table > tbody > tr:hover,
+.table > tbody > tr:nth-of-type(odd):hover,
 .table-hover > tbody > tr:hover,
 .table-striped > tbody > tr:nth-of-type(odd):hover {
   background-color: #eee;
 }
 
-.detail .table-responsive > table > thead > tr > th,
-.detail .table-responsive > table > tbody > tr > td,
-form.list-result > .table-responsive > table > thead > tr > th,
-form.list-result > .table-responsive > table > tbody > tr > td,
 .table > thead > tr > th,
 .table > tbody > tr > td {
   border-bottom-color: #ddd;
 }
 
-.detail .table-responsive > table,
-.detail .table-responsive > table > tbody > tr > td,
-.detail .table-responsive > table > tbody > tr > th,
-.detail .table-responsive > table > tfoot > tr > td,
-.detail .table-responsive > table > tfoot > tr > th,
-.detail .table-responsive > table > thead > tr > td,
-.detail .table-responsive > table > thead > tr > th,
-form.list-result > .table-responsive > table,
-form.list-result > .table-responsive > table > tbody > tr > td,
-form.list-result > .table-responsive > table > tbody > tr > th,
-form.list-result > .table-responsive > table > tfoot > tr > td,
-form.list-result > .table-responsive > table > tfoot > tr > th,
-form.list-result > .table-responsive > table > thead > tr > td,
-form.list-result > .table-responsive > table > thead > tr > th,
+.table,
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th,
 .table-bordered,
 .table-bordered > tbody > tr > td,
 .table-bordered > tbody > tr > th,
@@ -239,8 +196,7 @@ form.list-result > .table-responsive > table > thead > tr > th,
   border-color: #ddd;
 }
 
-.detail .table-responsive > table > tbody > tr:nth-of-type(odd),
-form.list-result > .table-responsive > table > tbody > tr:nth-of-type(odd),
+.table > tbody > tr:nth-of-type(odd),
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #fff;
 }
@@ -266,11 +222,7 @@ body,
   border-color: #dbdbdb;
 }
 body,
-.detail .table-responsive > table > tbody > tr > td > a,
-form.list-result > .table-responsive > table > tbody > tr > td > a,
 .table > tbody > tr > td > a,
-.detail .table-responsive > table > tbody > tr > td,
-form.list-result > .table-responsive > table > tbody > tr > td,
 .table > tbody > tr > td,
 .row .form-group label,
 .pagination > li > a,
@@ -359,9 +311,7 @@ ul.list-view > li > p,
 ul.list-view > li > p > a,
 .table > thead > tr > th,
 .table > thead > tr > th > a,
-form.list-result > .table-responsive > table > thead > tr > th,
-form.list-result > .table-responsive > table > thead > tr > th > button,
-form.list-result > .table-responsive > table > thead > tr > th > a,
+.table > thead > tr > th > button,
 .view-container > form > div > h4,
 .view-container > div > h4,
 .view-body > h4,
@@ -395,7 +345,7 @@ label.search-input input {
   color: #4d4d4d !important;
 }
 /*
-form.list-result > .table-responsive > table > thead > tr,
+.table > thead > tr,
 div.card {
   background-color: #ebebeb;
 }

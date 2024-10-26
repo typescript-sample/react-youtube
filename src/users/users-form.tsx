@@ -132,7 +132,7 @@ export const UsersForm = () => {
         <form className="list-result">
           {component.view === "table" && (
             <div className="table-responsive">
-              <table>
+              <table className="table">
                 <thead>
                   <tr>
                     <th>{resource.sequence}</th>
@@ -205,9 +205,9 @@ export const UsersForm = () => {
                           className="round-border"
                         />
                         <div>
-                          <h3 className={user.status === "I" ? "inactive" : ""}>
+                          <h4 className={user.status === "I" ? "inactive" : ""}>
                             <Link to={`${user.userId}`}>{user.displayName}</Link>
-                          </h3>
+                          </h4>
                           <p>{user.email}</p>
                         </div>
                         <button className="btn-detail" />
