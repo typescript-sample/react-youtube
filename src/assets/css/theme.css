@@ -233,9 +233,7 @@ body,
 .view-container > header > h5,
 .view-header > h5,
 .view-subtitle,
-.subtitle,
-ul.list-view > li > section:first-child > div > h3.inactive,
-ul.list-view > li > section:first-child > div > h3.inactive > a {
+.subtitle {
   color: #999999;
 }
 
@@ -297,10 +295,10 @@ article,
 .card > section > p > a,
 .video > section > p,
 .video > section > p > a,
+.video > p,
 li.video > h4 > a,
 .img-card > p,
-ul.list-view.horizon > li > a,
-ul.list-view > li > p,
+.horizon > li > a,
 .list-item > a,
 .img-item > a,
 .table > thead > tr > th,
@@ -351,10 +349,6 @@ label.search-input input {
 .view-body > label.focused,
 .view-container > form > div > h2,
 .card > section > h3,
-ul.list-view > li > section:first-child > div > h3,
-ul.list-view > li > section:first-child > div > h3 > a,
-ul.list-view > li > div > h3,
-ul.list-view > li > h3,
 .card > footer > button,
 .btn-select,
 .btn-add,
@@ -632,11 +626,10 @@ section > p > label,
   background: #000;
   color: #fff;
 }
-ul.list-view > li,
-ul.list-view.row > li.col > *:last-child,
+
 .card > section,
 .video > section,
-ul.list-view.horizon > li.video {
+.horizon > .video {
   border-color: #ebebeb;
 }
 
