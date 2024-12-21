@@ -286,7 +286,7 @@
 .dark .video > section > p,
 .dark .video > section > p > a,
 .dark .video > p,
-.dark li.video > h4 > a,
+.dark .video > h4 > a,
 .dark .img-card > p,
 .dark .horizon > li > a,
 .dark .list-item > a,
@@ -523,7 +523,6 @@
 }
 
 .dark .diff .row .col p > span,
-.dark article > address > label,
 .dark article > p > label,
 .dark section > p > label,
 .dark .view-container > form > div > section > article > p.remark,
