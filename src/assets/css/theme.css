@@ -234,7 +234,6 @@ body,
 .view-header > h5,
 .view-subtitle,
 .subtitle,
-.profile.view-container > form > .row > .col > div.card > section > p,
 ul.list-view > li > section:first-child > div > h3.inactive,
 ul.list-view > li > section:first-child > div > h3.inactive > a {
   color: #999999;
@@ -294,21 +293,14 @@ article,
 .section-body > p,
 .brand,
 .img-card > h4,
-ul.list-view > li > section:first-child > div > h4,
-ul.list-view > li > section:first-child > div > h4 > a,
 .card > section > p,
 .card > section > p > a,
 .video > section > p,
 .video > section > p > a,
 li.video > h4 > a,
 .img-card > p,
-ul.list-view > li > section:first-child > div > p,
-ul.list-view > li > div > h4,
-ul.list-view > li > div > p,
-ul.list-view > li > h4,
 ul.list-view.horizon > li > a,
 ul.list-view > li > p,
-ul.list-view > li > p > a,
 .list-item > a,
 .img-item > a,
 .table > thead > tr > th,
@@ -348,9 +340,6 @@ label.search-input input {
 }
 /*
 .table > thead > tr,
-div.card {
-  background-color: #ebebeb;
-}
 */
 .btn-more,
 .video-container > h3,
@@ -366,8 +355,6 @@ ul.list-view > li > section:first-child > div > h3,
 ul.list-view > li > section:first-child > div > h3 > a,
 ul.list-view > li > div > h3,
 ul.list-view > li > h3,
-div.card > div > h3,
-div.card > h3,
 .card > footer > button,
 .btn-select,
 .btn-add,
@@ -539,7 +526,6 @@ button:disabled {
 }
 
 .diff .row .col p > span,
-div.card > div > p,
 .data-list dt,
 article > address > label,
 article > p > label,
@@ -648,8 +634,6 @@ section > p > label,
 }
 ul.list-view > li,
 ul.list-view.row > li.col > *:last-child,
-ul.list-view > li.section-container > section:first-child,
-div.card,
 .card > section,
 .video > section,
 ul.list-view.horizon > li.video {

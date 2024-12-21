@@ -70,19 +70,18 @@ ul.list-view.row > li.col {
   right: 16px;
 }
 
-ul.list-view.row > li.col.card,
-ul.list-view.row > li.col.video {
+.card,
+.video {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-ul.list-view.row > li.col.card {
+.card {
   margin-bottom: 10px;
 }
 ul.list-view.row > li.col > h3,
 ul.list-view.row > li.col > h4,
 ul.list-view.row > li.col > a,
-ul.list-view.row > li.col > p,
-ul.list-view.row > li.col > section:first-child {
+ul.list-view.row > li.col > p {
   width: calc(100% - 32px);
 }
 /*
@@ -94,78 +93,30 @@ ul.list-view.row > li.col > *:last-child {
   border-bottom: 1px solid #ebebeb;
 }
 
-ul.list-view.row > li.col.card > *:first-child,
+.card > *:first-child,
 ul.list-view.row > li.col.video > *:first-child {
   padding-top: 0;
 }
 
-ul.list-view.row > li.col.card > *:last-child {
+.card > *:last-child {
   padding-bottom: 0;
 }
 
-ul.list-view > li.section-container {
-  display: list-item;
-  margin: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-
-  padding-left: 0;
-  padding-right: 0;
-  border-bottom: none;
-}
-
-ul.list-view > li > section:first-child,
-div.card {
+ul.list-view > li > section:first-child {
   display: flex;
   margin: 0 16px;
   align-items: center;
 }
 
-ul.list-view > li.section-container > section:first-child,
-div.card {
-  border: 0;
-  border-bottom: 1px solid #ebebeb;
-}
-
-ul.list-view > li > section:first-child > input[type="checkbox"],
-ul.list-view > li > section:first-child > input[type="radio"],
-ul.list-view > li > label > input[type="checkbox"],
-ul.list-view > li > label > input[type="radio"],
-ul.list-view > li > input[type="checkbox"],
-ul.list-view > li > input[type="radio"] {
-  margin-right: 16px;
-}
-
 ul.list-view > li > section:first-child > div,
-ul.list-view > li > div,
-div.card > div {
+ul.list-view > li > div {
   flex: 1 1 auto;
   width: 1%;
-}
-
-div.card {
-  padding: 16px;
-}
-
-div.card.right-margin {
-  margin-right: 0;
-  padding-left: 24px;
-  border-radius: 8px 0px 0px 8px;
-  margin-bottom: 16px;
 }
 
 .round-border {
   border-radius: 50%;
   border: 1px solid;
-}
-
-ul.list-view > li > section:first-child > img,
-ul.list-view > li > img,
-div.card > img,
-.small-img {
-  width: 56px;
-  height: 56px;
-  margin-right: 11px;
 }
 
 .img-item > img {
@@ -180,37 +131,17 @@ div.card > img,
 }
 ul.list-view > li > section:first-child > img.medium-img,
 ul.list-view > li > img.medium-img,
-div.card > img.medium-img,
 .medium-img {
   width: 60px;
   height: 60px;
   margin-right: 14px;
 }
 
-ul.list-view > li.card-img-container {
-  padding-top: 16px;
-  padding-bottom: 16px;
-}
-
-ul.list-view > li.card-img-container > img {
-  width: 124px;
-  height: 80px;
-  margin-right: 16px;
-}
-
-ul.list-view > li.card-img-container > label {
-  display: flex;
-  align-self: stretch;
-  align-items: center;
-}
-
 .video-container > h3,
 .card > section > h3,
 ul.list-view > li > section:first-child > div > h3,
 ul.list-view > li > div > h3,
-ul.list-view > li > h3,
-div.card > div > h3,
-div.card > h3 {
+ul.list-view > li > h3 {
   width: 100%;
   line-height: 1.5;
   display: flex;
@@ -264,10 +195,7 @@ ul.list-view > li > h4 {
 .video > section > p,
 ul.list-view > li > section:first-child > div > p,
 ul.list-view > li > div > p,
-ul.list-view > li > p,
-div.card > div > p,
-div.card > section > p,
-div.card > p {
+ul.list-view > li > p {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -295,9 +223,7 @@ ul.list-view > li > section:first-child > div > p {
 
 ul.list-view > li > section:first-child > div > p.description,
 ul.list-view > li > div > p.description,
-ul.list-view > li > p.description,
-div.card > div > p.description,
-div.card > p.description {
+ul.list-view > li > p.description {
   font-size: 14px;
 }
 
@@ -358,7 +284,7 @@ div.card > p.description {
   border: 1px solid #ebebeb;
 }
 
-ul.list-view.row > li.col.card > section:first-child,
+.card > section:first-child,
 ul.list-view.row > li.col.video > section:first-child {
   width: calc(100% - 10px);
 }

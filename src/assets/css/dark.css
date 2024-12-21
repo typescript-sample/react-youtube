@@ -225,7 +225,6 @@
 .dark .view-header > h5,
 .dark .view-subtitle,
 .dark .subtitle,
-.dark .profile.view-container > form > .row > .col > div.card > section > p,
 .dark ul.list-view > li > section:first-child > div > h3.inactive,
 .dark ul.list-view > li > section:first-child > div > h3.inactive > a {
   color: #999999;
@@ -336,7 +335,6 @@
 }
 /*
 .dark form.list-result > .table-responsive > table > thead > tr,
-.dark div.card {
   background-color: #141414;
 }
 */
@@ -354,8 +352,6 @@
 .dark ul.list-view > li > section:first-child > div > h3 > a,
 .dark ul.list-view > li > div > h3,
 .dark ul.list-view > li > h3,
-.dark div.card > div > h3,
-.dark div.card > h3,
 .dark .card > footer > button,
 .dark .btn-select,
 .dark .btn-add,
@@ -538,7 +534,6 @@
 }
 
 .dark .diff .row .col p > span,
-.dark div.card > div > p,
 .dark article > address > label,
 .dark article > p > label,
 .dark section > p > label,
@@ -643,8 +638,6 @@
 }
 .dark ul.list-view > li,
 .dark ul.list-view.row > li.col > *:last-child,
-.dark ul.list-view > li.section-container > section:first-child,
-.dark div.card,
 .dark .card > section,
 .dark .video > section,
 .dark ul.list-view.horizon > li.video {
