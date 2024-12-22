@@ -2,11 +2,11 @@
   position: relative;
 }
 
-ul.list-view {
+.list {
   padding: 0;
 }
 
-ul.list-view.horizon {
+.list.horizon {
   display: flex;
   flex-direction: row;
   max-width: 100%;
@@ -25,7 +25,7 @@ ul.list-view.horizon {
   display: flex;
 }
 
-ul.list-view > li {
+.list > li {
   position: relative;
   display: flex;
   align-items: center;
@@ -35,16 +35,16 @@ ul.list-view > li {
   border-bottom: 1px solid #ebebeb;
 }
 
-ul.list-view.row {
+.list.row {
   margin-left: 0;
   margin-right: 0;
 }
 
-ul.list-view > li {
+ul.list > li {
   display: flex;
   flex-direction: column;
 }
-ul.list-view.row > li.col {
+ul.list.row > li.col {
   margin-left: 0;
   margin-right: 0;
   padding-left: 0;
@@ -78,21 +78,24 @@ ul.list-view.row > li.col {
 .card {
   margin-bottom: 10px;
 }
-ul.list-view.row > li.col > h3,
-ul.list-view.row > li.col > h4,
-ul.list-view.row > li.col > a,
-ul.list-view.row > li.col > p {
+ul.list.row > li.col > h3,
+ul.list.row > li.col > h4,
+ul.list.row > li.col > a,
+ul.list.row > li.col > p {
   width: calc(100% - 32px);
 }
 /*
-ul.list-view.row > li.col > *:first-child {
+ul.list.row > li.col > *:first-child {
   padding-top: 8px;
 }
 */
-ul.list-view.row > li.col > *:last-child {
+.list-item > *:last-child,
+.img-item > *:last-child {
   border-bottom: 1px solid #ebebeb;
 }
-
+.img-card > *:last-child {
+  margin-bottom: 16px;
+}
 .card > *:first-child,
 .video > *:first-child {
   padding-top: 0;
@@ -126,6 +129,7 @@ ul.list-view.row > li.col > *:last-child {
 }
 
 .video-container > h3,
+.img-card > h3,
 .card > section > h3 {
   width: 100%;
   line-height: 1.5;
@@ -170,7 +174,11 @@ ul.list-view.row > li.col > *:last-child {
   flex-flow: row;
   justify-content: space-between;
 }
-
+li.video > section > h4,
+li.video > section > a {
+  padding-left: 8px;
+  padding-right: 8px;
+}
 .img-card > p,
 .video-container > p,
 .card > section > p,
@@ -189,9 +197,11 @@ ul.list-view.row > li.col > *:last-child {
 }
 .img-item > p:last-child {
   min-height: 32px;
+  margin-block-end: 6px;
 }
 .list-item > p:last-child {
   min-height: 28px;
+  margin-block-end: 2px;
 }
 .card > section > p > a,
 .video > section > p > a {
@@ -199,7 +209,7 @@ ul.list-view.row > li.col > *:last-child {
   font-weight: 400;
 }
 
-ul.list-view > li > section:first-child > div > p {
+ul.list > li > section:first-child > div > p {
   overflow: hidden;
 }
 
@@ -362,7 +372,7 @@ i.date {
   color: #fff;
 }
 .img-card > img {
-  max-width: 100%;
+  max-width: calc(100% - 32px);
   height: auto;
 }
 .img-card > h4.center,

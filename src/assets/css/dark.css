@@ -220,52 +220,28 @@
 .dark .pagination > li > span,
 .dark .card > footer > button.btn-cancel,
 .dark .view-container.central-full > form > div > button.btn-cancel,
-.dark .view-container > form > header > h5,
-.dark .view-container > header > h5,
-.dark .view-header > h5,
+.dark header > h5,
 .dark .view-subtitle,
 .dark .subtitle {
   color: #999999;
 }
 
-.dark .view-container > form > div > h3,
-.dark .view-container > div > h3,
-.dark .view-body > h3,
-.dark .subheader {
+.dark h3 {
   color: #d0cfcf;
 }
 
-.dark .mobile .view-container > form > div > h3,
-.dark .mobile .view-container > div > h3,
-.dark .mobile .view-body > h3,
-.dark .mobile .subheader {
-  background-color: #e1ebe9;
-}
-
 @media screen and (max-width: 600px) {
-  .dark .view-container > form > div > h3,
-  .dark .view-container > div > h3,
-  .dark .view-body > h3,
-  .dark .subheader {
+  .dark h3 {
     background-color: #242424;
   }
 }
 
-.dark ul.list-view > li.highlight,
-.dark .mobile .view-container > form > div > h4,
-.dark .mobile .view-container > div > h4,
-.dark .mobile .view-body > h4,
-.dark .mobile section > h4,
-.dark .mobile .section-header {
+.dark ul.list > li.highlight {
   background-color: #242424;
 }
 
 @media screen and (max-width: 600px) {
-  .dark .view-container > form > div > h4,
-  .dark .view-container > div > h4,
-  .dark .view-body > h4,
-  .dark section > h4,
-  .dark .section-header {
+  .dark h4 {
     background-color: #0d0d0d;
   }
 }
@@ -280,7 +256,6 @@
 .dark .view-container > form > div > section > p,
 .dark .section-body > p,
 .dark .brand,
-.dark .img-card > h4,
 .dark .card > section > p,
 .dark .card > section > p > a,
 .dark .video > section > p,
@@ -294,10 +269,7 @@
 .dark .table > thead > tr > th,
 .dark .table > thead > tr > th > a,
 .dark .table > thead > tr > th > button,
-.dark .view-container > form > div > h4,
-.dark .view-container > div > h4,
-.dark .view-body > h4,
-.dark section > h4,
+.dark h4,
 .dark section > h4 > .btn-group > button,
 .dark section > h4.title > a,
 .dark section > a,
@@ -308,7 +280,6 @@
 .dark .btn-accept,
 .dark .btn-cancel,
 .dark .btn-group,
-.dark .alert h4,
 .dark .alert p,
 .dark label.switch-container,
 .dark label.checkbox-container,
@@ -317,7 +288,6 @@
 .dark .checkbox-group > label,
 .dark .radio-group > label,
 .dark .group label div,
-.dark .video-container > h4,
 .dark .video-container > h4 > a,
 .dark .video-container > h4 > i {
   color: #b2b2b2;
@@ -332,7 +302,7 @@
 }
 */
 .dark .btn-more,
-.dark .video-container > h3,
+h3,
 .dark .row .form-group.focused label,
 .dark .row > label.focused,
 .dark .row > .col label.focused,
@@ -340,14 +310,13 @@
 .dark .view-container > div > label.focused,
 .dark .view-body > label.focused,
 .dark .view-container > form > div > h2,
-.dark .card > section > h3,
 .dark .card > footer > button,
 .dark .btn-select,
 .dark .btn-add,
 .dark .btn-new,
 .dark a.btn-new,
 .dark .btn-table,
-.dark .btn-list-view,
+.dark .btn-list,
 .dark .btn-search,
 .dark .btn-lookup,
 .dark .chip:focus,

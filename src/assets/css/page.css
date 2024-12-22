@@ -187,7 +187,7 @@
   max-height: calc(100vh);
 }
 
-.view-container.fixed-search > div > form:nth-child(2) > ul.list-view {
+.view-container.fixed-search > div > form:nth-child(2) > ul.list {
   overflow-y: auto;
   max-height: calc(100vh - 64px - 52px - 13px);
 }

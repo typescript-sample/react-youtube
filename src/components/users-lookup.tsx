@@ -136,7 +136,7 @@ export const UsersLookup = (props: Props) => {
           <div className="btn-group">
             {component.view !== "table" && <button type="button" id="btnTable" name="btnTable" className="btn-table" data-view="table" onClick={changeView} />}
             {component.view === "table" && (
-              <button type="button" id="btnListView" name="btnListView" className="btn-list-view" data-view="listview" onClick={changeView} />
+              <button type="button" id="btnListView" name="btnListView" className="btn-list" data-view="listview" onClick={changeView} />
             )}
           </div>
           <button type="button" id="btnClose" name="btnClose" className="btn-close" onClick={onModelClose} />
@@ -223,7 +223,7 @@ export const UsersLookup = (props: Props) => {
               </div>
             )}
             {component.view !== "table" && (
-              <ul className="row list-view">
+              <ul className="row list">
                 {state &&
                   list &&
                   list.map((user: any, i: number) => {

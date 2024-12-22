@@ -49,7 +49,7 @@ export const RolesForm = () => {
         <div className="btn-group">
           {component.view !== "table" && <button type="button" id="btnTable" name="btnTable" className="btn-table" data-view="table" onClick={changeView} />}
           {component.view === "table" && (
-            <button type="button" id="btnListView" name="btnListView" className="btn-list-view" data-view="listview" onClick={changeView} />
+            <button type="button" id="btnListView" name="btnListView" className="btn-list" data-view="listview" onClick={changeView} />
           )}
           {canWrite && <Link id="btnNew" className="btn-new" to="new" />}
         </div>
@@ -139,7 +139,7 @@ export const RolesForm = () => {
             </div>
           )}
           {component.view !== "table" && (
-            <ul className="row list-view">
+            <ul className="row list">
               {state.list &&
                 state.list.length > 0 &&
                 state.list.map((item, i) => {

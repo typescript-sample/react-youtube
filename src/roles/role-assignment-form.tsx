@@ -210,7 +210,7 @@ export const RoleAssignmentForm = () => {
               />
               <button type="button" hidden={!q} className="btn-remove-text" onClick={clearQ} />
             </label>
-            <ul className="row list-view">
+            <ul className="row list">
               {shownUsers &&
                 shownUsers?.map((user, i) => {
                   const result = selectedUsers.find((v) => v.userId === user.userId)

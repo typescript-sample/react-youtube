@@ -69,7 +69,7 @@ const ChannelVideos = (props: Props) => {
         </section>
       </form>
       <form className='list-result'>
-        <ul className='row list-view'>
+        <ul className='row list'>
           {videos && videos.map((item, i) => {
             return (
               <li key={i} className='col s12 m6 l4 xl3 video'>

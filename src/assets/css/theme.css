@@ -229,52 +229,28 @@ body,
 .pagination > li > span,
 .card > footer > button.btn-cancel,
 .view-container.central-full > form > div > button.btn-cancel,
-.view-container > form > header > h5,
-.view-container > header > h5,
-.view-header > h5,
+header > h5,
 .view-subtitle,
 .subtitle {
   color: #999999;
 }
 
-.view-container > form > div > h3,
-.view-container > div > h3,
-.view-body > h3,
-.subheader {
+h3 {
   color: #3d7678;
 }
 
-.mobile .view-container > form > div > h3,
-.mobile .view-container > div > h3,
-.mobile .view-body > h3,
-.mobile .subheader {
-  background-color: #e1ebe9;
-}
-
 @media screen and (max-width: 600px) {
-  .view-container > form > div > h3,
-  .view-container > div > h3,
-  .view-body > h3,
-  .subheader {
+  h3 {
     background-color: #e1ebe9;
   }
 }
 
-ul.list-view > li.highlight,
-.mobile .view-container > form > div > h4,
-.mobile .view-container > div > h4,
-.mobile .view-body > h4,
-.mobile section > h4,
-.mobile .section-header {
+ul.list > li.highlight {
   background-color: #f2f2f2;
 }
 
 @media screen and (max-width: 600px) {
-  .view-container > form > div > h4,
-  .view-container > div > h4,
-  .view-body > h4,
-  section > h4,
-  .section-header {
+  h4 {
     background-color: #f2f2f2;
   }
 }
@@ -290,7 +266,6 @@ article,
 .view-container > form > div > section > p,
 .section-body > p,
 .brand,
-.img-card > h4,
 .card > section > p,
 .card > section > p > a,
 .video > section > p,
@@ -299,15 +274,12 @@ article,
 .video > h4 > a,
 .img-card > p,
 .horizon > li > a,
-.list-item > a,
 .img-item > a,
+.list-item > a,
 .table > thead > tr > th,
 .table > thead > tr > th > a,
 .table > thead > tr > th > button,
-.view-container > form > div > h4,
-.view-container > div > h4,
-.view-body > h4,
-section > h4,
+h4,
 section > h4 > .btn-group > button,
 section > h4.title > a,
 section > a,
@@ -318,7 +290,6 @@ section > a,
 .btn-accept,
 .btn-cancel,
 .btn-group,
-.alert h4,
 .alert p,
 label.switch-container,
 label.checkbox-container,
@@ -327,7 +298,6 @@ label.radio-group,
 .checkbox-group > label,
 .radio-group > label,
 .group label div,
-.video-container > h4,
 .video-container > h4 > a,
 .video-container > h4 > i {
   color: #4d4d4d;
@@ -340,7 +310,7 @@ label.search-input input {
 .table > thead > tr,
 */
 .btn-more,
-.video-container > h3,
+h3,
 .row .form-group.focused label,
 .row > label.focused,
 .row > .col label.focused,
@@ -348,14 +318,13 @@ label.search-input input {
 .view-container > div > label.focused,
 .view-body > label.focused,
 .view-container > form > div > h2,
-.card > section > h3,
 .card > footer > button,
 .btn-select,
 .btn-add,
 .btn-new,
 a.btn-new,
 .btn-table,
-.btn-list-view,
+.btn-list,
 .btn-search,
 .btn-lookup,
 .chip:focus,

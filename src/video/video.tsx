@@ -67,7 +67,7 @@ const VideoPage = () => {
         <button type='button' id='btnBack' name='btnBack' className='btn-back' onClick={back} />
         <h2>{video && video.title}</h2>
       </header>
-      <div className='row list-view'>
+      <div className='row list'>
         <div className={css}>
           <form id='videoForm' name='videoForm' style={{ paddingTop: 8 }}>
             <div className='video-container'>
@@ -90,7 +90,7 @@ const VideoPage = () => {
         </div>
         {videoService.getRelatedVideos && sliceData && sliceData.length > 0 && <div className='col s12 m12 l3 xl3 video-content'>
           <form className='list-result'>
-            <ul className='list-view'>
+            <ul className='list'>
               {sliceData.map((item, i) => {
                 return (
                   <li key={i} className='card'>

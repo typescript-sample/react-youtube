@@ -36,15 +36,6 @@
   }
 }
 
-.item-select > input,
-.item-select > select {
-  padding-left: 10px !important;
-}
-
-.item-select > button {
-  font-family: inherit;
-}
-
 .view-container > div > form > section,
 .view-container > form > div > section,
 .view-container > div > section,
@@ -122,23 +113,18 @@
   font-size: 18px;
 }
 
-.list-detail-container > .list-content > header > h2,
-.list-detail-container > .detail-content > form > header > h2,
-.view-container > form > div > h2,
-.view-container > form > header > h2,
-.view-container > header > h2,
-.view-header > h2,
-.view-title {
+h1,
+h2 {
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 0;
   padding-left: 16px;
   padding-right: 16px;
 }
-
-.view-container > form > header > h5,
-.view-container > header > h5,
-.view-header > h5,
+h1 {
+  font-size: 24px;
+}
+header > h5,
 .view-subtitle {
   font-size: 14px;
   padding-top: 4px;
@@ -150,10 +136,7 @@
   padding-right: 16px;
 }
 
-.view-container > form > div > h3,
-.view-container > div > h3,
-.view-body > h3,
-.subheader {
+h3 {
   width: 100%;
   height: 48px;
   display: flex;
@@ -169,25 +152,12 @@
   margin-bottom: 24px;
 }
 
-.mobile .view-container > form > div > h3,
-.mobile .view-container > div > h3,
-.mobile .view-body > h3,
-.mobile .subheader {
-  justify-content: space-between;
-}
-.view-container > form > div > h3 > *,
-.view-container > div > h3 > *,
-.view-body > h3 > *,
-.subheader > * {
+h3 > * {
   margin-left: 10px;
 }
 
-.view-container > form > div > h4,
-.view-container > div > h4,
-.view-body > h4,
-section > h4,
 section > a,
-.section-header {
+h4 {
   position: relative;
   width: 100%;
   line-height: 1.5;
@@ -200,46 +170,23 @@ section > a,
   font-weight: 500;
   background-color: inherit;
 }
-li.video > section > a,
-li.video > section > h4 {
-  padding-left: 8px;
-  padding-right: 8px;
-}
+
 .section-subheader {
   font-size: 16px;
   font-weight: 500;
 }
 
-.view-container > form > div > h4:not(:first-child):not(:nth-child(2)),
-.view-container > div > h4:not(:first-child):not(:nth-child(2)),
-.view-body > h4:not(:first-child):not(:nth-child(2)),
-.section-header:not(:first-child):not(:nth-child(2)) {
+h4:not(:first-child):not(:nth-child(2)) {
   margin-top: 10px;
 }
 
-.mobile .view-container > form > div > h4,
-.mobile .view-container > div > h4,
-.mobile .view-body > h4,
-.mobile section > h4,
-.mobile .section-header {
-  justify-content: space-between;
-}
-
 @media screen and (max-width: 600px) {
-  .view-container > form > div > h4,
-  .view-container > div > h4,
-  .view-body > h4,
-  section > h4,
-  .section-header {
+  h4 {
     justify-content: space-between;
   }
 }
 
-.view-container > form > div > h4 > *,
-.view-container > div > h4 > *,
-.view-body > h4 > *,
-section > h4 > *,
-.section-header > * {
+h4 > * {
   margin-left: 10px;
 }
 section > h4.title > a {

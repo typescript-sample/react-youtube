@@ -29,7 +29,7 @@ const Home = () => {
   };
   return (
     <div className='content'>
-      <ul className='list-view horizon'>
+      <ul className='list horizon'>
         {videos && videos.map((item, i) => {
           return (
             <li key={i} className='video'>
@@ -43,7 +43,7 @@ const Home = () => {
           );
         })}
       </ul>
-      <ul className='list-view horizon'>
+      <ul className='list horizon'>
         {playlists && playlists.map((item, i) => {
           return (
             <li key={i} className='video'>
