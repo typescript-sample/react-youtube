@@ -13,7 +13,11 @@
   padding-top: 0;
   padding-bottom: 0;
 }
-
+@media screen and (max-width: 600px) {
+  .row > label.search-input {
+    margin-top: 10px;
+  }
+}
 .row > label.search-input > *,
 .search-input > * {
   display: flex;
@@ -32,8 +36,6 @@
 }
 
 .row > label.col.search-input input:not([type="checkbox"]):not([type="radio"]):first-child,
-.view-container > form > div > label.search-input > *:first-child,
-.view-container > div > label.search-input > *:first-child,
 .view-body > label.search-input > *:first-child,
 .row > .col > label.search-input > *:first-child,
 .row > label.search-input > *:first-child,
@@ -45,15 +47,14 @@
   border-bottom-left-radius: 18px;
 }
 
-.view-container > form > div > h4 > label,
 h4 > label {
   margin-left: 0;
 }
-
+/*
 .view-container > form > div > h4 > label:first-child {
   margin-right: 30px;
 }
-
+*/
 h4 > label.search-input > i:first-child.btn-search,
 .row > label.search-input > i:first-child.btn-search {
   position: relative;
@@ -71,7 +72,7 @@ h4 > label.search-input > i:first-child.btn-search,
   border-bottom-right-radius: 18px;
 }
 
-label.search-input > select {
+.row > label.search-input > select {
   width: 58px;
 }
 
@@ -154,6 +155,7 @@ label.search-input > button.btn-search {
 }
 .toggle-search::before {
   top: 1px;
+  left: 5px;
 }
 .btn-remove-text {
   width: 20px;
@@ -169,58 +171,58 @@ section.row nav.col {
   margin-top: 4px;
   margin-bottom: 4px;
 }
-.view-container > div > form > section.search-group {
-  padding-bottom: 8px;
+.search-group {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 section.row.search-group nav.col {
   margin-top: 0;
   margin-bottom: 0;
 }
-.list-content > div > form:first-child > section.btn-group,
-.view-container > div > form:first-child > section.btn-group {
+.section.search {
   position: relative;
-  height: 66px;
-  padding: 16px;
+  padding: 0 16px;
   display: flex;
   justify-content: flex-end;
 }
-
-.list-content > div > form:first-child > section.btn-group > label:first-child,
-.view-container > div > form:first-child > section.btn-group > label:first-child {
+.section.search > label {
   position: absolute;
-  top: 16px;
+  display: inline-flex;
+  top: 0;
   left: 16px;
-  width: 106px;
-  height: 34px;
+  width: 118px;
+  height: 36px;
   border: 1px solid;
-  border-radius: 20px;
-  padding-top: 6px;
+  border-radius: 18px;
+  padding-top: 9px;
   padding-left: 12px;
   padding-bottom: 4px;
 }
-
-.list-content > div > form:first-child > section.btn-group > label > select,
-.view-container > div > form:first-child > section.btn-group > label > select {
+.section.search > label > select {
+  margin-top: -4px;
+  padding-top: 0;
+  padding-left: 10px;
   border: none;
   outline: none;
   width: 30px;
-  padding-left: 5px;
   font-size: 14px;
   font-weight: 400;
   background-image: none !important;
 }
 
-section.btn-group > .btn-search {
-  width: 106px;
-  height: 34px;
+.section.search > .btn-search {
+  width: 118px;
+  height: 36px;
   padding: 6px 30px;
   font-size: 15px;
   font-weight: 700;
   border: none;
-  border-radius: 20px;
+  border-radius: 18px;
 }
 
-section.btn-group > .btn-search:hover {
+.section.search > .btn-search:hover {
   box-shadow: 0 1px 3px 1px darkgrey;
 }
 
@@ -253,7 +255,9 @@ form.list-result > nav {
   margin: 0;
   padding: 0 16px 16px 16px;
 }
-
+.list-result .pagination {
+  margin-top: 0;
+}
 i.sort-up:after {
   margin-left: 4px;
   content: "\25B2";

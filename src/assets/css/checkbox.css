@@ -10,6 +10,9 @@ input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([i
   align-items: center;
   position: relative;
 }
+input[type="checkbox"]:focus-visible {
+  box-shadow: 0 0 0 4px rgba(0, 120, 255, 0.4);
+}
 
 label.checkbox-container > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]),
 label.checkbox-group > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]),
@@ -17,6 +20,14 @@ label.checkbox-group > input[type="checkbox"]:not(.modal-trigger):not(.toggle):n
   position: absolute;
   left: 16px;
   top: 18px;
+}
+
+.central-full .row label.col.checkbox-container {
+  padding-left: 32px;
+}
+.central-full label.checkbox-container > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]) {
+  left: 8px;
+  padding-left: 32px;
 }
 
 label.switch-container > input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([id*="lightbox-"]) {
