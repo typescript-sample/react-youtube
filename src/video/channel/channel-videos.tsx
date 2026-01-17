@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useResource } from 'uione';
 import { buildShownItems, ListResult, PlaylistVideo } from '../../clients';
@@ -53,7 +54,7 @@ const ChannelVideos = (props: Props) => {
     return (s - (s %= 60)) / 60 + ':' + s;
   };
   return (
-    <div>
+    <Fragment>
       <form id='channelVideosForm' name='channelVideosForm'>
         <section className='row search-group'>
           <label className='col s12 search-input'>
@@ -68,26 +69,24 @@ const ChannelVideos = (props: Props) => {
           </label>
         </section>
       </form>
-      <form className='list-result'>
-        <ul className='row list'>
-          {videos && videos.map((item, i) => {
-            return (
-              <li key={i} className='col s12 m6 l4 xl3 video'>
-                <section>
-                  <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
-                    {item.definition && item.definition > 4 && <i>HD</i>}
-                  </div>
+      <ul className='row list card-grid'>
+        {videos && videos.map((item, i) => {
+          return (
+            <li key={i} className='col s12 m6 l4 xl3 video'>
+              <section>
+                <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
+                  {item.definition && item.definition > 4 && <i>HD</i>}
                   {item.duration && item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>{resource.short_video}</p>}
-                  <Link to={`/${item.id}`}>{item.title}</Link>
-                  <p className='date'>{item.publishedAt.toDateString()}</p>
-                </section>
-              </li>
-            );
-          })}
-        </ul>
-        {keyword.length === 0 && nextPageToken && <button type='submit' id='btnMore' name='btnMore' className='btn-more' onClick={handleLoadMore}>{resource.button_more}</button>}
-      </form>
-    </div>
+                </div>
+                <Link to={`/${item.id}`}>{item.title}</Link>
+                <p className='date'>{item.publishedAt.toDateString()}</p>
+              </section>
+            </li>
+          );
+        })}
+      </ul>
+      {keyword.length === 0 && nextPageToken && <button type='submit' id='btnMore' name='btnMore' className='btn-more' onClick={handleLoadMore}>{resource.button_more}</button>}
+    </Fragment>
   );
 };
 export default ChannelVideos;

@@ -28,15 +28,15 @@ const Home = () => {
     return (s - (s %= 60)) / 60 + ':' + s;
   };
   return (
-    <div className='content'>
+    <div>
       <ul className='list horizon'>
         {videos && videos.map((item, i) => {
           return (
             <li key={i} className='video'>
               <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
                 {item.definition && item.definition > 4 && <i>HD</i>}
+                {item.duration && item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>{resource.short_video}</p>}
               </div>
-              {item.duration && item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>{resource.short_video}</p>}
               <Link to={`/${item.id}`}>{item.title}</Link>
               <p className='date'>{item.publishedAt.toDateString()}</p>
             </li>

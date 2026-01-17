@@ -73,7 +73,7 @@ export default function PlaylistPage() {
 
   const show: boolean = (video != null && video !== undefined);
   return (
-    <div className='view-container'>
+    <div>
       <header>
         <button type='button' id='btnBack' name='btnBack' className='btn-back' onClick={back}/>
         <h2>{playlist && playlist.title}</h2>
@@ -102,8 +102,8 @@ export default function PlaylistPage() {
                     <section>
                       <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
                         {item.definition && item.definition > 4 && <i>HD</i>}
+                        {item.duration && item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>Short Video</p>}
                       </div>
-                      {item.duration && item.duration > 0 ? <p>{formatToMinutes(item.duration)}</p> : <p>Short Video</p>}
                       <h4 onClick={e => view(e, item)}>{item.title}</h4>
                       <p>{item.channelTitle}<i className='date'>{item.publishedAt.toDateString()}</i></p>
                     </section>
@@ -128,7 +128,7 @@ export default function PlaylistPage() {
                   allowFullScreen={true} />
               </div>
               <h3>{video.title}</h3>
-              <h4>{video.channelTitle}<i className='date'>{video.publishedAt.toDateString()}</i></h4>
+              <h4>{video.channelTitle}My Channel<i className='date'>{video.publishedAt.toDateString()}</i></h4>
               <p>{video.description}</p>
             </div>
           </form>

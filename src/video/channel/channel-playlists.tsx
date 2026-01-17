@@ -65,24 +65,22 @@ const ChannelPlaylists = (props: Props) => {
           </label>
         </section>
       </form>
-      <form className='list-result'>
-        <ul className='row list'>
-          {playlists && playlists.map((item, i) => {
-            return (
-              <li key={i} className='col s12 m6 l4 xl3 video'>
-                <section>
-                  <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
-                    <i>{item.count}</i>
-                  </div>
-                  <Link to={`/playlists/${item.id}`}>{item.title}</Link>
-                  <p className='date'>{item.publishedAt.toDateString()}</p>
-                </section>
-              </li>
-            );
-          })}
-        </ul>
-        {keyword.length === 0 && nextPageToken && <button type='submit' id='btnMore' name='btnMore' className='btn-more' onClick={handleLoadMore}>{resource.button_more}</button>}
-      </form>
+      <ul className='row list card-grid'>
+        {playlists && playlists.map((item, i) => {
+          return (
+            <li key={i} className='col s12 m6 l4 xl3 video'>
+              <section>
+                <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
+                  <i>{item.count}</i>
+                </div>
+                <Link to={`/playlists/${item.id}`}>{item.title}</Link>
+                <p className='date'>{item.publishedAt.toDateString()}</p>
+              </section>
+            </li>
+          );
+        })}
+      </ul>
+      {keyword.length === 0 && nextPageToken && <button type='submit' id='btnMore' name='btnMore' className='btn-more' onClick={handleLoadMore}>{resource.button_more}</button>}
     </div>
   );
 };

@@ -1,3 +1,25 @@
 .view-container.menu {
   height: calc(100vh - 52px);
 }
+div.categories-tab {
+  margin-bottom: 16px;
+}
+.categories-tab .container .tabs label {
+  color: #fff;
+}
+.channel-page {
+  max-height: calc(100vh - 52px - 46px);
+  height: calc(100vh - 52px - 46px);
+  overflow-y: auto;
+}
+.comment-threads-container {
+  margin-top: 16px !important;
+}
+.comment-threads-container .comments-bar h2 {
+  padding: 0 !important;
+}
+.comment-threads-container .comments .img-user {
+  width: 45px;
+  height: 45px;
+  margin-left: 8px;
+}

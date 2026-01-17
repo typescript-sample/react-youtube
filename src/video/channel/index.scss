@@ -9,6 +9,8 @@
     background-color: #181818;
     color: #fff;
     padding: 16px 92px 4px;
+    max-height: unset;
+    height: unset;
     .channel-avatar {
       border-radius: 50%;
     }
@@ -45,8 +47,10 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    margin-bottom: 16px;
     .tab {
       padding: 14px 32px;
+      font-size: 14px;
       border: none;
       background-color: #181818;
       color: #aaa;

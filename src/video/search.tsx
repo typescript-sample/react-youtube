@@ -153,7 +153,7 @@ const SearchPage = () => {
   };
 
   return (
-    <div className='full'>
+    <div>
       <div className='tool-bar'>
         <FilterBar searchParams={searchParams} handleFilterType={handleFilterType} handleFilterDuration={handleFilterDuration} handleFilterOrder={handleFilterOrder} filter={filter} resource={resource} />
       </div>
@@ -164,9 +164,9 @@ const SearchPage = () => {
               <section>
                 <div className='cover' style={{ backgroundImage: `url('${item.highThumbnail}')` }}>
                   {item.definition && item.definition > 4 && <i>HD</i>}
+                  {item.duration && item.duration && <p>{formatTime(item.duration)}</p>}
                 </div>
-                {item.duration && item.duration && <p>{formatTime(item.duration)}</p>}
-                <h4 className='title'><Link to={getLink(item)}>{item.title}</Link></h4>
+                <Link to={getLink(item)}>{item.title}</Link>
                 {item.channelId && item.channelTitle && <p><Link to={`/channels/${item.channelId}`}>{item.channelTitle}</Link>{item.publishedAt.toDateString()}</p>}
               </section>
             </li>

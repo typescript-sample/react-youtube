@@ -5,12 +5,12 @@
   }
 }
 .video-home {
-  max-height: calc(100vh - 52px - 56px);
+  max-height: calc(100vh - 52px - 56px - 16px);
   overflow-x: auto;
 }
 @media screen and (min-width: 769px) {
   .top-menu .video-home {
-    max-height: calc(100vh - 52px - 56px - 46px);
+    max-height: calc(100vh - 52px - 56px - 46px - 16px);
   }
   .classic.top-menu .video-home {
     max-height: auto;

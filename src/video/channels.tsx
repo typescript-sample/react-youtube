@@ -23,7 +23,7 @@ const ChannelsPage = () => {
         {
           channels && channels.map(c => (
             <form key={c.id} className='list-result'>
-              <h3 style={{ paddingLeft: '20px' }}><Link to={c.id}>{c.title}</Link></h3>
+              <h3 style={{ marginLeft: '7px', marginTop: '16px' }}><Link to={c.id}>{c.title}</Link></h3>
               <HorizontalPlaylists channelId={c.id} getChannelPlaylists={videoService.getChannelPlaylists} getPlaylistVideos={videoService.getPlaylistVideos} prefix='/channels/'/>
             </form>
           ))
