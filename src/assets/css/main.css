@@ -124,6 +124,7 @@ td > button {
   background-image: inherit;
 }
 
+.form.view-container > div.row,
 .page-body > .form > div.row,
 .view-body.row {
   margin-left: 0;
@@ -159,6 +160,7 @@ td > button {
 }
 
 .detail-content > form > footer,
+.view-container.form > footer,
 .page-body > .form > footer,
 .view-footer {
   left: 0;
