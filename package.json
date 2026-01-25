@@ -21,7 +21,7 @@
     "react-modal": "^3.15.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
-    "react-videos": "^0.0.4",
+    "react-videos": "^0.1.0",
     "reactx-comments": "^0.0.7",
     "reactx-nav": "^0.1.4",
     "reactx-pagination": "^0.0.4",
