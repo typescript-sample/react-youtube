@@ -421,7 +421,9 @@ p.icon-text:last-child {
   background-position-x: center;
   background-position-y: center;
 }
-
+.video .cover {
+  margin-bottom: 0;
+}
 .video > section:first-child {
   padding-bottom: 24px;
 }
@@ -443,7 +445,8 @@ p.icon-text:last-child {
 .video > section:first-child > p:last-child,
 .video > p:last-child {
   position: absolute;
-  bottom: 8px;
+  left: 2px;
+  bottom: 2px;
 }
 
 .horizon > .video > h3,
@@ -469,7 +472,7 @@ i.date {
 }
 
 .horizon > .video > p {
-  padding: 0 8px;
+  left: -8px;
 }
 .horizon > .video > .cover > i:first-child {
   right: 6px;
