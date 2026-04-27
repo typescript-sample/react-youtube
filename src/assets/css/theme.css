@@ -1,11 +1,45 @@
+::-webkit-scrollbar-track {
+  background: #f9f9f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #aaaaaa;
+}
+* {
+  scrollbar-color: #c0c0c0 #f9f9f9; /* thumb track */
+}
 @media screen and (min-width: 769px) {
   .top-menu .menu.sidebar::-webkit-scrollbar-thumb {
     background: #747979;
   }
 }
 
+.star-picker span.active,
+.review-item-stars::after,
+.star,
+.bar,
+.fill {
+  color: #ffcc00;
+}
+.fill {
+  background: #ffcc00;
+}
+.track {
+  background: #e5e5ea;
+}
+
+.partial-star::before,
+.empty-star,
+.review-item-stars::before {
+  color: #ddd;
+}
+
 body,
 .page-container,
+.alert-wrapper .alert,
+.dropdown,
 .dropdown-menu-profile {
   background-color: #fff;
 }
@@ -13,12 +47,6 @@ body,
   border-color: #eee;
 }
 
-hr {
-  border-color: #ebebeb;
-}
-.solid hr {
-  border-color: #808080;
-}
 .solid > form > footer,
 .solid > footer,
 .solid .view-footer {
@@ -35,6 +63,11 @@ table > thead > tr,
 .btn-next,
 .btn-accept,
 .btn-cancel,
+.btn-limit,
+.dropdown a,
+.profile-title,
+.profile-title > h2,
+.profile-followers,
 label.switch-container,
 label.checkbox-container,
 label.checkbox-group,
@@ -54,11 +87,6 @@ label.search-input input {
   border-color: #b3b3b3 !important;
 }
 
-.list-item > *:last-child,
-.img-item > *:last-child {
-  border-bottom-color: #ebebeb;
-}
-
 .card > footer > button.btn-cancel,
 .central-full > form > div > button.btn-cancel,
 header > h5,
@@ -67,11 +95,28 @@ header > h5,
   color: #999999;
 }
 
+.img-item img,
 .view-body > section > article > p,
 .section-body > p {
   border-color: #808080;
 }
 
+hr {
+  border-color: #ebebeb;
+}
+.solid hr {
+  border-color: #808080;
+}
+
+.list-item > *:last-child,
+.img-item > *:last-child {
+  border-bottom-color: #ebebeb;
+}
+
+.rating-title,
+.rating-summary,
+.review-item footer,
+.img-card > section,
 .card > section,
 .video > section,
 .horizon > .video {
@@ -136,6 +181,7 @@ input[type="checkbox"]:not(.modal-trigger):not(.toggle):not(#alert-check):not([i
 
 .card > section > p.description,
 label,
+.muted,
 .diff .row .col p > span,
 .data-list dt,
 .btn-detail,
@@ -155,9 +201,11 @@ header > .btn-back,
   color: #fff;
 }
 
+.section.search > .btn-search:hover,
+.btn-review:hover,
 .btn-more:hover,
 footer > button:hover {
-  box-shadow: #a9a9a9;
+  box-shadow: 0 1px 3px 1px #a9a9a9;
 }
 
 .btn-delete {
@@ -289,10 +337,18 @@ select.valid {
   box-shadow: 0 1px 0 0 #4db6ac;
 }
 .highlight {
-  color: #4db6ac !important;
+  color: #4db6ac;
+}
+
+.card > header {
+  box-shadow: 0 4px 6px -6px rgba(5, 5, 5, 0.34);
+}
+.profile-header > .card,
+.profile .card {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
 }
 .border-bottom-highlight {
-  border-bottom: 3px solid #4db6ac !important;
+  border-bottom: 3px solid #4db6ac;
 }
 
 .success-icon .alert-icon {
@@ -316,13 +372,18 @@ select.valid {
 .page-body > .form > header,
 .page-body > article > header,
 .page-body > div > header,
+.content-container > div > header,
 .view-header {
   color: #4db6ac;
   background-color: #fff;
   background-image: none;
 }
 
-.toast-message,
+.toast-message {
+  background-color: #008577;
+  color: #fff;
+  border-color: #00574b;
+}
 .sidebar {
   background-color: #008577;
   color: #fff;
@@ -339,6 +400,17 @@ select.valid {
 }
 .sidebar .menu-item {
   color: #fff;
+}
+.sub-list {
+  border-color: #00574b;
+}
+@media screen and (min-width: 769px) {
+  .top-menu .sub-list {
+    border-color: #fff;
+  }
+  .top-menu .sidebar > nav > ul > li:hover .sub-list {
+    border-color: #00574b;
+  }
 }
 
 .btn-more,
@@ -371,6 +443,7 @@ footer > .btn-next::after,
 .section.search > .btn-search,
 .central-full button,
 .view-footer > button,
+.btn-review,
 footer > button {
   color: #fff;
   background-color: #4db6ac;
@@ -379,7 +452,8 @@ footer > button {
   color: #4db6ac;
 }
 
-h3 {
+.sub.highlight,
+h3.header {
   color: #3d7678;
 }
 
@@ -387,6 +461,7 @@ h3 {
   .page-body > .form > header,
   .page-body > article > header,
   .page-body > div > header,
+  .content-container > div > header,
   .view-header {
     color: #fff;
     background-image: linear-gradient(90deg, #008577, #00574b);
@@ -401,6 +476,7 @@ h3 {
 
   .page-body > .form > header > h2,
   .page-body > div > header > h2,
+  .content-container > div > header > h2,
   .view-header > h2,
   header > .btn-group > button,
   header > .btn-group > button,
@@ -437,18 +513,18 @@ h3 {
 
 .table-striped tbody tr.active:nth-child(odd) td,
 .table-striped tbody tr.active:nth-child(odd) th,
-.table > thead > tr > td.active,
-.table > tbody > tr > td.active,
-.table > tfoot > tr > td.active,
-.table > thead > tr > th.active,
-.table > tbody > tr > th.active,
-.table > tfoot > tr > th.active,
-.table > thead > tr.active > td,
-.table > tbody > tr.active > td,
-.table > tfoot > tr.active > td,
-.table > thead > tr.active > th,
-.table > tbody > tr.active > th,
-.table > tfoot > tr.active > th {
+table > thead > tr > td.active,
+table > tbody > tr > td.active,
+table > tfoot > tr > td.active,
+table > thead > tr > th.active,
+table > tbody > tr > th.active,
+table > tfoot > tr > th.active,
+table > thead > tr.active > td,
+table > tbody > tr.active > td,
+table > tfoot > tr.active > td,
+table > thead > tr.active > th,
+table > tbody > tr.active > th,
+table > tfoot > tr.active > th {
   background-color: #387ef5;
 }
 
@@ -456,18 +532,18 @@ h3 {
 .table-hover tbody tr.active:hover th,
 .table-striped tbody tr.active:nth-child(odd) td,
 .table-striped tbody tr.active:nth-child(odd) th,
-.table > thead > tr > td.active,
-.table > tbody > tr > td.active,
-.table > tfoot > tr > td.active,
-.table > thead > tr > th.active,
-.table > tbody > tr > th.active,
-.table > tfoot > tr > th.active,
-.table > thead > tr.active > td,
-.table > tbody > tr.active > td,
-.table > tfoot > tr.active > td,
-.table > thead > tr.active > th,
-.table > tbody > tr.active > th,
-.table > tfoot > tr.active > th {
+table > thead > tr > td.active,
+table > tbody > tr > td.active,
+table > tfoot > tr > td.active,
+table > thead > tr > th.active,
+table > tbody > tr > th.active,
+table > tfoot > tr > th.active,
+table > thead > tr.active > td,
+table > tbody > tr.active > td,
+table > tfoot > tr.active > td,
+table > thead > tr.active > th,
+table > tbody > tr.active > th,
+table > tfoot > tr.active > th {
   border-color: #428bca;
   background-color: #4f5352;
 }

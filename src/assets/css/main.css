@@ -1,73 +1,24 @@
 select::-ms-expand {
   display: none;
 }
-
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #747978;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background: #747978;
-}
-* {
-  scrollbar-color: #747978;
-  scrollbar-face-color: #747978;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 4px;
-}
-
-@media screen and (max-width: 600px) {
-  ::-webkit-scrollbar {
-    width: 3px;
-  }
-
-  ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: #a9a9a9;
-    outline: 1px solid #708090;
-  }
-  * {
-    scrollbar-color: #a9a9a9;
-    scrollbar-face-color: #a9a9a9;
-  }
-}
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-
 body {
   height: 100%;
   width: 100%;
-  font-family: "Roboto";
-  -webkit-overflow-scrolling: touch;
   margin: 0;
   padding: 0;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-overflow-scrolling: touch;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 * {
   font-family: "Roboto";
@@ -75,7 +26,24 @@ body {
   font-size: inherit;
   font-weight: inherit;
 }
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 4px;
+}
+@media screen and (max-width: 600px) {
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+}
 
+.flex-direction-row {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
 .round-border {
   border-radius: 50%;
   border: 1px solid;
@@ -171,6 +139,13 @@ td > button {
   background-image: inherit;
 }
 
+.classic.top-menu .detail-content > form > footer,
+.classic.top-menu .view-container.form > footer,
+.classic.top-menu .page-body > .form > footer,
+.classic.top-menu .view-footer {
+  bottom: unset;
+}
+.modal footer,
 .classic.top-menu .detail-content > form > footer,
 .modal-portal-content > .form > footer,
 .modal-portal-content > div > footer {
@@ -268,10 +243,10 @@ h4 {
   font-weight: 500;
 }
 
-.search-body > h2:first-child,
-.search-body > h3:first-child,
-.search-body > h4:first-child,
-.search-body > p:first-child {
+.main-body > h2:first-child,
+.main-body > h3:first-child,
+.main-body > h4:first-child,
+.main-body > p:first-child {
   margin-top: 8px;
 }
 header > h1,
@@ -281,23 +256,14 @@ header > h2 {
   margin-top: 0;
   margin-bottom: 0;
 }
-.header {
-  padding-left: 8px;
-  padding-right: 8px;
-  margin-bottom: 8px;
-}
-.header:first-child {
-  margin-top: 8px;
+.error-body {
+  padding-top: 44px;
 }
 @media screen and (max-width: 600px) {
   header > h1,
   header > h2 {
     display: flex;
     justify-content: center;
-  }
-  h4 {
-    display: flex;
-    justify-content: space-between;
   }
   .header {
     display: flex;
@@ -311,12 +277,8 @@ header > h2 {
     padding-right: 16px;
     margin-bottom: 0;
   }
-  .header:first-child {
-    margin-top: 0;
-  }
-  .section:first-child > h3:first-child,
-  .section:first-child > h4:first-child {
-    margin-top: -8px;
+  .error-body {
+    padding-top: 60px;
   }
 }
 
