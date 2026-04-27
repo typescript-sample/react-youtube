@@ -367,11 +367,11 @@ p.icon-text:last-child {
   font-size: 20px;
 }
 
-.video-container > p,
 .card > section > p,
 .video > section > p,
+.card > p,
 .video > p,
-.card > p {
+.video-container > p {
   display: flex;
   justify-content: space-between;
   margin: 0;
